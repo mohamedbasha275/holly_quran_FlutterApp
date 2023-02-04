@@ -60,7 +60,7 @@ ThemeData getApplicationTheme() {
       headlineLarge:
           getSemiBoldStyle(color: AppColors.black, fontSize: FontSize.s18),
       headlineMedium:
-          getRegularStyle(color: AppColors.black, fontSize: FontSize.s14),
+          getRegularStyle(color: AppColors.white, fontSize: FontSize.s17),
       titleMedium:
           getMediumStyle(color: AppColors.black, fontSize: FontSize.s16),
       titleSmall:

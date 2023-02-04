@@ -1,9 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:holly_quran/core/resources/app_assets.dart';
-import 'package:holly_quran/features/home/presentation/views/widgets/hadith_view_body.dart';
-import 'package:meta/meta.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 part 'bottom_nav_bar_state.dart';
 
 class BottomNavBarCubit extends Cubit<BottomNavBarState> {
