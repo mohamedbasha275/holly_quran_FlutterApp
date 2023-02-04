@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:holly_quran/core/resources/styles.dart';
 
 class CustomButton extends StatelessWidget {
   final Color backgroundColor;
@@ -29,11 +28,7 @@ class CustomButton extends StatelessWidget {
           )
         ),
         child: Text(title,
-          style: Styles.textStyle18.copyWith(
-            fontWeight: FontWeight.w900,
-            color: textColor,
-            fontSize: fontSize,
-          ),
+          style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
     );

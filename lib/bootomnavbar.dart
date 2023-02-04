@@ -1,6 +1,5 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
@@ -32,8 +31,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   var _bottomNavIndex = 0; //default index of a first screen
-
-
   final iconList = <IconData>[
     Icons.brightness_5,
     Icons.brightness_4,

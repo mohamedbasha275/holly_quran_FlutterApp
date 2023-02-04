@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holly_quran/core/resources/app_routers.dart';
-import 'package:holly_quran/core/widgets/custom_error_widget.dart';
-import 'package:holly_quran/core/widgets/custom_loading_widget.dart';
+import 'package:holly_quran/features/common_widgets/custom_error_widget.dart';
+import 'package:holly_quran/features/common_widgets/custom_loading_widget.dart';
 import 'package:holly_quran/features/home/presentation/view_models/featured_books/featured_books_cubit.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/custom_book_image.dart';
 
@@ -28,7 +28,7 @@ class FeaturedBooksListView extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: GestureDetector(
                     onTap: (){
-                      GoRouter.of(context).push(AppRouters.kBookDetailsView,extra: state.books[index]);
+                      GoRouter.of(context).push(Routes.bookDetailsRoute,extra: state.books[index]);
                     },
                     child: CustomBookImage(book: state.books[index]),
                   ),

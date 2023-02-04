@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:holly_quran/core/resources/styles.dart';
+
 
 class BookRating extends StatelessWidget {
   final MainAxisAlignment mainAxisAlignment;
@@ -21,14 +21,14 @@ class BookRating extends StatelessWidget {
         const SizedBox(width: 6.3),
         Text(
           '$rate',
-          style: Styles.textStyle16,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(width: 5),
         Opacity(
           opacity: 0.55,
           child: Text(
             '($count)',
-            style: Styles.textStyle14,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
       ],

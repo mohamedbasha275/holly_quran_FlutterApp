@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:holly_quran/core/resources/constants.dart';
 import 'package:holly_quran/features/home/data/models/book_model/book_model.dart';
 import 'package:holly_quran/features/home/presentation/view_models/similar_books/similar_books_cubit.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/book_details_view_body.dart';
@@ -23,7 +22,6 @@ class _BookDetailsViewState extends State<BookDetailsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kPrimaryColor,
       body: SafeArea( // SafeArea to start after status bar
         child: BookDetailsViewBody(book: widget.book,),
       ),

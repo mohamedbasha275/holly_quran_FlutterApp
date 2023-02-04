@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:holly_quran/core/resources/constants.dart';
 import 'package:holly_quran/core/resources/app_routers.dart';
-import 'package:holly_quran/core/resources/assets.dart';
-import 'package:holly_quran/core/resources/styles.dart';
 import 'package:holly_quran/features/home/data/models/book_model/book_model.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/book_rating.dart';
 
@@ -16,7 +13,7 @@ class BookListViewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        GoRouter.of(context).push(AppRouters.kBookDetailsView,extra: book);
+        GoRouter.of(context).push(Routes.bookDetailsRoute,extra: book);
       },
       child: SizedBox(
         height: 125,
@@ -49,23 +46,19 @@ class BookListViewItem extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: Text(
                       '${book.volumeInfo.title}',
-                      style: Styles.textStyle20.copyWith(
-                        fontFamily: kGTSectraFine,
-                      ),
+                      style: Theme.of(context).textTheme.titleMedium,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   const SizedBox(height: 3),
-                  Text(book.volumeInfo.authors!.first, style: Styles.textStyle14),
+                  Text(book.volumeInfo.authors!.first, style: Theme.of(context).textTheme.titleMedium,),
                   const SizedBox(height: 3),
                   Row(
                     children: [
                       Text(
                         'Free',
-                        style: Styles.textStyle20.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(width: 40),
                       BookRating(count: book.volumeInfo.ratingsCount ?? 0,rate: book.volumeInfo.averageRating ?? 0),

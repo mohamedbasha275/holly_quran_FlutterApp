@@ -1,40 +1,77 @@
 import 'package:flutter/material.dart';
-import 'package:holly_quran/core/resources/styles.dart';
-import 'package:holly_quran/features/home/presentation/views/widgets/best_seller_listview.dart';
-import 'package:holly_quran/features/home/presentation/views/widgets/custom_app_bar.dart';
-import 'package:holly_quran/features/home/presentation/views/widgets/featured_books_listview.dart';
+import 'package:holly_quran/core/extension/extensions.dart';
+import 'package:holly_quran/core/resources/app_assets.dart';
+import 'package:holly_quran/core/resources/app_routers.dart';
+import 'package:holly_quran/core/resources/app_strings.dart';
+import 'package:holly_quran/core/resources/values_manager.dart';
+import 'package:holly_quran/features/home/presentation/views/widgets/home_box_widget.dart';
+import 'package:lottie/lottie.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      physics: const BouncingScrollPhysics(),
-      slivers: [
-        SliverToBoxAdapter(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12),
-                child: CustomAppBar(),
-              ),
-              FeaturedBooksListView(),
-              SizedBox(height: 50),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Text('Newest Books', style: Styles.textStyle18),
-              ),
-              SizedBox(height: 10),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: BestSellerListView(),
-              ),
-            ],
-          ),
+    final titlesList = <String>[
+      AppStrings.azkarSabah,
+      AppStrings.azkarMasaa,
+      AppStrings.hadith,
+      AppStrings.hesnMuslim,
+    ];
+    final iconsList = <String>[
+      ImageAssets.azkarSabah,
+      ImageAssets.azkarMasaa,
+      ImageAssets.hadith,
+      ImageAssets.hesnMuslim,
+    ];
+    final routesList = <String>[
+      Routes.azkarSabahRoute,
+      Routes.azkarMasaaRoute,
+      Routes.hadithRoute,
+      Routes.hesnMuslimRoute,
+    ];
+    return Container(
+      height: context.height,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(ImageAssets.background),
+          fit: BoxFit.cover,
         ),
-      ],
+      ),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: AppSize.s32,),
+            Center(
+              child: SizedBox(
+                width: AppSize.s300,
+                child: Lottie.asset(JsonAssets.homeAvatar),
+              ),
+            ),
+            Text(
+              AppStrings.homeTitle,
+              style: Theme.of(context).textTheme.displayLarge,
+            ),
+            const SizedBox(height: AppSize.s32),
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.all(AppPadding.p8),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 5 / 2.2,
+                crossAxisSpacing: AppSize.s12, // افقي
+                mainAxisSpacing: AppSize.s20, // رأسي
+              ),
+              itemCount: titlesList.length,
+              itemBuilder: (context, index) => HomeBoxWidget(
+                  title: titlesList[index],
+                  imagePath: iconsList[index],
+                  route: routesList[index]
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

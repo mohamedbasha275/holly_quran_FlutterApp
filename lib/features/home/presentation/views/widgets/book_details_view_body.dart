@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:holly_quran/core/resources/styles.dart';
 import 'package:holly_quran/features/home/data/models/book_model/book_model.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/book_action.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/book_rating.dart';
@@ -31,17 +30,14 @@ class BookDetailsViewBody extends StatelessWidget {
                 const SizedBox(height: 43),
                 Text(
                   book.volumeInfo.title!,
-                  style: Styles.textStyle30,
+                  style: Theme.of(context).textTheme.titleMedium,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 6),
                 Opacity(
                   opacity: 0.7,
                   child: Text(book.volumeInfo.authors!.first,
-                      style: Styles.textStyle18.copyWith(
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.w500,
-                      )),
+                    style: Theme.of(context).textTheme.titleMedium,),
                 ),
                 const SizedBox(height: 16),
                 BookRating(
@@ -55,9 +51,7 @@ class BookDetailsViewBody extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'You Can Also Like',
-                    style: Styles.textStyle14.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ),
                 const SizedBox(height: 10),

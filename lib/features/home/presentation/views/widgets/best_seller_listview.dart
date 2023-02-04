@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:holly_quran/core/widgets/custom_error_widget.dart';
-import 'package:holly_quran/core/widgets/custom_loading_widget.dart';
+import 'package:holly_quran/features/common_widgets/custom_error_widget.dart';
+import 'package:holly_quran/features/common_widgets/custom_loading_widget.dart';
 import 'package:holly_quran/features/home/presentation/view_models/newest_books/newest_books_cubit.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/book_listview_item.dart';
 

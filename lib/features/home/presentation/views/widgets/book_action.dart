@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:holly_quran/core/widgets/custom_button.dart';
+import 'package:holly_quran/features/common_widgets/custom_button.dart';
 
 class BookAction extends StatelessWidget {
   const BookAction({Key? key}) : super(key: key);
