@@ -1,11 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
+import 'package:holly_quran/core/resources/app_colors.dart';
 
 class MyAppBar extends StatelessWidget {
   final String title;
-  const MyAppBar({required this.title,Key? key}) : super(key: key);
+
+  const MyAppBar({required this.title, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,10 @@ class MyAppBar extends StatelessWidget {
             },
             icon: Image.asset(ImageAssets.home),
           ),
-          Text(title, style: Theme.of(context).textTheme.headlineMedium),
+          Text(
+            title,
+            style: Theme.of(context).textTheme.headlineLarge!.copyWith(color: AppColors.white),
+          ),
         ],
       ),
     );

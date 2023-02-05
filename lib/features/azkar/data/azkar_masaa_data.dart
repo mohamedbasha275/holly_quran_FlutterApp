@@ -1,6 +1,6 @@
-import 'package:holly_quran/features/azkar_sabah/data/models/azkar_model.dart';
+import 'package:holly_quran/features/azkar/data/models/azkar_model.dart';
 
-List<AzkarModel> azkarList = [
+List<AzkarModel> azkarMasaaList = [
   AzkarModel(
     id: 1,
     count: 2,

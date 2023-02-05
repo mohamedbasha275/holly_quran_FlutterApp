@@ -3,7 +3,6 @@ import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/features/hadith/data/hadith_data.dart';
 import 'package:holly_quran/features/hadith/presentation/views/widgets/hadith_widget.dart';
-import 'package:lottie/lottie.dart';
 
 class HadithViewBody extends StatelessWidget {
   const HadithViewBody({Key? key}) : super(key: key);

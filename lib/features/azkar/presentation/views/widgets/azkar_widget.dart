@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:holly_quran/core/resources/app_colors.dart';
 import 'package:holly_quran/core/resources/styles_manager.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
-import 'package:holly_quran/features/azkar_sabah/data/models/azkar_model.dart';
+import 'package:holly_quran/features/azkar/data/models/azkar_model.dart';
 
-class AzkarSabahWidget extends StatefulWidget {
+class AzkarWidget extends StatefulWidget {
   final AzkarModel azkar;
 
-  const AzkarSabahWidget({required this.azkar, Key? key}) : super(key: key);
+  const AzkarWidget({required this.azkar, Key? key}) : super(key: key);
 
   @override
-  State<AzkarSabahWidget> createState() => _AzkarSabahWidgetState();
+  State<AzkarWidget> createState() => _AzkarWidgetState();
 }
 
-class _AzkarSabahWidgetState extends State<AzkarSabahWidget> {
+class _AzkarWidgetState extends State<AzkarWidget> {
   int azkarCount = 1;
   Color color = AppColors.primary;
   @override
