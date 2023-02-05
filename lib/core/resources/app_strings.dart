@@ -10,6 +10,8 @@ class AppStrings {
   static const String hadithTitle = "الأحاديث النبوية";
   static const String hesnMuslim = "حصن المسلم";
   static const String homeTitle = "أحب الأعمال إلي الله ادومها وإن قل";
+  static const String tasbihCounter = 'تسبيح';
+  static const String tasbihReset = 'إستعادة';
   // hints
   static const String emailHint = 'email_hint';
   static const String invalidEmail = "email_error";

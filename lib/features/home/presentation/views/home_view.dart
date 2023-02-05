@@ -7,6 +7,7 @@ import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/features/common_widgets/bottom_navigation_bar.dart';
 import 'package:holly_quran/features/home/presentation/view_models/bottom_navBar/bottom_nav_bar_cubit.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/home_view_body.dart';
+import 'package:holly_quran/features/home/presentation/views/widgets/tasbih_view_body.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class HomeView extends StatelessWidget {
     final navBarWidgets = <Widget>[
       Text('1'),
       Text('2'),
-      Text('3'),
+      const TasbihViewBody(),
       Text('4'),
     ];
     return Directionality(
@@ -49,8 +50,10 @@ class HomeView extends StatelessWidget {
                 },
               ),
             ),
-            floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-            bottomNavigationBar: AppBottomNavigationBar(cubit: cubit, state: state),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            bottomNavigationBar:
+                AppBottomNavigationBar(cubit: cubit, state: state),
           );
         },
       ),

@@ -5,6 +5,7 @@ class AppColors {
   static Color primary = const Color.fromRGBO(82, 72, 195, 1);
   static Color splash = Colors.deepPurpleAccent;
   static Color secondary = Colors.amber;
+  static Color reset = Colors.redAccent;
   static Color expansion = HexColor('FCECDD');
   static Color white = Colors.white;
   static Color black = Colors.black;
