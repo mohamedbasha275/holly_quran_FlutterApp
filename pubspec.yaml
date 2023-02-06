@@ -21,6 +21,8 @@ dependencies:
   shared_preferences: ^2.0.17
   internet_connection_checker: ^1.0.0+1
   lottie: ^2.2.0
+  webview_flutter: ^4.0.2
+  quran: ^1.2.0
   #change_app_package_name: ^1.1.0
   #flutter_native_splash: ^2.2.4
   #flutter_launcher_icons: ^0.9.3

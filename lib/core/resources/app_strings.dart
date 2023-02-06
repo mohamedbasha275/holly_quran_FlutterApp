@@ -12,6 +12,18 @@ class AppStrings {
   static const String homeTitle = "أحب الأعمال إلي الله ادومها وإن قل";
   static const String tasbihCounter = 'تسبيح';
   static const String tasbihReset = 'إستعادة';
+  static const String makkah = 'مكية';
+  static const String madinah = 'مدنية';
+  static const String aya = 'آية';
+  static const String stopReading = 'توقفت عن القراءة عند :';
+  static const String stopAya = 'الآية';
+  static const String stopSurah = 'من سورة';
+  static const String completeReading = 'اضغط لاستكمال القراءة';
+  static const String loading = "جاري التحميل...";
+  static const String ok = "تم";
+  static const String success = "تم بنجاح";
+  static const String retryAgain = "حاول ثانية";
+  static const String markStop = 'تم تحديد علامة الوقف بنجاح';
   // hints
   static const String emailHint = 'email_hint';
   static const String invalidEmail = "email_error";

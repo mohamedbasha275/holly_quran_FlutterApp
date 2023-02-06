@@ -6,11 +6,11 @@ import 'package:holly_quran/features/azkar/presentation/views/azkar_sabah_view.d
 import 'package:holly_quran/features/hadith/presentation/views/hadith_view.dart';
 import 'package:holly_quran/features/hesn_muslim/presentation/views/hesn_muslim_view.dart';
 import 'package:holly_quran/features/home/data/models/book_model/book_model.dart';
+import 'package:holly_quran/features/home/data/models/quran/surah_model.dart';
 import 'package:holly_quran/features/home/data/repos/home_repo_impl.dart';
 import 'package:holly_quran/features/home/presentation/view_models/bottom_navBar/bottom_nav_bar_cubit.dart';
-import 'package:holly_quran/features/home/presentation/view_models/similar_books/similar_books_cubit.dart';
-import 'package:holly_quran/features/home/presentation/views/book_details_view.dart';
 import 'package:holly_quran/features/home/presentation/views/home_view.dart';
+import 'package:holly_quran/features/home/presentation/views/surah_view.dart';
 
 class Routes {
   // static const String splashRoute = "/";
@@ -21,6 +21,7 @@ class Routes {
   static const String azkarMasaaRoute = "/azkarMasaa";
   static const String hadithRoute = "/hadith";
   static const String hesnMuslimRoute = "/hesnMuslim";
+  static const String surahDetailsRoute = "/surahDetails";
 }
 
 abstract class AppRouters {
@@ -51,13 +52,17 @@ abstract class AppRouters {
         builder: (context, state) => const HadithView(),
       ),
       GoRoute(
-        path: Routes.bookDetailsRoute,
-        builder: (context, state) => BlocProvider(
-          create: (context) => SimilarBooksCubit(getIt.get<HomeRepoImpl>()),
-          child: BookDetailsView(
-              book: state.extra as BookModel), // to send model when navigate
-        ),
+        path: Routes.surahDetailsRoute,
+        builder: (context, state) => SurahView(surah: state.extra as SurahModel,),
       ),
+      // GoRoute(
+      //   path: Routes.bookDetailsRoute,
+      //   builder: (context, state) => BlocProvider(
+      //     create: (context) => SimilarBooksCubit(getIt.get<HomeRepoImpl>()),
+      //     child: BookDetailsView(
+      //         book: state.extra as BookModel), // to send model when navigate
+      //   ),
+      // ),
     ],
   );
 }

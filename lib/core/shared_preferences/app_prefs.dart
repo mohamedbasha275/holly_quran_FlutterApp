@@ -1,6 +1,4 @@
 import 'dart:ui';
-
-import 'package:dartz/dartz.dart';
 import 'package:holly_quran/core/resources/langauge_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -8,10 +6,12 @@ const String PREFS_KEY_LANG = "PREFS_KEY_LANG";
 const String PREFS_KEY_ONBOARDING_SCREEN_VIEWED =
     "PREFS_KEY_ONBOARDING_SCREEN_VIEWED";
 const String PREFS_KEY_IS_USER_LOGGED_IN = "PREFS_KEY_IS_USER_LOGGED_IN";
+//************************************************************************/
+const String STOP_READING_KEY = '';
+
 
 class AppPreferences {
   final SharedPreferences _sharedPreferences;
-
   AppPreferences(this._sharedPreferences);
 
   Future<String> getAppLanguage() async {
@@ -66,5 +66,19 @@ class AppPreferences {
 
   Future<void> logout() async {
     _sharedPreferences.remove(PREFS_KEY_IS_USER_LOGGED_IN);
+  }
+  //***************************************************************************//
+  // stop read surah
+  Future<void> setStopReading({required int surah,required int aya}) async {
+
+    _sharedPreferences.setStringList(STOP_READING_KEY, ['$surah','$aya']);
+  }
+  Future<List<String>> getStopReading() async {
+    List<String>? stop = _sharedPreferences.getStringList(STOP_READING_KEY);
+    if (stop != null) {
+      return stop;
+    } else {
+      return ['1','1'];
+    }
   }
 }

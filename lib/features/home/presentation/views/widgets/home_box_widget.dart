@@ -11,24 +11,17 @@ class HomeBoxWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return ElevatedButton(
       onPressed: (){
         GoRouter.of(context).push(route);
       },
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColors.secondary,
-          borderRadius: BorderRadius.circular(AppSize.s10),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(AppPadding.p6),
-          child: Row(
-            children: [
-              Image.asset(imagePath),
-              Text(title,style: Theme.of(context).textTheme.headlineLarge,),
-            ],
-          ),
-        ),
+      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(AppColors.secondary),),
+      child: Row(
+        children: [
+          Image.asset(imagePath,width: AppSize.s40),
+          const SizedBox(width: AppPadding.p8,),
+          Text(title,style: Theme.of(context).textTheme.headlineLarge,),
+        ],
       ),
     );
   }

@@ -34,10 +34,9 @@ class AppBottomNavigationBar extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(navBarIcons[index],width: AppSize.s60),
-            const SizedBox(height: AppSize.s4),
+            Image.asset(navBarIcons[index],width: AppSize.s50),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+              padding: const EdgeInsets.all(AppPadding.p2),
               child: Text(
                 navBarTitles[index],
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
