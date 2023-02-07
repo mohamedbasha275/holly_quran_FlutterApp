@@ -3,11 +3,11 @@ import 'package:holly_quran/core/resources/langauge_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const String PREFS_KEY_LANG = "PREFS_KEY_LANG";
-const String PREFS_KEY_ONBOARDING_SCREEN_VIEWED =
-    "PREFS_KEY_ONBOARDING_SCREEN_VIEWED";
+const String PREFS_KEY_ONBOARDING_SCREEN_VIEWED = "PREFS_KEY_ONBOARDING_SCREEN_VIEWED";
 const String PREFS_KEY_IS_USER_LOGGED_IN = "PREFS_KEY_IS_USER_LOGGED_IN";
 //************************************************************************/
-const String STOP_READING_KEY = '';
+const String STOP_READING_KEY = 'STOP_READING_KEY';
+const String SADAQAT_LIST = 'SADAQAT_LIST';
 
 
 class AppPreferences {
@@ -70,7 +70,6 @@ class AppPreferences {
   //***************************************************************************//
   // stop read surah
   Future<void> setStopReading({required int surah,required int aya}) async {
-
     _sharedPreferences.setStringList(STOP_READING_KEY, ['$surah','$aya']);
   }
   Future<List<String>> getStopReading() async {
@@ -79,6 +78,30 @@ class AppPreferences {
       return stop;
     } else {
       return ['1','1'];
+    }
+  }
+  // sadaqat
+  Future<void> addOnSadaqa({required String name}) async {
+    List<String> sadaqat = [];
+    if( _sharedPreferences.getStringList(SADAQAT_LIST) != null){
+      sadaqat = _sharedPreferences.getStringList(SADAQAT_LIST)!;
+    }
+    print(name);
+    sadaqat.add(name);
+    _sharedPreferences.setStringList(SADAQAT_LIST,sadaqat);
+  }
+  Future<void> removeOneSadaqa({required int index}) async {
+    List<String>? sadaqat = _sharedPreferences.getStringList(SADAQAT_LIST);
+    sadaqat!.removeAt(index);
+    _sharedPreferences.setStringList(SADAQAT_LIST,sadaqat);
+  }
+  Future<List<String>> getAllSadaqat() async {
+    List<String>? sadaqat = _sharedPreferences.getStringList(SADAQAT_LIST);
+    print(sadaqat);
+    if (sadaqat != null) {
+      return sadaqat;
+    } else {
+      return [];
     }
   }
 }

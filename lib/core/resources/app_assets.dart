@@ -17,6 +17,7 @@ class ImageAssets {
   static const String star = "$imagePath/star.png";
   static const String quranStop = "$imagePath/quranStop.png";
   static const String loadingImg = "$imagePath/loadingImg.png";
+  static const String sadaqatLogo = "$imagePath/sadaqatLogo.png";
 }
 
 class JsonAssets {

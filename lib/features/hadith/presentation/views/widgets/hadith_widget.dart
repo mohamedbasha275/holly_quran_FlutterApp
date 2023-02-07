@@ -17,16 +17,19 @@ class HadithWidget extends StatelessWidget {
           Row(
             children: [
               Container(
-                  width: AppSize.s50,
-                  height: AppSize.s50,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      color: AppColors.primary, shape: BoxShape.circle),
-                  child: Text(
-                    "${hadith.id}",
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  )),
+                width: AppSize.s50,
+                height: AppSize.s50,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: AppColors.primary,
+                  shape: BoxShape.circle,
+                ),
+                child: Text(
+                  "${hadith.id}",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+              ),
               const SizedBox(
                 width: AppSize.s4,
               ),

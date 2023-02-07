@@ -5,7 +5,6 @@ import 'package:holly_quran/core/di/service_locator.dart';
 import 'package:holly_quran/core/extension/extensions.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/app_colors.dart';
-import 'package:holly_quran/core/resources/app_constants.dart';
 import 'package:holly_quran/core/resources/app_fonts.dart';
 import 'package:holly_quran/core/resources/app_strings.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';

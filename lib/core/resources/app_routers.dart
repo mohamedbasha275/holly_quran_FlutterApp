@@ -11,6 +11,7 @@ import 'package:holly_quran/features/home/data/repos/home_repo_impl.dart';
 import 'package:holly_quran/features/home/presentation/view_models/bottom_navBar/bottom_nav_bar_cubit.dart';
 import 'package:holly_quran/features/home/presentation/views/home_view.dart';
 import 'package:holly_quran/features/home/presentation/views/surah_view.dart';
+import 'package:holly_quran/features/home/presentation/views/sadaqa_surah_view.dart';
 
 class Routes {
   // static const String splashRoute = "/";
@@ -22,6 +23,7 @@ class Routes {
   static const String hadithRoute = "/hadith";
   static const String hesnMuslimRoute = "/hesnMuslim";
   static const String surahDetailsRoute = "/surahDetails";
+  static const String sadaqaSurahViewRoute = "/sadaqaSurahView";
 }
 
 abstract class AppRouters {
@@ -30,6 +32,7 @@ abstract class AppRouters {
     routes: [
       GoRoute(
         path: Routes.homeRoute,
+        name: Routes.homeRoute,
         builder: (context, state) => BlocProvider(
           create: (context) => BottomNavBarCubit(),
           child: const HomeView(),
@@ -54,6 +57,14 @@ abstract class AppRouters {
       GoRoute(
         path: Routes.surahDetailsRoute,
         builder: (context, state) => SurahView(surah: state.extra as SurahModel,),
+      ),
+      GoRoute(
+        path: "${Routes.sadaqaSurahViewRoute}:id1/:id2",
+        name: Routes.sadaqaSurahViewRoute,
+        builder: (context, state) => SadaqaSurahView(
+          name: state.params['id1'] as String,
+          pageNumber: state.params['id2'] as String
+        ),
       ),
       // GoRoute(
       //   path: Routes.bookDetailsRoute,

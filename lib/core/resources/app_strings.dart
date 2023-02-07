@@ -24,6 +24,13 @@ class AppStrings {
   static const String success = "تم بنجاح";
   static const String retryAgain = "حاول ثانية";
   static const String markStop = 'تم تحديد علامة الوقف بنجاح';
+  static const String sadaqatTitle = 'اللهم أرحم من واري التراب جسدهم وهم في ذكرانا';
+  static const String sadaqatSubTitle = 'قراءة صفحة عشوائي من القرآن الكريم';
+  static const String addNew = 'إضافة جديد';
+  static const String save = 'حفظ';
+  static const String sadaqaName = 'اسم صاحب الصدقة الجارية';
+  static const String name = 'الاسم';
+  static const String nameSaved = 'تم حفظ الاسم بنجاح';
   // hints
   static const String emailHint = 'email_hint';
   static const String invalidEmail = "email_error";

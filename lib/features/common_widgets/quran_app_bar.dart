@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holly_quran/core/extension/extensions.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/app_colors.dart';
 import 'package:holly_quran/core/resources/app_routers.dart';
@@ -19,12 +20,18 @@ class QuranAppBar extends StatelessWidget {
           IconButton(
             onPressed: () {
               GoRouter.of(context).pushReplacement(Routes.homeRoute);
+              //Navigator.of(context).pushNamedAndRemoveUntil(Routes.homeRoute, (route) => false);
             },
             icon: Image.asset(ImageAssets.home),
           ),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.headlineLarge!.copyWith(color: AppColors.white),
+          SizedBox(
+            width: context.width * 0.6,
+            child: Text(
+              title,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headlineLarge!.copyWith(color: AppColors.white),
+            ),
           ),
           IconButton(
             onPressed: () {

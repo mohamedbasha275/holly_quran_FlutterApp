@@ -51,11 +51,11 @@ class _TasbihViewBodyState extends State<TasbihViewBody>
           child: Column(
             children: [
               Container(
-                margin: const EdgeInsets.all(AppMargin.m50),
-                height: AppSize.s300,
-                width: AppSize.s300,
+                margin: const EdgeInsets.only(top:AppMargin.m50,left:AppMargin.m50,right:AppMargin.m50,),
+                height: AppSize.s400,
+                width: AppSize.s400,
                 alignment: Alignment.center,
-                child: Stack(
+                child: Column(
                   children: [
                     RotationTransition(
                       turns: Tween(begin: 0.0, end: end).animate(_controller),
@@ -65,9 +65,13 @@ class _TasbihViewBodyState extends State<TasbihViewBody>
                       ),
                     ),
                     Container(
+                      width: AppSize.s230,
                       alignment: Alignment.center,
-                      child: Text('$counter', style: Theme.of(context).textTheme.headlineLarge!
-                          .copyWith(fontSize: FontSize.s50),
+                      decoration: BoxDecoration(
+                        color: AppColors.expansion,
+                        borderRadius: BorderRadius.circular(AppSize.s20)
+                      ),
+                      child: Text('$counter', style: Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: FontSize.s50),
                       ),
                     ),
                   ],

@@ -8,6 +8,7 @@ import 'package:holly_quran/features/common_widgets/bottom_navigation_bar.dart';
 import 'package:holly_quran/features/home/presentation/view_models/bottom_navBar/bottom_nav_bar_cubit.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/home_view_body.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/quran_view_body.dart';
+import 'package:holly_quran/features/home/presentation/views/widgets/sadaqat_view_body.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/tasbih_view_body.dart';
 
 class HomeView extends StatelessWidget {
@@ -17,7 +18,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final navBarWidgets = <Widget>[
       const QuranViewBody(),
-      Text('2'),
+      const SadaqatViewBody(),
       const TasbihViewBody(),
       Text('4'),
     ];
