@@ -13,6 +13,7 @@ import 'package:holly_quran/features/home/presentation/views/widgets/salah_widge
 
 class SalahViewBody extends StatelessWidget {
   const SalahViewBody({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,38 +44,48 @@ class SalahViewBody extends StatelessWidget {
                           children: [
                             Icon(Icons.calendar_month, color: AppColors.white),
                             const SizedBox(width: AppSize.s10),
-                            Text('${getHijriDate()} ${AppStrings.hijriLetter}',
+                            Text(
+                              '${getHijriDate()} ${AppStrings.hijriLetter}',
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall!
                                   .copyWith(
-                                fontSize: FontSize.s16,
-                              ),
+                                    fontSize: FontSize.s16,
+                                  ),
                             ),
                           ],
                         ),
-                        // Row(
-                        //   children: [
-                        //     Icon(Icons.timer_sharp, color: AppColors.white),
-                        //     const SizedBox(width: AppSize.s10),
-                        //     Text('الصلاة القادمة',
-                        //       style: Theme.of(context)
-                        //           .textTheme
-                        //           .titleSmall!
-                        //           .copyWith(
-                        //         fontSize: FontSize.s16,
-                        //       ),
-                        //     ),
-                        //     Text('',
-                        //       style: Theme.of(context)
-                        //           .textTheme
-                        //           .titleSmall!
-                        //           .copyWith(
-                        //         fontSize: FontSize.s16,
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
+                        BlocBuilder<SalahCubit, SalahState>(
+                          builder: (context, state) {
+                            if(state is SalahSuccess){
+                              return Row(
+                                children: [
+                                  Icon(Icons.timer_sharp, color: AppColors.white),
+                                  const SizedBox(width: AppSize.s10),
+                                  Text(
+                                    'الصلاة القادمة: ',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                      fontSize: FontSize.s16,
+                                    ),
+                                  ),
+                                  Text(state.salah[state.nextSalahId].name,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                      fontSize: FontSize.s16,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }else{
+                              return const Text('');
+                            }
+                          },
+                        ),
                       ],
                     ),
                   ],
@@ -82,11 +93,13 @@ class SalahViewBody extends StatelessWidget {
               ),
             ),
             FloatingActionButton.extended(
-              onPressed: ()async{
+              onPressed: () async {
                 await BlocProvider.of<SalahCubit>(context).updateLocation();
               },
-              label: Text('تحديث المكان',
-              style: Theme.of(context).textTheme.titleSmall,),
+              label: Text(
+                'تحديث المكان',
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
               icon: Icon(Icons.location_on),
               backgroundColor: AppColors.primarySwatch,
             ),
@@ -101,18 +114,21 @@ class SalahViewBody extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: AppPadding.p12),
                         gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 1,
                           childAspectRatio: 10 / 2.1,
                         ),
                         //itemCount: state.sours.length,
                         itemCount: state.salah.length,
-                        itemBuilder: (context, index) => SalahWidget(salah: state.salah[index]),
+                        itemBuilder: (context, index){
+                          Color color = (index == state.nextSalahId)? AppColors.expansion : AppColors.white;
+                          return SalahWidget(salah: state.salah[index],color: color);
+                        },
                       ),
                     ),
                   );
                 } else {
-                  return StateRender.fullLoadingScreenImage;
+                  return const FullLoadingScreenImage(message: 'اسمح بالوصول الي مكانك');
                 }
               },
             ),

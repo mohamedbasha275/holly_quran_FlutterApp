@@ -9,7 +9,7 @@ class AppStrings {
   static const String hadith = "أحاديث نبوية";
   static const String hadithTitle = "الأحاديث النبوية";
   static const String hesnMuslim = "حصن المسلم";
-  static const String homeTitle = "أحب الأعمال إلي الله ادومها وإن قل";
+  static const String homeTitle = "أحب الأعمال إلي الله أدومها وإن قل";
   static const String tasbihCounter = 'تسبيح';
   static const String tasbihReset = 'إستعادة';
   static const String makkah = 'مكية';

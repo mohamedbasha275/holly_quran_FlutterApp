@@ -11,5 +11,6 @@ class SalahLoading extends SalahState {}
 
 class SalahSuccess extends SalahState {
   final List<SalahModel> salah;
-  const SalahSuccess(this.salah);
+  final int nextSalahId;
+  const SalahSuccess(this.salah,this.nextSalahId);
 }

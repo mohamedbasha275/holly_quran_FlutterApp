@@ -15,7 +15,25 @@ class SalahCubit extends Cubit<SalahState> {
 
   Future<void> fetchSalah() async {
     var result = await homeRepo.fetchSalah();
-    emit(SalahSuccess(result));
+    if(result.isNotEmpty){
+      int i = 0;
+      for(SalahModel item in result){
+        if(item.id != 1){
+          DateTime dt1 = DateTime.now();
+          DateTime dt2 = item.dateTime;
+          Duration diff = dt2.difference(dt1);
+          if(diff.inMinutes > 0){
+            print(diff.inMinutes);
+            i = (item.id - 1);
+            emit(SalahSuccess(result,i));
+          }
+        }
+      }
+      emit(SalahSuccess(result,i));
+    }else{
+      emit(SalahLoading());
+    }
+    //print("i$i");
   }
 
   Future<void> updateLocation() async {
@@ -44,6 +62,18 @@ class SalahCubit extends Cubit<SalahState> {
     print(_locationData);
     await appPreferences.setCurrentLocation(lat: _locationData.latitude!, long: _locationData.longitude!);
     var result = await homeRepo.fetchSalah();
-    emit(SalahSuccess(result));
+    int i = 1;
+    DateTime dt1 = DateTime.now();
+    for(SalahModel item in result){
+      if(item.id != 1){
+        DateTime dt2 = item.dateTime;
+        Duration diff = dt1.difference(dt2);
+        if(diff.inMinutes > 0){
+          i = item.id - 1;
+          break;
+        }
+      }
+    }
+    emit(SalahSuccess(result,i));
   }
 }

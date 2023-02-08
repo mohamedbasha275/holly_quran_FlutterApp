@@ -11,12 +11,13 @@ abstract class StateRender{
   static Widget fullLoadingScreenImage = const FullLoadingScreenImage();
 }
 class FullLoadingScreenImage extends StatelessWidget {
-  const FullLoadingScreenImage({Key? key}) : super(key: key);
+  final String message;
+  const FullLoadingScreenImage({this.message=AppStrings.loading,Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return _getItemsColumn([
       _getSmallImage(ImageAssets.quran),
-      _getMessage(AppStrings.loading),
+      _getMessage(message),
     ]);
   }
 }
