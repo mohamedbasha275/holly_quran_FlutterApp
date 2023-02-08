@@ -20,7 +20,6 @@ class QuranAppBar extends StatelessWidget {
           IconButton(
             onPressed: () {
               GoRouter.of(context).pushReplacement(Routes.homeRoute);
-              //Navigator.of(context).pushNamedAndRemoveUntil(Routes.homeRoute, (route) => false);
             },
             icon: Image.asset(ImageAssets.home),
           ),

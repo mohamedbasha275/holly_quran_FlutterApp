@@ -8,6 +8,7 @@ const String PREFS_KEY_IS_USER_LOGGED_IN = "PREFS_KEY_IS_USER_LOGGED_IN";
 //************************************************************************/
 const String STOP_READING_KEY = 'STOP_READING_KEY';
 const String SADAQAT_LIST = 'SADAQAT_LIST';
+const String CURRENT_LOCATION_KEY = 'CURRENT_LOCATION_KEY';
 
 
 class AppPreferences {
@@ -86,7 +87,6 @@ class AppPreferences {
     if( _sharedPreferences.getStringList(SADAQAT_LIST) != null){
       sadaqat = _sharedPreferences.getStringList(SADAQAT_LIST)!;
     }
-    print(name);
     sadaqat.add(name);
     _sharedPreferences.setStringList(SADAQAT_LIST,sadaqat);
   }
@@ -97,11 +97,24 @@ class AppPreferences {
   }
   Future<List<String>> getAllSadaqat() async {
     List<String>? sadaqat = _sharedPreferences.getStringList(SADAQAT_LIST);
-    print(sadaqat);
     if (sadaqat != null) {
       return sadaqat;
     } else {
       return [];
     }
   }
+  // salah
+  Future<void> setCurrentLocation({required double lat,required double long}) async {
+    _sharedPreferences.remove(CURRENT_LOCATION_KEY);
+    _sharedPreferences.setStringList(CURRENT_LOCATION_KEY,['$lat','$long']);
+  }
+  Future<List<String>> getCurrentLocation() async {
+    List<String>? salah = _sharedPreferences.getStringList(CURRENT_LOCATION_KEY);
+    if (salah != null) {
+      return salah;
+    } else {
+      return [];
+    }
+  }
+
 }

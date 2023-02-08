@@ -18,40 +18,43 @@ dependencies:
   flutter_bloc: ^8.1.1
   get_it: ^7.2.0
   animated_bottom_navigation_bar: ^1.1.0+1
+  change_app_package_name: ^1.1.0
   shared_preferences: ^2.0.17
   internet_connection_checker: ^1.0.0+1
   lottie: ^2.2.0
   webview_flutter: ^4.0.2
   quran: ^1.2.0
   awesome_dialog: ^3.0.2
-  #change_app_package_name: ^1.1.0
-  #flutter_native_splash: ^2.2.4
-  #flutter_launcher_icons: ^0.9.3
+  flutter_native_splash: ^2.2.16
+  adhan: ^2.0.0-nullsafety.2
+  intl: ^0.18.0
+  location: ^4.4.0
+  hijri: ^3.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.9.3
+
+# flutter_native_splash
+flutter_native_splash:
+  color: "#673AB7"
+  image: assets/images/splash.jpg
+  fill: true
+  fullscreen: true
+  android: true
+  ios: true
+  web: true
+
+#flutter_icons
+flutter_icons:
+  android: true
+  image_path: "assets/images/icon.jpg"
+  ios: true
 
 flutter:
   uses-material-design: true
-
-# flutter_native_splash
-#flutter_native_splash:
-#  color: "#389A97"
-#  image: assets/images/splash.png
-#  fill: true
-#  fullscreen: true
-#  android: true
-#  ios: true
-#  web: true
-
-# flutter_icons
-#flutter_icons:
-#  android: true
-#  image_path: "assets/images/icon.png"
-#  ios: true
-
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/

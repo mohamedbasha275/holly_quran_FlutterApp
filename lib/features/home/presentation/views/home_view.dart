@@ -9,6 +9,7 @@ import 'package:holly_quran/features/home/presentation/view_models/bottom_navBar
 import 'package:holly_quran/features/home/presentation/views/widgets/home_view_body.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/quran_view_body.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/sadaqat_view_body.dart';
+import 'package:holly_quran/features/home/presentation/views/widgets/salah_view_body.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/tasbih_view_body.dart';
 
 class HomeView extends StatelessWidget {
@@ -20,7 +21,7 @@ class HomeView extends StatelessWidget {
       const QuranViewBody(),
       const SadaqatViewBody(),
       const TasbihViewBody(),
-      Text('4'),
+      const SalahViewBody(),
     ];
     return Directionality(
       textDirection: TextDirection.rtl,

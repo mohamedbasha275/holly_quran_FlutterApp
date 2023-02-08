@@ -1,3 +1,4 @@
+import 'package:hijri/hijri_calendar.dart';
 import 'package:holly_quran/core/resources/app_strings.dart';
 
 bool isEmailValid(String email) {
@@ -15,4 +16,21 @@ String arNumber(String input) {
     input = input.replaceAll(english[i],arabic[i]);
   }
   return input;
+}
+
+String arTime(String input) {
+  const english = ['AM','PM'];
+  const arabic = ['ص','م'];
+  for (int i = 0; i < english.length; i++) {
+    input = input.replaceAll(english[i],arabic[i]);
+  }
+  return input;
+}
+
+// hijriDate
+String getHijriDate(){
+  String locale = 'ar';
+  HijriCalendar today = HijriCalendar.now();
+  HijriCalendar.setLocal(locale);
+  return(today.toFormat("dd MMMM yyyy"));
 }

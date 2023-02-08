@@ -7,16 +7,17 @@ import 'package:holly_quran/core/resources/theme_manager.dart';
 import 'package:holly_quran/features/home/data/repos/home_repo_impl.dart';
 import 'package:holly_quran/features/home/presentation/view_models/quran/quran_cubit.dart';
 import 'package:holly_quran/features/home/presentation/view_models/sadaqat/sadaqat_cubit.dart';
+import 'package:holly_quran/features/home/presentation/view_models/salah/salah_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-// Configure injecction
+  // Configure injecction
   setupServiceLocator();
-  runApp(const BookLyApp());
+  runApp(const QuranApp());
 }
 
-class BookLyApp extends StatelessWidget {
-  const BookLyApp({Key? key}) : super(key: key);
+class QuranApp extends StatelessWidget {
+  const QuranApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +26,13 @@ class BookLyApp extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (context) =>
-                QuranCubit(getIt.get<HomeRepoImpl>())..fetchQuran()),
+            QuranCubit(getIt.get<HomeRepoImpl>())..fetchQuran()),
         BlocProvider(
             create: (context) =>
-                SadaqatCubit(getIt.get<HomeRepoImpl>())..fetchSadaqat()),
+            SadaqatCubit(getIt.get<HomeRepoImpl>())..fetchSadaqat()),
+        BlocProvider(
+            create: (context) =>
+            SalahCubit(getIt.get<HomeRepoImpl>())..fetchSalah()),
       ],
       child: MaterialApp.router(
         title: AppConstants.appName,

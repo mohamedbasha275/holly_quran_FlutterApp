@@ -29,7 +29,7 @@ class SadaqatWidget extends StatelessWidget {
                 int quranPageCount = quran.totalPagesCount;
                 int randomPageNumber = random.nextInt(quranPageCount) + 1; // ad 1 to ignore 0
                // GoRouter.of(context).push(Routes.sadaqaSurahViewRoute,extra: title);
-                GoRouter.of(context).pushReplacementNamed(Routes.sadaqaSurahViewRoute,
+                GoRouter.of(context).pushNamed(Routes.sadaqaSurahViewRoute,
                     params: {'id1': title, 'id2': '$randomPageNumber'});
               },
               style: ButtonStyle(

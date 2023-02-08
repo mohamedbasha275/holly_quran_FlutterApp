@@ -29,7 +29,8 @@ flutter pub run flutter_native_splash:create
 -----------------------------------------------------------------------------------------
 // change name of app package
 = install : change_app_package_name
-flutter pub run change_app_package_name:main com.stackoveer.app
+flutter pub run change_app_package_name:main net.quran.holly
+// change name of the app
 -----------------------------------------------------------------------------------------
 // lanch icons of the app
 = install : flutter_launcher_icons

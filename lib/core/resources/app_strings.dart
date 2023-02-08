@@ -31,6 +31,7 @@ class AppStrings {
   static const String sadaqaName = 'اسم صاحب الصدقة الجارية';
   static const String name = 'الاسم';
   static const String nameSaved = 'تم حفظ الاسم بنجاح';
+  static const String hijriLetter = 'هـ';
   // hints
   static const String emailHint = 'email_hint';
   static const String invalidEmail = "email_error";
