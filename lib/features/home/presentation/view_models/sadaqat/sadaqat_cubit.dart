@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:holly_quran/features/home/data/repos/home_repo.dart';
 import 'package:meta/meta.dart';
-
 part 'sadaqat_state.dart';
 
 class SadaqatCubit extends Cubit<SadaqatState> {
@@ -10,7 +9,12 @@ class SadaqatCubit extends Cubit<SadaqatState> {
 
   Future<void> fetchSadaqat() async{
     var result = await homeRepo.fetchSadaqat();
-    emit(SadaqatSuccess(result));
+    if(result.isNotEmpty){
+      emit(SadaqatSuccess(result));
+    }else{
+      emit(SadaqatLoading());
+    }
+
   }
   Future<void> addOneSadaqa({required String name}) async{
     var result = await homeRepo.addOneSadaqa(name: name);
@@ -18,6 +22,10 @@ class SadaqatCubit extends Cubit<SadaqatState> {
   }
   Future<void> removeOneSadaqa({required int index}) async{
     var result = await homeRepo.removeOneSadaqa(index: index);
-    emit(SadaqatSuccess(result));
+    if(result.isNotEmpty){
+      emit(SadaqatSuccess(result));
+    }else{
+      emit(SadaqatLoading());
+    }
   }
 }

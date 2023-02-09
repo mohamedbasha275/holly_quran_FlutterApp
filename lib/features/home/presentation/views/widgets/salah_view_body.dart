@@ -62,8 +62,7 @@ class SalahViewBody extends StatelessWidget {
                                 children: [
                                   Icon(Icons.timer_sharp, color: AppColors.white),
                                   const SizedBox(width: AppSize.s10),
-                                  Text(
-                                    'الصلاة القادمة: ',
+                                  Text(AppStrings.nextSalah,
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleSmall!
@@ -96,11 +95,10 @@ class SalahViewBody extends StatelessWidget {
               onPressed: () async {
                 await BlocProvider.of<SalahCubit>(context).updateLocation();
               },
-              label: Text(
-                'تحديث المكان',
+              label: Text(AppStrings.refreshLocation,
                 style: Theme.of(context).textTheme.titleSmall,
               ),
-              icon: Icon(Icons.location_on),
+              icon: const Icon(Icons.location_on),
               backgroundColor: AppColors.primarySwatch,
             ),
             BlocBuilder<SalahCubit, SalahState>(
@@ -121,14 +119,16 @@ class SalahViewBody extends StatelessWidget {
                         //itemCount: state.sours.length,
                         itemCount: state.salah.length,
                         itemBuilder: (context, index){
-                          Color color = (index == state.nextSalahId)? AppColors.expansion : AppColors.white;
-                          return SalahWidget(salah: state.salah[index],color: color);
+                          bool isNext = (index == state.nextSalahId)? true : false;
+                          return SalahWidget(salah: state.salah[index],isNext: isNext);
                         },
                       ),
                     ),
                   );
-                } else {
-                  return const FullLoadingScreenImage(message: 'اسمح بالوصول الي مكانك');
+                } else if(state is SalahLoading){
+                  return const FullLoadingScreenAnimated(message: AppStrings.getLocation);
+                }else {
+                  return StateRender.fullLoadingScreenImage;
                 }
               },
             ),

@@ -22,6 +22,19 @@ class FullLoadingScreenImage extends StatelessWidget {
   }
 }
 
+class FullLoadingScreenAnimated extends StatelessWidget {
+  final String message;
+  const FullLoadingScreenAnimated({this.message=AppStrings.loading,Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return _getItemsColumn([
+      const SizedBox(height: AppSize.s80),
+      _getAnimatedImage(JsonAssets.salahAvatar),
+      _getMessage(message),
+    ]);
+  }
+}
+
 Widget _getSmallImage(String imagePath) {
   return SizedBox(
     height: AppSize.s100,
@@ -68,8 +81,8 @@ Widget _getItemsColumn(List<Widget> children) {
 
 Widget _getAnimatedImage(String animationName) {
   return SizedBox(
-      height: AppSize.s100,
-      width: AppSize.s100,
+      height: AppSize.s200,
+      width: AppSize.s200,
       child: Lottie.asset(animationName));
 }
 

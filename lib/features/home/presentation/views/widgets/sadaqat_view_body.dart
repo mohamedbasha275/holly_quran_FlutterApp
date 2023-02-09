@@ -66,7 +66,9 @@ class SadaqatViewBody extends StatelessWidget {
                         ),
                       ),
                     );
-                  } else {
+                  } else if(state is SadaqatLoading){
+                    return const FullLoadingScreenAnimated(message: AppStrings.addSadaqa);
+                  }else {
                     return StateRender.fullLoadingScreenImage;
                   }
                 },

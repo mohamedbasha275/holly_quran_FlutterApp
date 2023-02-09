@@ -37,7 +37,7 @@ class _HesnMuslimViewBodyState extends State<HesnMuslimViewBody> {
                 hesnMuslimList[index].expanded = !isExpanded;
               });
             },
-            animationDuration: const Duration(milliseconds: AppConstants.expandSpeedTime),
+            //animationDuration: const Duration(milliseconds: AppConstants.expandSpeedTime),
             children: [
               for (HesnModel hesn in hesnMuslimList)
                 ExpansionPanel(

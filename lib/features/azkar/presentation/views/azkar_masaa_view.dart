@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:holly_quran/core/resources/app_strings.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
-import 'package:holly_quran/features/azkar/data/azkar_sabah_data.dart';
+import 'package:holly_quran/features/azkar/data/azkar_masaa_data.dart';
 import 'package:holly_quran/features/azkar/presentation/views/widgets/azkar_view_body.dart';
 import 'package:holly_quran/features/common_widgets/app_bar.dart';
 
@@ -17,7 +17,7 @@ class AzkarMasaaView extends StatelessWidget {
           preferredSize: Size.fromHeight(AppSize.s50),
           child: MyAppBar(title: AppStrings.azkarMasaa),
         ),
-        body: AzkarViewBody(azkarList: azkarSabahList),
+        body: AzkarViewBody(azkarList: azkarMasaaList),
       ),
     );
   }

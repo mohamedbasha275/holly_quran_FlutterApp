@@ -52,8 +52,8 @@ class _TasbihViewBodyState extends State<TasbihViewBody>
             children: [
               Container(
                 margin: const EdgeInsets.only(top:AppMargin.m50,left:AppMargin.m50,right:AppMargin.m50,),
-                height: AppSize.s380,
-                width: AppSize.s380,
+                height: AppSize.s390,
+                width: AppSize.s390,
                 alignment: Alignment.center,
                 child: Column(
                   children: [

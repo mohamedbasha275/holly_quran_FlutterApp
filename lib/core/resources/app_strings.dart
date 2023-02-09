@@ -32,6 +32,10 @@ class AppStrings {
   static const String name = 'الاسم';
   static const String nameSaved = 'تم حفظ الاسم بنجاح';
   static const String hijriLetter = 'هـ';
+  static const String addSadaqa = 'قم بإضافة أصحاب الصدقات';
+  static const String nextSalah = 'الصلاة القادمة: ';
+  static const String refreshLocation = 'تحديث المكان';
+  static const String getLocation = 'قم بالتحديث لمكانك الحالي';
   // hints
   static const String emailHint = 'email_hint';
   static const String invalidEmail = "email_error";

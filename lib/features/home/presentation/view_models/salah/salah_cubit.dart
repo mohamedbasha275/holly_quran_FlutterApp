@@ -16,20 +16,8 @@ class SalahCubit extends Cubit<SalahState> {
   Future<void> fetchSalah() async {
     var result = await homeRepo.fetchSalah();
     if(result.isNotEmpty){
-      int i = 0;
-      for(SalahModel item in result){
-        if(item.id != 1){
-          DateTime dt1 = DateTime.now();
-          DateTime dt2 = item.dateTime;
-          Duration diff = dt2.difference(dt1);
-          if(diff.inMinutes > 0){
-            print(diff.inMinutes);
-            i = (item.id - 1);
-            emit(SalahSuccess(result,i));
-          }
-        }
-      }
-      emit(SalahSuccess(result,i));
+      int nextSalahIndex = getNextSalahIndex(result);
+      emit(SalahSuccess(result,nextSalahIndex));
     }else{
       emit(SalahLoading());
     }
@@ -37,43 +25,53 @@ class SalahCubit extends Cubit<SalahState> {
   }
 
   Future<void> updateLocation() async {
-    AppPreferences appPreferences = getIt.get<AppPreferences>();
-    Location location = Location();
-    // current location
-    bool _serviceEnabled;
-    PermissionStatus _permissionGranted;
-    // Check if location service is enable
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
-        return;
-      }
-    }
-    // Check if permission is granted
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        return;
-      }
-    }
-    final _locationData = await location.getLocation();
-    print(_locationData);
-    await appPreferences.setCurrentLocation(lat: _locationData.latitude!, long: _locationData.longitude!);
+    await getCurrentLocation();
     var result = await homeRepo.fetchSalah();
-    int i = 1;
-    DateTime dt1 = DateTime.now();
-    for(SalahModel item in result){
-      if(item.id != 1){
-        DateTime dt2 = item.dateTime;
-        Duration diff = dt1.difference(dt2);
-        if(diff.inMinutes > 0){
-          i = item.id - 1;
-          break;
-        }
+    int nextSalahIndex = getNextSalahIndex(result);
+    emit(SalahSuccess(result,nextSalahIndex));
+  }
+}
+// getNextSalahIndex
+int getNextSalahIndex(List<SalahModel> list){
+  int nextIndex = 0;
+  List<int> allNext = [];
+  for(SalahModel item in list){
+    if(item.id != 2){
+      DateTime dt1 = DateTime.now();
+      DateTime dt2 = item.dateTime;
+      Duration diff = dt2.difference(dt1);
+      if(diff.inMinutes > 0){
+        allNext.add(item.id - 1);
       }
     }
-    emit(SalahSuccess(result,i));
   }
+  nextIndex = allNext.isNotEmpty ? allNext[0] : 0;
+  return nextIndex;
+}
+// get Current Location
+Future<void> getCurrentLocation() async{
+  AppPreferences appPreferences = getIt.get<AppPreferences>();
+  Location location = Location();
+  // current location
+  bool _serviceEnabled;
+  PermissionStatus _permissionGranted;
+  // Check if location service is enable
+  _serviceEnabled = await location.serviceEnabled();
+  if (!_serviceEnabled) {
+    _serviceEnabled = await location.requestService();
+    if (!_serviceEnabled) {
+      return;
+    }
+  }
+  // Check if permission is granted
+  _permissionGranted = await location.hasPermission();
+  if (_permissionGranted == PermissionStatus.denied) {
+    _permissionGranted = await location.requestPermission();
+    if (_permissionGranted != PermissionStatus.granted) {
+      return;
+    }
+  }
+  final _locationData = await location.getLocation();
+  print(_locationData);
+  await appPreferences.setCurrentLocation(lat: _locationData.latitude!, long: _locationData.longitude!);
 }
