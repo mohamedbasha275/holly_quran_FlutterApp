@@ -16,7 +16,7 @@ class FullLoadingScreenImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _getItemsColumn([
-      _getSmallImage(ImageAssets.quran),
+      _getSmallImage(ImageAssets.loading),
       _getMessage(message),
     ]);
   }

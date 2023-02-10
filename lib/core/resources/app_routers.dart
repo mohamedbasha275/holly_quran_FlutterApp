@@ -4,10 +4,9 @@ import 'package:holly_quran/core/di/service_locator.dart';
 import 'package:holly_quran/features/azkar/presentation/views/azkar_masaa_view.dart';
 import 'package:holly_quran/features/azkar/presentation/views/azkar_sabah_view.dart';
 import 'package:holly_quran/features/hadith/presentation/views/hadith_view.dart';
+import 'package:holly_quran/features/hesn_muslim/presentation/view_models/hesn_cubit.dart';
 import 'package:holly_quran/features/hesn_muslim/presentation/views/hesn_muslim_view.dart';
-import 'package:holly_quran/features/home/data/models/book_model/book_model.dart';
 import 'package:holly_quran/features/home/data/models/quran/surah_model.dart';
-import 'package:holly_quran/features/home/data/repos/home_repo_impl.dart';
 import 'package:holly_quran/features/home/presentation/view_models/bottom_navBar/bottom_nav_bar_cubit.dart';
 import 'package:holly_quran/features/home/presentation/views/home_view.dart';
 import 'package:holly_quran/features/home/presentation/views/surah_view.dart';
@@ -48,7 +47,9 @@ abstract class AppRouters {
       ),
       GoRoute(
         path: Routes.hesnMuslimRoute,
-        builder: (context, state) => const HesnMuslimView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => HesnCubit()..fetchHesn(),
+          child: const HesnMuslimView()),
       ),
       GoRoute(
         path: Routes.hadithRoute,

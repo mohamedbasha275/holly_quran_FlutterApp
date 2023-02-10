@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holly_quran/core/resources/app_colors.dart';
+import 'package:holly_quran/core/resources/app_fonts.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
 
 class HomeBoxWidget extends StatelessWidget {
@@ -19,8 +20,10 @@ class HomeBoxWidget extends StatelessWidget {
       child: Row(
         children: [
           Image.asset(imagePath,width: AppSize.s40),
-          const SizedBox(width: AppPadding.p8,),
-          Text(title,style: Theme.of(context).textTheme.headlineLarge,),
+          const SizedBox(width: AppSize.s4),
+          Text(title,style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+            fontSize: FontSize.s16
+          )),
         ],
       ),
     );

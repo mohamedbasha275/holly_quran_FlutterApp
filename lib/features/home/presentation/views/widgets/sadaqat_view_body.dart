@@ -1,13 +1,10 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holly_quran/core/extension/extensions.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
-import 'package:holly_quran/core/resources/app_colors.dart';
 import 'package:holly_quran/core/resources/app_strings.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/features/common_widgets/awsome_dialoge.dart';
-import 'package:holly_quran/features/common_widgets/show_snackBar.dart';
 import 'package:holly_quran/features/common_widgets/state_renderer/state_render.dart';
 import 'package:holly_quran/features/home/presentation/view_models/sadaqat/sadaqat_cubit.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/sadaqat_widget.dart';
@@ -46,7 +43,7 @@ class SadaqatViewBody extends StatelessWidget {
                 builder: (context, state) {
                   if (state is SadaqatSuccess) {
                     return SizedBox(
-                      height: AppSize.s420,
+                      height: AppSize.s390,
                       child: SingleChildScrollView(
                         child: GridView.builder(
                           shrinkWrap: true,

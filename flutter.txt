@@ -32,16 +32,17 @@ flutter pub run flutter_native_splash:create
 flutter pub run change_app_package_name:main net.quran.holly
 // change name of the app
 -----------------------------------------------------------------------------------------
-// lanch icons of the app
+// launch icons of the app
 = install : flutter_launcher_icons
 flutter pub run flutter_launcher_icons:main
 -----------------------------------------------------------------------------------------
 //move key store to [project]/android/app
 //Create a file named [project]/android/key.properties that contains a reference to your keystore:
-storePassword=stack-01-2023
-keyPassword=stack-01-2023
+storePassword=quran-3-2021
+keyPassword=quran-3-2021
 keyAlias=stack
-storeFile=../app/stack-keystore.jks
+#storeFile=../app/stack-keystore.jks
+storeFile=../app/quran.keystore
 -----------------------------------------------------------------------------------------
 Configure gradle to use your upload key when building your app in release mode by editing the
     [project]/android/app/build.gradle file.

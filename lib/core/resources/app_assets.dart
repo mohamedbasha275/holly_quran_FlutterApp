@@ -3,7 +3,6 @@ const String jsonPath = "assets/json";
 
 class ImageAssets {
   static const String background = "$imagePath/background.jpeg";
-  static const String border = "$imagePath/border.jpg";
   static const String tasbih = "$imagePath/tasbih.png";
   static const String sadqat = "$imagePath/sadqat.png";
   static const String salah = "$imagePath/salah.png";
@@ -16,9 +15,9 @@ class ImageAssets {
   static const String tasbihCounter = "$imagePath/tasbihCounter.png";
   static const String star = "$imagePath/star.png";
   static const String quranStop = "$imagePath/quranStop.png";
-  static const String loadingImg = "$imagePath/loadingImg.png";
   static const String sadaqatLogo = "$imagePath/sadaqatLogo.png";
   static const String mosque = "$imagePath/mosque.png";
+  static const String loading = "$imagePath/dua.png";
 }
 
 class JsonAssets {

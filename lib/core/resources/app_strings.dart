@@ -7,7 +7,6 @@ class AppStrings {
   static const String azkarSabah = "أذكار الصباح";
   static const String azkarMasaa = "أذكار المساء";
   static const String hadith = "أحاديث نبوية";
-  static const String hadithTitle = "الأحاديث النبوية";
   static const String hesnMuslim = "حصن المسلم";
   static const String homeTitle = "أحب الأعمال إلي الله أدومها وإن قل";
   static const String tasbihCounter = 'تسبيح';

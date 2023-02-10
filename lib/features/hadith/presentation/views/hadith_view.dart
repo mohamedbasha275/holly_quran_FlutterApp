@@ -14,7 +14,7 @@ class HadithView extends StatelessWidget {
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(AppSize.s50),
-          child: MyAppBar(title: AppStrings.hadithTitle),
+          child: MyAppBar(title: AppStrings.hadith),
         ),
         body: HadithViewBody(),
       ),

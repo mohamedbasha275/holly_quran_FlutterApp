@@ -32,5 +32,7 @@ String getHijriDate(){
   String locale = 'ar';
   HijriCalendar today = HijriCalendar.now();
   HijriCalendar.setLocal(locale);
-  return(today.toFormat("dd MMMM yyyy"));
+  String day = today.getDayName();
+  String date = today.toFormat("dd MMMM yyyy");
+  return("$day $date");
 }
