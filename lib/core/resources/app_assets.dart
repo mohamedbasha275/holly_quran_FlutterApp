@@ -3,6 +3,7 @@ const String jsonPath = "assets/json";
 
 class ImageAssets {
   static const String background = "$imagePath/background.jpeg";
+  static const String border = "$imagePath/border2.jpeg";
   static const String tasbih = "$imagePath/tasbih.png";
   static const String sadqat = "$imagePath/sadqat.png";
   static const String salah = "$imagePath/salah.png";

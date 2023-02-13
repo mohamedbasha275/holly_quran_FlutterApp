@@ -35,6 +35,7 @@ class AppStrings {
   static const String nextSalah = 'الصلاة القادمة: ';
   static const String refreshLocation = 'تحديث المكان';
   static const String getLocation = 'قم بالتحديث لمكانك الحالي';
+  static const String soura = 'سورة';
   // hints
   static const String emailHint = 'email_hint';
   static const String invalidEmail = "email_error";

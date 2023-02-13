@@ -51,51 +51,55 @@ class _SurahViewBodyState extends State<SurahViewBody> {
       height: context.height,
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(ImageAssets.background),
-          fit: BoxFit.cover,
+          image: AssetImage(ImageAssets.border),
+          fit: BoxFit.fill,
         ),
       ),
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            if (widget.surah.id != 9)
-              Padding(
-                padding: const EdgeInsets.all(AppPadding.p8),
-                child: Text(
-                  quran.basmala,
-                  style:
-                      TextStyle(color: AppColors.black, fontSize: FontSize.s25),
+        child: Container(
+          margin: const EdgeInsets.all(AppMargin.m20),
+          child: Column(
+            children: [
+              if (widget.surah.id != 9 && widget.surah.id != 1) // touba
+                Padding(
+                  padding: const EdgeInsets.all(AppPadding.p8),
+                  child: Text(
+                    quran.basmala,
+                    style:
+                        TextStyle(color: AppColors.black, fontSize: FontSize.s25),
+                  ),
+                ),
+              RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  children: [
+                    for (int i = 1; i <= widget.surah.ayatNumber; i++)
+                      TextSpan(
+                        style: TextStyle(
+                          color: (stopSurah == widget.surah.id && stopAya == i)? AppColors.reset : color,
+                          fontSize: FontSize.s25,
+                        ),
+                        text: "${quran.getVerse(widget.surah.id, i)} "
+                            "${quran.getVerseEndSymbol(i)} ",
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            appPreferences.setStopReading(
+                                surah: widget.surah.id, aya: i);
+                            BlocProvider.of<QuranCubit>(context).fetchQuran();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              buildSnackBar(context, title: AppStrings.markStop),
+                            );
+                            setState(() {
+                              stopSurah = widget.surah.id;
+                              stopAya = i;
+                            });
+                          },
+                      ),
+                  ],
                 ),
               ),
-            RichText(
-              text: TextSpan(
-                children: [
-                  for (int i = 1; i <= widget.surah.ayatNumber; i++)
-                    TextSpan(
-                      style: TextStyle(
-                        color: (stopSurah == widget.surah.id && stopAya == i)? AppColors.reset : color,
-                        fontSize: FontSize.s25,
-                      ),
-                      text: "${quran.getVerse(widget.surah.id, i)} "
-                          "${quran.getVerseEndSymbol(i)} ",
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          appPreferences.setStopReading(
-                              surah: widget.surah.id, aya: i);
-                          BlocProvider.of<QuranCubit>(context).fetchQuran();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            buildSnackBar(context, title: AppStrings.markStop),
-                          );
-                          setState(() {
-                            stopSurah = widget.surah.id;
-                            stopAya = i;
-                          });
-                        },
-                    ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

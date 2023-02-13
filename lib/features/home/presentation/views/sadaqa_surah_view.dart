@@ -32,29 +32,33 @@ class SadaqaSurahView extends StatelessWidget {
           height: context.height,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(ImageAssets.background),
-              fit: BoxFit.cover,
+              image: AssetImage(ImageAssets.border),
+              fit: BoxFit.fill,
             ),
           ),
           child: SingleChildScrollView(
-            child: Column(
-              children: [
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      for (int i = start; i <= end; i++)
-                        TextSpan(
-                          style: TextStyle(
-                            color: AppColors.black,
-                            fontSize: FontSize.s25,
+            child: Container(
+              margin: const EdgeInsets.all(AppMargin.m20),
+              child: Column(
+                children: [
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      children: [
+                        for (int i = start; i <= end; i++)
+                          TextSpan(
+                            style: TextStyle(
+                              color: AppColors.black,
+                              fontSize: FontSize.s25,
+                            ),
+                            text: "${quran.getVerse(surahNumber, i)} "
+                                "${quran.getVerseEndSymbol(i)} ",
                           ),
-                          text: "${quran.getVerse(surahNumber, i)} "
-                              "${quran.getVerseEndSymbol(i)} ",
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
