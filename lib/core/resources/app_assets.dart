@@ -19,6 +19,9 @@ class ImageAssets {
   static const String sadaqatLogo = "$imagePath/sadaqatLogo.png";
   static const String mosque = "$imagePath/mosque.png";
   static const String loading = "$imagePath/dua.png";
+  static const String dayWheel = "$imagePath/infaq.png";
+  static const String dayWheelBorder = "$imagePath/wheel-border.png";
+  static const String dayWheelMark = "$imagePath/label.png";
 }
 
 class JsonAssets {

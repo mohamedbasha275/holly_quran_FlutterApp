@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:holly_quran/core/di/service_locator.dart';
 import 'package:holly_quran/features/azkar/presentation/views/azkar_masaa_view.dart';
 import 'package:holly_quran/features/azkar/presentation/views/azkar_sabah_view.dart';
+import 'package:holly_quran/features/day_wheel/presentation/views/day_wheel_view.dart';
 import 'package:holly_quran/features/hadith/presentation/views/hadith_view.dart';
 import 'package:holly_quran/features/hesn_muslim/presentation/view_models/hesn_cubit.dart';
 import 'package:holly_quran/features/hesn_muslim/presentation/views/hesn_muslim_view.dart';
@@ -15,7 +16,6 @@ import 'package:holly_quran/features/home/presentation/views/sadaqa_surah_view.d
 class Routes {
   // static const String splashRoute = "/";
   static const String homeRoute = "/";
-  static const String bookDetailsRoute = "/bookDetails";
   static const String searchRoute = "/search";
   static const String azkarSabahRoute = "/azkarSabah";
   static const String azkarMasaaRoute = "/azkarMasaa";
@@ -23,6 +23,7 @@ class Routes {
   static const String hesnMuslimRoute = "/hesnMuslim";
   static const String surahDetailsRoute = "/surahDetails";
   static const String sadaqaSurahViewRoute = "/sadaqaSurahView";
+  static const String dayWheelRoute = "/dayWheelView";
 }
 
 abstract class AppRouters {
@@ -58,6 +59,10 @@ abstract class AppRouters {
       GoRoute(
         path: Routes.surahDetailsRoute,
         builder: (context, state) => SurahView(surah: state.extra as SurahModel,),
+      ),
+      GoRoute(
+        path: Routes.dayWheelRoute,
+        builder: (context, state) => DayWheelView(),
       ),
       GoRoute(
         path: "${Routes.sadaqaSurahViewRoute}:id1/:id2",

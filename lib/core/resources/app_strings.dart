@@ -36,6 +36,8 @@ class AppStrings {
   static const String refreshLocation = 'تحديث المكان';
   static const String getLocation = 'قم بالتحديث لمكانك الحالي';
   static const String soura = 'سورة';
+  // wheel
+  static const String dayWheel = 'تحدي اليوم';
   // hints
   static const String emailHint = 'email_hint';
   static const String invalidEmail = "email_error";
