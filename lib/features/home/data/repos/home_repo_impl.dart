@@ -1,5 +1,4 @@
 import 'package:adhan/adhan.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:holly_quran/core/helper_functions/functions.dart';
 import 'package:holly_quran/core/shared_preferences/app_prefs.dart';
