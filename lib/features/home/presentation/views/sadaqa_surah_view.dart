@@ -10,16 +10,13 @@ import 'package:quran/quran.dart' as quran;
 class SadaqaSurahView extends StatelessWidget {
   final String name;
   final String pageNumber;
-  const SadaqaSurahView({super.key, required this.name,required this.pageNumber});
+
+  const SadaqaSurahView(
+      {super.key, required this.name, required this.pageNumber});
 
   @override
   Widget build(BuildContext context) {
-    //print(quran.getPageData(pageNumber));
     int pageNum = int.parse(pageNumber);
-    int surahNumber = quran.getPageData(pageNum)[0]['surah'];
-    int start = quran.getPageData(pageNum)[0]['start'];
-    int end = quran.getPageData(pageNum)[0]['end'];
-    print('object:$pageNum');
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -27,39 +24,12 @@ class SadaqaSurahView extends StatelessWidget {
           preferredSize: const Size.fromHeight(AppSize.s50),
           child: QuranAppBar(title: name),
         ),
-        body: Container(
-          padding: const EdgeInsets.all(AppPadding.p6),
-          height: context.height,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(ImageAssets.border),
-              fit: BoxFit.fill,
-            ),
-          ),
-          child: SingleChildScrollView(
-            child: Container(
-              margin: const EdgeInsets.all(AppMargin.m20),
-              child: Column(
-                children: [
-                  RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      children: [
-                        for (int i = start; i <= end; i++)
-                          TextSpan(
-                            style: TextStyle(
-                              color: AppColors.black,
-                              fontSize: FontSize.s25,
-                            ),
-                            text: "${quran.getVerse(surahNumber, i)} "
-                                "${quran.getVerseEndSymbol(i)} ",
-                          ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+        body: SizedBox(
+          height: double.infinity,
+          width: double.infinity,
+          child: Image.asset(
+            '$quranData$pageNum.png',
+            fit: BoxFit.fill,
           ),
         ),
       ),

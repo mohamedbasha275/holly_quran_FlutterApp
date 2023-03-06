@@ -10,6 +10,7 @@ class QuranInitial extends QuranState {}
 class QuranSuccess extends QuranState {
   final List<SurahModel> sours;
   final int stopSurah;
-  final int stopAya;
-  const QuranSuccess(this.sours,this.stopSurah,this.stopAya);
+  final int stopPage;
+  final String stopSurahName;
+  const QuranSuccess(this.sours,this.stopSurah,this.stopPage,this.stopSurahName);
 }

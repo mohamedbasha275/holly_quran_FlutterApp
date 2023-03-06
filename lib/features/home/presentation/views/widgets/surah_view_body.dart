@@ -1,106 +1,99 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holly_quran/core/di/service_locator.dart';
-import 'package:holly_quran/core/extension/extensions.dart';
-import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/app_colors.dart';
-import 'package:holly_quran/core/resources/app_fonts.dart';
+import 'package:holly_quran/core/resources/app_constants.dart';
 import 'package:holly_quran/core/resources/app_strings.dart';
-import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/core/shared_preferences/app_prefs.dart';
 import 'package:holly_quran/features/common_widgets/show_snackBar.dart';
 import 'package:holly_quran/features/home/data/models/quran/surah_model.dart';
 import 'package:holly_quran/features/home/presentation/view_models/quran/quran_cubit.dart';
-import 'package:quran/quran.dart' as quran;
+import 'package:holly_quran/features/home/presentation/views/widgets/soura_stack_widget.dart';
 
 class SurahViewBody extends StatefulWidget {
   final SurahModel surah;
+  final int stopPage;
 
-  const SurahViewBody({required this.surah, Key? key}) : super(key: key);
+  const SurahViewBody({required this.surah, required this.stopPage, Key? key})
+      : super(key: key);
 
   @override
   State<SurahViewBody> createState() => _SurahViewBodyState();
 }
 
 class _SurahViewBodyState extends State<SurahViewBody> {
-  int stopSurah = 1;
-  int stopAya = 1;
-  Color color = AppColors.black;
+  late final PageController boardController;
+  late final List<String> pages;
+  bool _showWidget = false;
+  int _currentPage = 1;
+  AppPreferences appPreferences = getIt.get<AppPreferences>();
 
-  Future<void> _bend() async{
-    AppPreferences appPreferences = getIt.get<AppPreferences>();
-    List<String> stop = await appPreferences.getStopReading();
-    setState(() {
-      stopSurah = int.parse(stop[0]);
-      stopAya = int.parse(stop[1]);
-    });
-  }
   @override
   void initState() {
-    _bend();
     super.initState();
+    boardController = PageController(initialPage: widget.stopPage - 1);
+    pages = BlocProvider.of<QuranCubit>(context).quranPages;
+    setState(() {
+      _currentPage = widget.stopPage;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    AppPreferences appPreferences = getIt.get<AppPreferences>();
-    print(stopSurah);
-    return Container(
-      padding: const EdgeInsets.all(AppPadding.p6),
-      height: context.height,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(ImageAssets.border),
-          fit: BoxFit.fill,
-        ),
-      ),
-      child: SingleChildScrollView(
-        child: Container(
-          margin: const EdgeInsets.all(AppMargin.m20),
-          child: Column(
-            children: [
-              if (widget.surah.id != 9 && widget.surah.id != 1) // touba
-                Padding(
-                  padding: const EdgeInsets.all(AppPadding.p8),
-                  child: Text(
-                    quran.basmala,
-                    style:
-                        TextStyle(color: AppColors.black, fontSize: FontSize.s25),
-                  ),
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _showWidget = !_showWidget;
+        });
+        Future.delayed(const Duration(seconds: AppConstants.souraAppBarView),
+            () {
+          setState(() {
+            _showWidget = false;
+          });
+        });
+      },
+      child: Stack(
+        children: [
+          PageView.builder(
+            physics: const BouncingScrollPhysics(),
+            controller: boardController,
+            onPageChanged: (index) {
+              setState(() {
+                _currentPage = index + 1;
+              });
+            },
+            allowImplicitScrolling: false,
+            itemBuilder: (context, index) {
+              return SizedBox(
+                height: double.infinity,
+                width: double.infinity,
+                child: Image.asset(
+                  pages[index],
+                  fit: BoxFit.fill,
                 ),
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  children: [
-                    for (int i = 1; i <= widget.surah.ayatNumber; i++)
-                      TextSpan(
-                        style: TextStyle(
-                          color: (stopSurah == widget.surah.id && stopAya == i)? AppColors.reset : color,
-                          fontSize: FontSize.s25,
-                        ),
-                        text: "${quran.getVerse(widget.surah.id, i)} "
-                            "${quran.getVerseEndSymbol(i)} ",
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            appPreferences.setStopReading(
-                                surah: widget.surah.id, aya: i);
-                            BlocProvider.of<QuranCubit>(context).fetchQuran();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              buildSnackBar(context, title: AppStrings.markStop),
-                            );
-                            setState(() {
-                              stopSurah = widget.surah.id;
-                              stopAya = i;
-                            });
-                          },
-                      ),
-                  ],
-                ),
-              ),
-            ],
+              );
+            },
+            itemCount: pages.length,
           ),
-        ),
+          _showWidget
+              ? SouraStackWidget(
+                  functionMark: () {
+                    String surah = BlocProvider.of<QuranCubit>(context)
+                        .getCurrentSouraName(page: _currentPage);
+                    appPreferences.setStopReading(
+                      surah: widget.surah.id,
+                      page: _currentPage,
+                      surahName: surah,
+                      //surahName: soura.name,
+                    );
+                    BlocProvider.of<QuranCubit>(context).fetchQuran();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      buildSnackBar(context, title: AppStrings.markStop,background: AppColors.primary,),
+                    );
+                  },
+                )
+              : Container(),
+        ],
       ),
     );
   }

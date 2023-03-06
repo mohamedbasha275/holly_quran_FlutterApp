@@ -5,4 +5,5 @@ class AppConstants {
   static const int tasbihSpeedTime = 500;
   static const int snackBarSpeedTime = 800;
   static const int dayWheelSpeed = 1000;
+  static const int souraAppBarView = 5;
 }

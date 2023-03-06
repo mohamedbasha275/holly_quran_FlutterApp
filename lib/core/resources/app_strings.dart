@@ -15,8 +15,8 @@ class AppStrings {
   static const String madinah = 'مدنية';
   static const String aya = 'آية';
   static const String stopReading = 'توقفت عن القراءة عند :';
-  static const String stopAya = 'الآية';
-  static const String stopSurah = 'من سورة';
+  static const String stopPage = 'الصفحة رقم';
+  static const String stopSurah = 'سورة';
   static const String completeReading = 'اضغط لاستكمال القراءة';
   static const String loading = "جاري التحميل...";
   static const String ok = "تم";
@@ -36,6 +36,10 @@ class AppStrings {
   static const String refreshLocation = 'تحديث المكان';
   static const String getLocation = 'قم بالتحديث لمكانك الحالي';
   static const String soura = 'سورة';
+  // ihdaa
+  static const String ihdaa = 'اهداءات';
+  static const String content = 'المحتوي';
+  static const String noData = 'يرجي ادخال بيانات كاملة';
   // wheel
   static const String dayWheel = 'تحدي اليوم';
   // hints

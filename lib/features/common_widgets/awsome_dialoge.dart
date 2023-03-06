@@ -1,4 +1,3 @@
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +10,9 @@ import 'package:holly_quran/features/home/presentation/view_models/sadaqat/sadaq
 
 class AppAwesomeDialog extends StatelessWidget {
   final TextEditingController controller;
-  const AppAwesomeDialog({required this.controller,Key? key}) : super(key: key);
+
+  const AppAwesomeDialog({required this.controller, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,8 @@ class AppAwesomeDialog extends StatelessWidget {
               body: Center(
                 child: Column(
                   children: [
-                    const Text(AppStrings.sadaqaName,
+                    const Text(
+                      AppStrings.sadaqaName,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: AppSize.s10),
@@ -53,8 +55,11 @@ class AppAwesomeDialog extends StatelessWidget {
                       .addOneSadaqa(name: controller.text)
                       .then((value) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      buildSnackBar(context,
-                          title: AppStrings.nameSaved),
+                      buildSnackBar(
+                        context,
+                        title: AppStrings.nameSaved,
+                        background: AppColors.primary,
+                      ),
                     );
                   });
                 }

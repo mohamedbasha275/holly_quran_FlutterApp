@@ -17,6 +17,7 @@ class HomeViewBody extends StatelessWidget {
       AppStrings.hadith,
       AppStrings.hesnMuslim,
       AppStrings.dayWheel,
+      AppStrings.ihdaa,
     ];
     final iconsList = <String>[
       ImageAssets.azkarSabah,
@@ -24,6 +25,7 @@ class HomeViewBody extends StatelessWidget {
       ImageAssets.hadith,
       ImageAssets.hesnMuslim,
       ImageAssets.dayWheel,
+      ImageAssets.ihdaa,
     ];
     final routesList = <String>[
       Routes.azkarSabahRoute,
@@ -31,6 +33,7 @@ class HomeViewBody extends StatelessWidget {
       Routes.hadithRoute,
       Routes.hesnMuslimRoute,
       Routes.dayWheelRoute,
+      Routes.ihdaaRoute,
     ];
     return Container(
       height: context.height,

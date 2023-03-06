@@ -18,7 +18,8 @@ class SurahWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        GoRouter.of(context).push(Routes.surahDetailsRoute,extra: surah);
+        GoRouter.of(context).pushNamed(Routes.surahDetailsRoute,
+            params: {'id1': "${surah.id}", 'id2': '${surah.pageNumber}'});
       },
       child: Container(
         margin: const EdgeInsets.only(top: AppMargin.m8),

@@ -7,7 +7,8 @@ import 'package:holly_quran/features/home/presentation/views/widgets/surah_view_
 
 class SurahView extends StatelessWidget {
   final SurahModel surah;
-  const SurahView({super.key, required this.surah});
+  final String stopPage;
+  const SurahView({super.key, required this.surah, required this.stopPage});
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +16,10 @@ class SurahView extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(AppSize.s50),
+          preferredSize: const Size.fromHeight(AppSize.s0),
           child: QuranAppBar(title: "${AppStrings.soura} ${surah.name}"),
         ),
-        body: SurahViewBody(surah: surah),
+        body: SurahViewBody(surah: surah,stopPage: int.parse(stopPage)),
       ),
     );
   }

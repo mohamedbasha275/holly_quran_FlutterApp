@@ -11,12 +11,28 @@ class QuranCubit extends Cubit<QuranState> {
   final HomeRepo homeRepo;
   QuranCubit(this.homeRepo) : super(QuranInitial());
 
+  List<String> quranPages = [];
+  List<SurahModel> sours = [];
+
+  String getCurrentSouraName({required int page}){
+    SurahModel soura = sours.lastWhere((element) => element.pageNumber <= page);
+    return soura.name;
+  }
   Future<void> fetchQuran() async{
+    quranPages = [];
     AppPreferences appPreferences = getIt.get<AppPreferences>();
     List<String> stop = await appPreferences.getStopReading();
     int stopSurah = int.parse(stop[0]);
-    int stopAya = int.parse(stop[1]);
+    int stopPage = int.parse(stop[1]);
+    String stopSurahName = stop[2];
     var result =  homeRepo.fetchQuran();
-    emit(QuranSuccess(result,stopSurah,stopAya));
+    //
+    for(var i=1;i<=604;i++){
+      quranPages.add('assets/quran_data/$i.png');
+    }
+    //
+    sours = result;
+    //
+    emit(QuranSuccess(result,stopSurah,stopPage,stopSurahName));
   }
 }

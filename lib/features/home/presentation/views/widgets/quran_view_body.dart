@@ -12,7 +12,6 @@ import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/features/common_widgets/state_renderer/state_render.dart';
 import 'package:holly_quran/features/home/presentation/view_models/quran/quran_cubit.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/surah_widget.dart';
-import 'package:quran/quran.dart' as quran;
 
 class QuranViewBody extends StatelessWidget {
   const QuranViewBody({Key? key}) : super(key: key);
@@ -27,7 +26,7 @@ class QuranViewBody extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      child:  BlocBuilder<QuranCubit, QuranState>(
+      child: BlocBuilder<QuranCubit, QuranState>(
         builder: (context, state) {
           if (state is QuranSuccess) {
             return SingleChildScrollView(
@@ -39,7 +38,8 @@ class QuranViewBody extends StatelessWidget {
                     width: context.width,
                     child: TextButton(
                       onPressed: () {
-                        GoRouter.of(context).push(Routes.surahDetailsRoute,extra: state.sours[state.stopSurah-1]);
+                        GoRouter.of(context).pushNamed(Routes.surahDetailsRoute,
+                            params: {'id1': "${state.stopSurah}", 'id2': '${state.stopPage}'});
                       },
                       child: Card(
                         elevation: AppSize.s4,
@@ -55,17 +55,17 @@ class QuranViewBody extends StatelessWidget {
                                 const SizedBox(width: AppSize.s10),
                                 Text(AppStrings.stopReading,
                                     style:
-                                    Theme.of(context).textTheme.titleSmall),
+                                        Theme.of(context).textTheme.titleSmall),
                               ],
                             ),
                             Text(
-                              '${AppStrings.stopAya} ( ${arNumber('${state.stopAya}')} ) ${AppStrings.stopSurah}  ${quran.getSurahNameArabic(state.stopSurah)}',
+                              '${AppStrings.stopPage} ( ${arNumber('${state.stopPage}')} ) ${AppStrings.stopSurah} ${state.stopSurahName}',
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall!
                                   .copyWith(
-                                fontSize: FontSize.s14,
-                              ),
+                                    fontSize: FontSize.s14,
+                                  ),
                             ),
                             const SizedBox(height: AppSize.s4),
                             Text(
@@ -74,9 +74,9 @@ class QuranViewBody extends StatelessWidget {
                                   .textTheme
                                   .titleSmall!
                                   .copyWith(
-                                fontSize: FontSize.s12,
-                                color: AppColors.secondary,
-                              ),
+                                    fontSize: FontSize.s12,
+                                    color: AppColors.secondary,
+                                  ),
                             ),
                           ],
                         ),
@@ -88,7 +88,7 @@ class QuranViewBody extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     padding: const EdgeInsets.all(AppPadding.p8),
                     gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 1,
                       childAspectRatio: 10 / 2,
                       // crossAxisSpacing: AppSize.s12, // افقي

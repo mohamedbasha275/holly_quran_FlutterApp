@@ -70,15 +70,15 @@ class AppPreferences {
   }
   //***************************************************************************//
   // stop read surah
-  Future<void> setStopReading({required int surah,required int aya}) async {
-    _sharedPreferences.setStringList(STOP_READING_KEY, ['$surah','$aya']);
+  Future<void> setStopReading({required int surah,required int page,required String surahName}) async {
+    _sharedPreferences.setStringList(STOP_READING_KEY, ['$surah','$page',surahName]);
   }
   Future<List<String>> getStopReading() async {
     List<String>? stop = _sharedPreferences.getStringList(STOP_READING_KEY);
     if (stop != null) {
       return stop;
     } else {
-      return ['1','1'];
+      return ['1','1','الفاتحة'];
     }
   }
   // sadaqat

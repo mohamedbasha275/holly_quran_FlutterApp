@@ -3,11 +3,11 @@ import 'package:holly_quran/core/resources/app_colors.dart';
 import 'package:holly_quran/core/resources/app_constants.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
 
-SnackBar buildSnackBar(BuildContext context, {required String title}) {
+SnackBar buildSnackBar(BuildContext context, {required String title,required Color background}) {
   return SnackBar(
     duration: const Duration(
         milliseconds: AppConstants.snackBarSpeedTime),
-    backgroundColor: AppColors.primary,
+    backgroundColor: background,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
         topRight: Radius.circular(AppSize.s20),

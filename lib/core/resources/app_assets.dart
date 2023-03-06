@@ -1,5 +1,6 @@
 const String imagePath = "assets/images";
 const String jsonPath = "assets/json";
+const String quranData = "assets/quran_data/";
 
 class ImageAssets {
   static const String background = "$imagePath/background.jpeg";
@@ -22,6 +23,9 @@ class ImageAssets {
   static const String dayWheel = "$imagePath/infaq.png";
   static const String dayWheelBorder = "$imagePath/wheel-border.png";
   static const String dayWheelMark = "$imagePath/label.png";
+  static const String generalIhdaa = "$imagePath/ihdaa_back2.jpeg";
+  static const String ramadanIhdaa = "$imagePath/ihdaa_back.jpeg";
+  static const String ihdaa = "$imagePath/moon.png";
 }
 
 class JsonAssets {

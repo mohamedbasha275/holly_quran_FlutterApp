@@ -26,7 +26,8 @@ class SadaqatWidget extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {
                 Random random = Random();
-                int quranPageCount = quran.totalPagesCount;
+                //int quranPageCount = quran.totalPagesCount;
+                int quranPageCount = 604;
                 int randomPageNumber = random.nextInt(quranPageCount) + 1; // ad 1 to ignore 0
                // GoRouter.of(context).push(Routes.sadaqaSurahViewRoute,extra: title);
                 GoRouter.of(context).pushNamed(Routes.sadaqaSurahViewRoute,
