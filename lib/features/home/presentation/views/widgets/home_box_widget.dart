@@ -8,23 +8,76 @@ class HomeBoxWidget extends StatelessWidget {
   final String title;
   final String imagePath;
   final String route;
-  const HomeBoxWidget({required this.title,required this.imagePath,required this.route,Key? key}) : super(key: key);
+
+  const HomeBoxWidget(
+      {required this.title,
+      required this.imagePath,
+      required this.route,
+      Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: (){
+      onPressed: () {
         GoRouter.of(context).push(route);
       },
-      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(AppColors.secondary),),
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(AppColors.secondary),
+      ),
       child: Row(
         children: [
-          Image.asset(imagePath,width: AppSize.s40),
+          Image.asset(imagePath, width: AppSize.s40),
           const SizedBox(width: AppSize.s4),
-          Text(title,style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-            fontSize: FontSize.s16
-          )),
+          Text(title,
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineLarge!
+                  .copyWith(fontSize: FontSize.s16)),
         ],
+      ),
+    );
+  }
+}
+
+class HomeBoxWidget2 extends StatelessWidget {
+  final String title;
+  final String imagePath;
+  final String route;
+
+  const HomeBoxWidget2(
+      {required this.title,
+      required this.imagePath,
+      required this.route,
+      Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        GoRouter.of(context).push(route);
+      },
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(AppColors.secondary),
+        padding: MaterialStateProperty.all(EdgeInsets.zero),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Image.asset(imagePath, width: AppSize.s40),
+            const SizedBox(width: AppSize.s4),
+            Text(
+              title,
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineLarge!
+                  .copyWith(fontSize: FontSize.s14),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }

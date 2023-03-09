@@ -36,6 +36,7 @@ class AppStrings {
   static const String refreshLocation = 'تحديث المكان';
   static const String getLocation = 'قم بالتحديث لمكانك الحالي';
   static const String soura = 'سورة';
+  static const String quranAgzaa = 'أجزاء القرآن';
   // ihdaa
   static const String ihdaa = 'اهداءات';
   static const String content = 'المحتوي';

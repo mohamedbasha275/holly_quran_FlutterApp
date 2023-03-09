@@ -26,6 +26,12 @@ class ImageAssets {
   static const String generalIhdaa = "$imagePath/ihdaa_back2.jpeg";
   static const String ramadanIhdaa = "$imagePath/ihdaa_back.jpeg";
   static const String ihdaa = "$imagePath/moon.png";
+  static const String agzaa = "$imagePath/agzaa.png";
+  static const String settings = "$imagePath/settings.png";
+  static const String about = "$imagePath/about.png";
+  static const String rating = "$imagePath/rating.png";
+  static const String share = "$imagePath/share.png";
+  static const String werd = "$imagePath/werd.png";
 }
 
 class JsonAssets {

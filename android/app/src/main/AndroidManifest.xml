@@ -4,7 +4,20 @@
         android:label="إسلامنا"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+       <receiver
+           android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
+           android:exported="true">
+           <intent-filter>
+               <action android:name="android.intent.action.BOOT_COMPLETED" />
+               <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+           </intent-filter>
+       </receiver>
+<!--       <meta-data-->
+<!--           android:name="com.dexterous.flutterlocalnotifications.default_sound"-->
+<!--           android:resource="@raw/my_sound"/>-->
         <activity
+            android:showWhenLocked="true"
+            android:turnScreenOn="true"
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"

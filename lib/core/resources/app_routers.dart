@@ -14,6 +14,9 @@ import 'package:holly_quran/features/home/presentation/views/home_view.dart';
 import 'package:holly_quran/features/home/presentation/views/surah_view.dart';
 import 'package:holly_quran/features/home/presentation/views/sadaqa_surah_view.dart';
 import 'package:holly_quran/features/ihdaa/ihdaa_view.dart';
+import 'package:holly_quran/features/quran_agzaa/presentation/view_models/agzaa_cubit.dart';
+import 'package:holly_quran/features/quran_agzaa/presentation/views/juzh_view.dart';
+import 'package:holly_quran/features/quran_agzaa/presentation/views/quran_agzaa_view.dart';
 
 class Routes {
   // static const String splashRoute = "/";
@@ -27,6 +30,8 @@ class Routes {
   static const String sadaqaSurahViewRoute = "/sadaqaSurahView";
   static const String dayWheelRoute = "/dayWheelView";
   static const String ihdaaRoute = "/ihdaaView";
+  static const String quranAgzaa = "/quranAgzaa";
+  static const String juzhDetailsRoute = "/juzhDetailsRoute";
 }
 
 abstract class AppRouters {
@@ -53,18 +58,27 @@ abstract class AppRouters {
         path: Routes.hesnMuslimRoute,
         builder: (context, state) => BlocProvider(
           create: (context) => HesnCubit()..fetchHesn(),
-          child: const HesnMuslimView()),
+          child: const HesnMuslimView(),
+        ),
       ),
       GoRoute(
         path: Routes.hadithRoute,
         builder: (context, state) => const HadithView(),
       ),
       GoRoute(
+        path: Routes.quranAgzaa,
+        builder: (context, state) => BlocProvider(
+          create: (context) => AgzaaCubit()..fetchAgzaa(),
+          child: const QuranAgzaaView(),
+        ),
+      ),
+      GoRoute(
         path: "${Routes.surahDetailsRoute}:id1/:id2",
         name: Routes.surahDetailsRoute,
-        builder: (context, state){
+        builder: (context, state) {
           String surahId = state.params['id1'] as String;
-          SurahModel model = BlocProvider.of<QuranCubit>(context).sours[int.parse(surahId) - 1];
+          SurahModel model = BlocProvider.of<QuranCubit>(context)
+              .sours[int.parse(surahId) - 1];
           return SurahView(
             //surah:  state.params['id1'] as SurahModel,
             surah: model,
@@ -72,6 +86,23 @@ abstract class AppRouters {
           );
         },
         //builder: (context, state) => SurahView(),
+      ),
+      GoRoute(
+        path: "${Routes.juzhDetailsRoute}:id1/:id2",
+        name: Routes.juzhDetailsRoute,
+        builder: (context, state) => BlocProvider(
+          create: (context) {
+            var startPage  = state.params['id1'] as String;
+            var endPage  = state.params['id2'] as String;
+            return AgzaaCubit()
+              ..fetchJuzhPages(start: int.parse(startPage),
+                  end: int.parse(endPage));
+          },
+          child: JuzhView(
+            startPage: state.params['id1'] as String,
+            //endPage: state.params['id2'] as String,
+          ),
+        ),
       ),
       GoRoute(
         path: Routes.dayWheelRoute,
@@ -85,9 +116,8 @@ abstract class AppRouters {
         path: "${Routes.sadaqaSurahViewRoute}:id1/:id2",
         name: Routes.sadaqaSurahViewRoute,
         builder: (context, state) => SadaqaSurahView(
-          name: state.params['id1'] as String,
-          pageNumber: state.params['id2'] as String
-        ),
+            name: state.params['id1'] as String,
+            pageNumber: state.params['id2'] as String),
       ),
       // GoRoute(
       //   path: Routes.bookDetailsRoute,
