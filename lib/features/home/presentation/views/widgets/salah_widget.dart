@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holly_quran/core/helper_functions/functions.dart';
 import 'package:holly_quran/core/resources/app_colors.dart';
 import 'package:holly_quran/core/resources/app_fonts.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/features/home/data/models/salah/surah_model.dart';
+import 'package:holly_quran/features/home/presentation/view_models/salah/salah_cubit.dart';
 
 class SalahWidget extends StatelessWidget {
   final SalahModel salah;
   final bool isNext;
-  const SalahWidget({required this.salah, required this.isNext, Key? key}) : super(key: key);
+
+  const SalahWidget({required this.salah, required this.isNext, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +50,10 @@ class SalahWidget extends StatelessWidget {
             ),
             Text(
               arTime(salah.time),
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                color: color,
-                fontSize: FontSize.s14
-              ),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall!
+                  .copyWith(color: color, fontSize: FontSize.s14),
             ),
           ],
         ),

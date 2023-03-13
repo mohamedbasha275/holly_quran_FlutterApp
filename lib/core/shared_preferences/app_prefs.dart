@@ -75,7 +75,7 @@ class AppPreferences {
   }
   Future<List<String>> getStopReading() async {
     List<String>? stop = _sharedPreferences.getStringList(STOP_READING_KEY);
-    if (stop != null) {
+    if (stop != null && stop.length >= 3) {
       return stop;
     } else {
       return ['1','1','الفاتحة'];

@@ -25,8 +25,8 @@ class _HomeViewBodyState extends State<HomeViewBody> {
       AppStrings.azkarSabah,
       AppStrings.azkarMasaa,
       AppStrings.hadith,
-      'ورد اليوم',
-      'أجزاء القرآن',
+      AppStrings.werdDay,
+      AppStrings.quranAgzaa,
       AppStrings.hesnMuslim,
     ];
     final iconsList2 = <String>[
@@ -41,17 +41,25 @@ class _HomeViewBodyState extends State<HomeViewBody> {
       Routes.azkarSabahRoute,
       Routes.azkarMasaaRoute,
       Routes.hadithRoute,
-      Routes.hesnMuslimRoute,  // werd
+      Routes.hesnMuslimRoute, // werd
       Routes.quranAgzaa,
       Routes.hesnMuslimRoute,
+    ];
+    final typesList2 = <String>[
+      'screen',
+      'screen',
+      'screen',
+      'screen',
+      'screen',
+      'screen',
     ];
     final titlesList1 = <String>[
       AppStrings.dayWheel,
       AppStrings.ihdaa,
-      'عن التطبيق',
-      'شارك التطبيق',
-      'تقييمنا',
-      'الإعدادات',
+      AppStrings.aboutApp,
+      AppStrings.shareApp,
+      AppStrings.rateUs,
+      AppStrings.settings,
     ];
     final iconsList1 = <String>[
       ImageAssets.dayWheel,
@@ -69,9 +77,17 @@ class _HomeViewBodyState extends State<HomeViewBody> {
       Routes.dayWheelRoute, // rating
       Routes.ihdaaRoute, // settings
     ];
+    final typesList1 = <String>[
+      'screen',
+      'screen',
+      'screen',
+      'share',
+      'url',
+      'screen',
+    ];
     final screensList = [
-      {'titles': titlesList1, 'routes': routesList1, 'icons': iconsList1},
-      {'titles': titlesList2, 'routes': routesList2, 'icons': iconsList2},
+      {'titles': titlesList1, 'routes': routesList1, 'icons': iconsList1,'types': typesList1},
+      {'titles': titlesList2, 'routes': routesList2, 'icons': iconsList2,'types': typesList2},
     ];
     return Container(
       height: context.height,
@@ -104,8 +120,12 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SingleChildScrollView(
-                    child: buildContainerScreen(screensList[index]['titles'],
-                        screensList[index]['icons'],screensList[index]['routes']),
+                    child: buildContainerScreen(
+                      screensList[index]['titles'],
+                      screensList[index]['icons'],
+                      screensList[index]['routes'],
+                      screensList[index]['types'],
+                    ),
                   ),
                 );
               },
@@ -148,7 +168,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
     );
   }
 
-  Container buildContainerScreen(titlesList,iconsList,routesList) {
+  Container buildContainerScreen(titlesList, iconsList, routesList,typesList) {
     return Container(
       width: double.infinity,
       child: Container(
@@ -167,10 +187,14 @@ class _HomeViewBodyState extends State<HomeViewBody> {
               mainAxisSpacing: AppSize.s20, // رأسي
             ),
             itemCount: titlesList.length,
-            itemBuilder: (context, index) => HomeBoxWidget2(
+            itemBuilder: (context, index) {
+              return HomeBoxWidget2(
                 title: titlesList[index],
                 imagePath: iconsList[index],
-                route: routesList[index]),
+                route: routesList[index],
+                type: typesList[index],
+              );
+            },
           ),
         ),
       ),

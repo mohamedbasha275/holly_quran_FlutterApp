@@ -1,5 +1,6 @@
 class AppConstants {
   static const String appName = 'إسلامنا';
+  static const String googlePlayUrl = 'https://play.google.com/store/apps/details?id=net.quran.holly';
   static const int bottomNavSpeedTime = 500;
   static const int expandSpeedTime = 10;
   static const int tasbihSpeedTime = 500;

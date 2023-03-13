@@ -9,7 +9,7 @@ class AppStrings {
   static const String hadith = "أحاديث نبوية";
   static const String hesnMuslim = "حصن المسلم";
   static const String homeTitle = "أحب الأعمال إلي الله أدومها وإن قل";
-  static const String tasbihCounter = 'تسبيح';
+  static const String tasbihCounter = 'اضغط';
   static const String tasbihReset = 'إستعادة';
   static const String makkah = 'مكية';
   static const String madinah = 'مدنية';
@@ -37,6 +37,12 @@ class AppStrings {
   static const String getLocation = 'قم بالتحديث لمكانك الحالي';
   static const String soura = 'سورة';
   static const String quranAgzaa = 'أجزاء القرآن';
+  static const String werdDay = 'ورد اليوم';
+  static const String inviteShareApp = 'ادعوك لتحميل التطبيق الآن';
+  static const String  shareApp = 'شارك التطبيق';
+  static const String aboutApp = 'عن التطبيق';
+  static const String rateUs = 'تقييمنا';
+  static const String settings = 'الإعدادات';
   // ihdaa
   static const String ihdaa = 'اهداءات';
   static const String content = 'المحتوي';

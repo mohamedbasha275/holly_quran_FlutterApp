@@ -30,6 +30,18 @@ class SalahCubit extends Cubit<SalahState> {
     int nextSalahIndex = getNextSalahIndex(result);
     emit(SalahSuccess(result,nextSalahIndex));
   }
+
+  // convert seconds to time
+  // String getReminderTime({required SalahModel item}){
+  //   DateTime dt1 = DateTime.now();
+  //   DateTime dt2 = item.dateTime;
+  //   Duration diff = dt2.difference(dt1);
+  //   Duration duration = Duration(seconds: diff.inSeconds);
+  //   int hours = duration.inHours;
+  //   int minutes = (duration.inMinutes - hours * 60);
+  //   int seconds = (duration.inSeconds - hours * 3600 - minutes * 60);
+  //   return('$hours:$minutes:$seconds');
+  // }
 }
 // getNextSalahIndex
 int getNextSalahIndex(List<SalahModel> list){
@@ -40,7 +52,7 @@ int getNextSalahIndex(List<SalahModel> list){
       DateTime dt1 = DateTime.now();
       DateTime dt2 = item.dateTime;
       Duration diff = dt2.difference(dt1);
-      if(diff.inMinutes > 0){
+      if(diff.inSeconds > 0){
         allNext.add(item.id - 1);
       }
     }
