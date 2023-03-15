@@ -8,11 +8,11 @@ import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/features/common_widgets/awsome_dialoge.dart';
 import 'package:holly_quran/features/common_widgets/show_snackBar.dart';
 import 'package:holly_quran/features/common_widgets/state_renderer/state_render.dart';
-import 'package:holly_quran/features/home/presentation/view_models/sadaqat/sadaqat_cubit.dart';
-import 'package:holly_quran/features/home/presentation/views/widgets/sadaqat_widget.dart';
+import 'package:holly_quran/features/daily_werd/presentation/view_models/werd_cubit.dart';
+import 'package:holly_quran/features/daily_werd/presentation/views/widgets/werd_widget.dart';
 
-class SadaqatViewBody extends StatelessWidget {
-  const SadaqatViewBody({Key? key}) : super(key: key);
+class WerdViewBody extends StatelessWidget {
+  const WerdViewBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +38,8 @@ class SadaqatViewBody extends StatelessWidget {
               AppAwesomeDialog(
                 controller: nameController,
                 function: () {
-                  BlocProvider.of<SadaqatCubit>(context)
-                      .addOneSadaqa(name: nameController.text)
+                  BlocProvider.of<WerdCubit>(context)
+                      .addOneWerd(name: nameController.text)
                       .then((value) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       buildSnackBar(
@@ -55,12 +55,25 @@ class SadaqatViewBody extends StatelessWidget {
                 AppStrings.sadaqatSubTitle,
                 textAlign: TextAlign.center,
               ),
+          TextButton(
+            onPressed: () async {
+              await BlocProvider.of<WerdCubit>(context).updateAllWerd();
+            },
+            style: ButtonStyle(
+              padding: MaterialStateProperty.all(EdgeInsets.zero),
+            ),
+            child: CircleAvatar(
+              child: Icon(
+                Icons.rotate_left_outlined,
+                color: AppColors.white,
+              ),
+            ),),
               const Divider(),
-              BlocBuilder<SadaqatCubit, SadaqatState>(
+              BlocBuilder<WerdCubit, WerdState>(
                 builder: (context, state) {
-                  if (state is SadaqatSuccess) {
+                  if (state is WerdSuccess) {
                     return SizedBox(
-                      height: AppSize.s390,
+                      height: AppSize.s420,
                       child: SingleChildScrollView(
                         child: GridView.builder(
                           shrinkWrap: true,
@@ -69,18 +82,18 @@ class SadaqatViewBody extends StatelessWidget {
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 1,
-                            childAspectRatio: 10 / 2,
+                            childAspectRatio: 10 / 3,
                           ),
                           //itemCount: state.sours.length,
-                          itemCount: state.sadaqat.length,
-                          itemBuilder: (context, index) => SadaqatWidget(
-                            title: state.sadaqat[index],
+                          itemCount: state.werds.length,
+                          itemBuilder: (context, index) => WerdWidget(
+                            werd: state.werds[index],
                             index: index,
                           ),
                         ),
                       ),
                     );
-                  } else if (state is SadaqatLoading) {
+                  } else if (state is WerdLoading) {
                     return const FullLoadingScreenAnimated(
                         message: AppStrings.addSadaqa);
                   } else {

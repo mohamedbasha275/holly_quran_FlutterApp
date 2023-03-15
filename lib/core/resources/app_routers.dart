@@ -3,6 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:holly_quran/core/di/service_locator.dart';
 import 'package:holly_quran/features/azkar/presentation/views/azkar_masaa_view.dart';
 import 'package:holly_quran/features/azkar/presentation/views/azkar_sabah_view.dart';
+import 'package:holly_quran/features/contact_us/presentation/contact_us_view.dart';
+import 'package:holly_quran/features/contact_us/presentation/widgets/contact_us_view_body.dart';
+import 'package:holly_quran/features/daily_werd/data/repos/werd_repo.dart';
+import 'package:holly_quran/features/daily_werd/data/repos/werd_repo_impl.dart';
+import 'package:holly_quran/features/daily_werd/presentation/view_models/werd_cubit.dart';
+import 'package:holly_quran/features/daily_werd/presentation/views/werd_view.dart';
 import 'package:holly_quran/features/day_wheel/presentation/views/day_wheel_view.dart';
 import 'package:holly_quran/features/hadith/presentation/views/hadith_view.dart';
 import 'package:holly_quran/features/hesn_muslim/presentation/view_models/hesn_cubit.dart';
@@ -32,6 +38,8 @@ class Routes {
   static const String ihdaaRoute = "/ihdaaView";
   static const String quranAgzaa = "/quranAgzaa";
   static const String juzhDetailsRoute = "/juzhDetailsRoute";
+  static const String werdViewRoute = "/werdViewRoute";
+  static const String contactViewRoute = "/contactViewRoute";
 }
 
 abstract class AppRouters {
@@ -107,6 +115,17 @@ abstract class AppRouters {
       GoRoute(
         path: Routes.dayWheelRoute,
         builder: (context, state) => const DayWheelView(),
+      ),
+      GoRoute(
+        path: Routes.contactViewRoute,
+        builder: (context, state) => const ContactUsView(),
+      ),
+      GoRoute(
+        path: Routes.werdViewRoute,
+        builder: (context, state) => BlocProvider(
+          create: (context) => WerdCubit(getIt.get<WerdRepoImpl>())..fetchWerds(),
+          child: const WerdView(),
+        ),
       ),
       GoRoute(
         path: Routes.ihdaaRoute,

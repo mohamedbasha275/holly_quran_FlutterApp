@@ -4,9 +4,10 @@ class AppColors {
   static const MaterialColor primarySwatch = Colors.deepPurple;
   static Color primary = const Color.fromRGBO(82, 72, 195, 1);
   static Color splash = Colors.deepPurpleAccent;
-  static Color ihdaaSignatureBoard = Color.fromRGBO(57, 39, 59, 1);
+  static Color ihdaaSignatureBoard = const Color.fromRGBO(57, 39, 59, 1);
   static Color secondary = Colors.amber;
   static Color reset = Colors.redAccent;
+  static Color green = Colors.green;
   static Color expansion = Colors.deepPurple[50]!;
   static Color white = Colors.white;
   static Color black = Colors.black;

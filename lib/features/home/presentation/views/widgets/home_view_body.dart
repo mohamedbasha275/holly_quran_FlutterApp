@@ -41,7 +41,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
       Routes.azkarSabahRoute,
       Routes.azkarMasaaRoute,
       Routes.hadithRoute,
-      Routes.hesnMuslimRoute, // werd
+      Routes.werdViewRoute,
       Routes.quranAgzaa,
       Routes.hesnMuslimRoute,
     ];
@@ -72,9 +72,9 @@ class _HomeViewBodyState extends State<HomeViewBody> {
     final routesList1 = <String>[
       Routes.dayWheelRoute,
       Routes.ihdaaRoute,
-      Routes.hadithRoute, // about
-      Routes.hesnMuslimRoute, // share
-      Routes.dayWheelRoute, // rating
+      Routes.contactViewRoute, // about
+      Routes.hesnMuslimRoute,
+      Routes.dayWheelRoute,
       Routes.ihdaaRoute, // settings
     ];
     final typesList1 = <String>[

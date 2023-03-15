@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:holly_quran/core/dio/api_service.dart';
 import 'package:holly_quran/core/shared_preferences/app_prefs.dart';
+import 'package:holly_quran/features/daily_werd/data/repos/werd_repo_impl.dart';
 import 'package:holly_quran/features/home/data/repos/home_repo_impl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,6 +18,7 @@ void setupServiceLocator() async{
   // app prefs instance
   getIt.registerLazySingleton<AppPreferences>(() => AppPreferences(getIt.get<SharedPreferences>()));
   getIt.registerLazySingleton<HomeRepoImpl>(() => HomeRepoImpl(getIt.get<AppPreferences>()));
+  getIt.registerLazySingleton<WerdRepoImpl>(() => WerdRepoImpl(getIt.get<AppPreferences>()));
   //getIt.registerSingleton<HomeRepoImpl>(HomeRepoImpl(getIt.get<AppPreferences>()));
 }
 
