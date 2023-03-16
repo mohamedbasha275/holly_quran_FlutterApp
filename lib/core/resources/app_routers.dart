@@ -23,6 +23,7 @@ import 'package:holly_quran/features/ihdaa/ihdaa_view.dart';
 import 'package:holly_quran/features/quran_agzaa/presentation/view_models/agzaa_cubit.dart';
 import 'package:holly_quran/features/quran_agzaa/presentation/views/juzh_view.dart';
 import 'package:holly_quran/features/quran_agzaa/presentation/views/quran_agzaa_view.dart';
+import 'package:holly_quran/features/settings/settings_view.dart';
 
 class Routes {
   // static const String splashRoute = "/";
@@ -40,6 +41,7 @@ class Routes {
   static const String juzhDetailsRoute = "/juzhDetailsRoute";
   static const String werdViewRoute = "/werdViewRoute";
   static const String contactViewRoute = "/contactViewRoute";
+  static const String settingsViewRoute = "/settingsViewRoute";
 }
 
 abstract class AppRouters {
@@ -115,6 +117,10 @@ abstract class AppRouters {
       GoRoute(
         path: Routes.dayWheelRoute,
         builder: (context, state) => const DayWheelView(),
+      ),
+      GoRoute(
+        path: Routes.settingsViewRoute,
+        builder: (context, state) => const SettingsView(),
       ),
       GoRoute(
         path: Routes.contactViewRoute,

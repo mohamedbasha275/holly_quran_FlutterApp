@@ -9,3 +9,8 @@ class SalahModel{
   SalahModel({required this.id,required this.name,required this.time,required this.dateTime
     ,required this.icon});
 }
+class SalahModelTime{
+  final String name;
+  final DateTime dateTime;
+  SalahModelTime({required this.name,required this.dateTime});
+}

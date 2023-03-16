@@ -72,10 +72,10 @@ class _HomeViewBodyState extends State<HomeViewBody> {
     final routesList1 = <String>[
       Routes.dayWheelRoute,
       Routes.ihdaaRoute,
-      Routes.contactViewRoute, // about
+      Routes.contactViewRoute,
       Routes.hesnMuslimRoute,
       Routes.dayWheelRoute,
-      Routes.ihdaaRoute, // settings
+      Routes.settingsViewRoute,
     ];
     final typesList1 = <String>[
       'screen',

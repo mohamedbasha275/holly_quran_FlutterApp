@@ -22,7 +22,7 @@ class _ContactUsViewBodyState extends State<ContactUsViewBody> {
 
   void _submitForm() async {
     final message = _messageController.text.trim();
-    const String phone = '01063981560';
+    const String phone = '+201063981560';
     final url = 'whatsapp://send?phone=$phone&text=${Uri.parse(message)}';
     if (!await launchUrl(Uri.parse(url))) {
       throw Exception('Could not launch $url');

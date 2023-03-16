@@ -19,6 +19,7 @@ void main() async {
   fireAppNotifications();
   //fireAppNotifications(sound: 'my_sound');
   // io
+  scheduleFunction();
   runApp(const QuranApp());
 }
 class QuranApp extends StatelessWidget {

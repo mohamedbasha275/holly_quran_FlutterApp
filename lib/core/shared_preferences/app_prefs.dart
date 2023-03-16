@@ -13,6 +13,7 @@ const String STOP_READING_KEY = 'STOP_READING_KEY';
 const String SADAQAT_LIST = 'SADAQAT_LIST';
 const String WERDS_LIST = 'WERDS_LIST';
 const String CURRENT_LOCATION_KEY = 'CURRENT_LOCATION_KEY';
+const String AZKAR_SABAH_KEY = 'AZKAR_SABAH_KEY';
 
 class AppPreferences {
   final SharedPreferences _sharedPreferences;
@@ -183,5 +184,21 @@ class AppPreferences {
     werds = werds.map((werd) => werd.copyWith(done: false)).toList();
     String encoded = json.encode(werds.map((werd) => werd.toJson()).toList());
     await _sharedPreferences.setString(WERDS_LIST, encoded);
+  }
+
+  // azkar
+  Future<void> setAzkarSabah({required int hour, required int minute}) async {
+    _sharedPreferences.remove(AZKAR_SABAH_KEY);
+    _sharedPreferences.setStringList(AZKAR_SABAH_KEY, ['$hour', '$minute']);
+  }
+
+  Future<List<int>> getAzkarSabah() async {
+    List<String>? azkar =
+    _sharedPreferences.getStringList(AZKAR_SABAH_KEY);
+    if (azkar != null) {
+      return [int.parse(azkar[0]),int.parse(azkar[1])];
+    } else {
+      return [8,0];
+    }
   }
 }
