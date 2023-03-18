@@ -6,6 +6,7 @@ import 'package:holly_quran/core/resources/app_constants.dart';
 import 'package:holly_quran/core/resources/app_routers.dart';
 import 'package:holly_quran/core/di/service_locator.dart';
 import 'package:holly_quran/core/resources/theme_manager.dart';
+import 'package:holly_quran/core/shared_preferences/app_prefs.dart';
 import 'package:holly_quran/features/home/data/repos/home_repo_impl.dart';
 import 'package:holly_quran/features/home/presentation/view_models/quran/quran_cubit.dart';
 import 'package:holly_quran/features/home/presentation/view_models/sadaqat/sadaqat_cubit.dart';
@@ -16,6 +17,8 @@ void main() async {
   // Configure injecction
   setupServiceLocator();
   // notifications
+  // AppPreferences appPreferences = getIt.get<AppPreferences>();
+  // print(appPreferences.getNotificationsStatus());
   fireAppNotifications();
   //fireAppNotifications(sound: 'my_sound');
   // io

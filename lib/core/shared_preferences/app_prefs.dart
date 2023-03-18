@@ -14,6 +14,9 @@ const String SADAQAT_LIST = 'SADAQAT_LIST';
 const String WERDS_LIST = 'WERDS_LIST';
 const String CURRENT_LOCATION_KEY = 'CURRENT_LOCATION_KEY';
 const String AZKAR_SABAH_KEY = 'AZKAR_SABAH_KEY';
+const String AZKAR_MASAA_KEY = 'AZKAR_MASAA_KEY';
+const String AZKAR_WERD_KEY = 'AZKAR_WERD_KEY';
+const String NOTIFICATIONS_STATUS = 'NOTIFICATIONS_STATUS';
 
 class AppPreferences {
   final SharedPreferences _sharedPreferences;
@@ -186,7 +189,7 @@ class AppPreferences {
     await _sharedPreferences.setString(WERDS_LIST, encoded);
   }
 
-  // azkar
+  // azkar sabah
   Future<void> setAzkarSabah({required int hour, required int minute}) async {
     _sharedPreferences.remove(AZKAR_SABAH_KEY);
     _sharedPreferences.setStringList(AZKAR_SABAH_KEY, ['$hour', '$minute']);
@@ -199,6 +202,48 @@ class AppPreferences {
       return [int.parse(azkar[0]),int.parse(azkar[1])];
     } else {
       return [8,0];
+    }
+  }
+  // azkar masaa
+  Future<void> setAzkarMasaa({required int hour, required int minute}) async {
+    _sharedPreferences.remove(AZKAR_MASAA_KEY);
+    _sharedPreferences.setStringList(AZKAR_MASAA_KEY, ['$hour', '$minute']);
+  }
+
+  Future<List<int>> getAzkarMasaa() async {
+    List<String>? azkar =
+    _sharedPreferences.getStringList(AZKAR_MASAA_KEY);
+    if (azkar != null) {
+      return [int.parse(azkar[0]),int.parse(azkar[1])];
+    } else {
+      return [16,0];
+    }
+  }
+  // azkar werd
+  Future<void> setAzkarWerd({required int hour, required int minute}) async {
+    _sharedPreferences.remove(AZKAR_WERD_KEY);
+    _sharedPreferences.setStringList(AZKAR_WERD_KEY, ['$hour', '$minute']);
+  }
+
+  Future<List<int>> getAzkarWerd() async {
+    List<String>? azkar =
+    _sharedPreferences.getStringList(AZKAR_WERD_KEY);
+    if (azkar != null) {
+      return [int.parse(azkar[0]),int.parse(azkar[1])];
+    } else {
+      return [10,0];
+    }
+  }
+  // NotificationsStatus
+  Future<void> setNotificationsStatus({required bool status}) async {
+    _sharedPreferences.setBool(NOTIFICATIONS_STATUS, status);
+  }
+  Future<bool> getNotificationsStatus() async {
+    bool? status = _sharedPreferences.getBool(NOTIFICATIONS_STATUS);
+    if (status != null) {
+      return status;
+    } else {
+      return true;
     }
   }
 }

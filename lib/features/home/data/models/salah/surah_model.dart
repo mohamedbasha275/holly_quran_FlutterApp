@@ -10,7 +10,8 @@ class SalahModel{
     ,required this.icon});
 }
 class SalahModelTime{
+  final int id;
   final String name;
   final DateTime dateTime;
-  SalahModelTime({required this.name,required this.dateTime});
+  SalahModelTime({required this.id,required this.name,required this.dateTime});
 }

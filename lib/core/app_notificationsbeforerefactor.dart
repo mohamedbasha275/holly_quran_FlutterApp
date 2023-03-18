@@ -19,6 +19,26 @@ void fireAppNotifications({String? sound}) async {
       iOS: initializationSettingsIOS);
   await flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: null);
   //
+  // tz.TZDateTime _nextInstanceOfTen() {
+  //   final tz.TZDateTime now = tz.TZDateTime.now(location);
+  //   tz.TZDateTime scheduledDate = tz.TZDateTime(location, now.year, now.month,
+  //       now.day, now.hour, now.minute, now.second + 10);
+  //   if (scheduledDate.isBefore(now)) {
+  //     scheduledDate = scheduledDate.add(const Duration(days: 1));
+  //   }
+  //   return scheduledDate;
+  // }
+  //
+  // tz.TZDateTime _nextInstanceOfFive() {
+  //   final tz.TZDateTime now = tz.TZDateTime.now(location);
+  //   tz.TZDateTime scheduledDate = tz.TZDateTime(location, now.year, now.month,
+  //       now.day, now.hour, now.minute, now.second + 5);
+  //   if (scheduledDate.isBefore(now)) {
+  //     scheduledDate = scheduledDate.add(const Duration(days: 1));
+  //   }
+  //   return scheduledDate;
+  // }
+
   Future<void> _scheduleNotification({
     required int id,
     required tz.TZDateTime time,
@@ -30,14 +50,16 @@ void fireAppNotifications({String? sound}) async {
       'channel_id$id',
       channelName,
       'channel_description',
+      //when: DateTime.now().millisecondsSinceEpoch,
       visibility: NotificationVisibility.public,
+      // color: AppColors.primary,
       autoCancel: true,
       importance: Importance.max,
       priority: Priority.high,
       playSound: true,
-      sound: id <= 5 ? const RawResourceAndroidNotificationSound('my_sound') : null,
+      sound: id <= 5 ? RawResourceAndroidNotificationSound('my_sound') : null,
     );
-    var iOSPlatformChannelSpecifics = const IOSNotificationDetails();
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(
         android: androidPlatformChannelSpecifics,
         iOS: iOSPlatformChannelSpecifics);
@@ -54,43 +76,49 @@ void fireAppNotifications({String? sound}) async {
     );
   }
 
-  tz.TZDateTime _nextFriday({required int hour, required int minute, int second = 0}) {
-    final tz.TZDateTime now = tz.TZDateTime.now(location);
-    // Calculate the next Friday
-    tz.TZDateTime nextFriday = tz.TZDateTime(
-      location,
-      now.year,
-      now.month,
-      now.day,
-      hour,
-      minute,
-      second,
-    );
-    while (nextFriday.weekday != DateTime.friday) {
-      nextFriday = nextFriday.add(const Duration(days: 1));
-    }
-    if (nextFriday.isBefore(now)) {
-      nextFriday = nextFriday.add(const Duration(days: 7));
-    }
-    return nextFriday;
-  }
-
   tz.TZDateTime _nextInstance(
       {required int hour, required int minute, int second = 0}) {
     final tz.TZDateTime now = tz.TZDateTime.now(location);
     tz.TZDateTime scheduledDate = tz.TZDateTime(
         location, now.year, now.month, now.day, hour, minute, second);
-    //print("ss = $scheduledDate ");
+    print("ss = $scheduledDate ");
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
     return scheduledDate;
   }
+
+  tz.TZDateTime convertTime({required DateTime time}) {
+    final tz.TZDateTime now = tz.TZDateTime.now(location);
+    tz.TZDateTime scheduledDate = tz.TZDateTime(
+        location, now.year, now.month, now.day, time.hour, time.minute);
+    if (scheduledDate.isBefore(now)) {
+      scheduledDate = scheduledDate.add(const Duration(days: 1));
+    }
+    return scheduledDate;
+  }
+
   // fetch all salah times
   // this for azan
   List<SalahModelTime> dd = await fetchSalahTimes();
   if (dd.isNotEmpty) {
     for (SalahModelTime item in dd) {
+      print(item.name);
+      print(item.id);
+      // print(item.dateTime);
+      //print(convertTime(time: item.dateTime));
+      // print('-------');
+      // await _scheduleNotification(id: 2, time: _nextInstance(hour: item.dateTime.hour,
+      //     minute: item.dateTime.minute,second: item.dateTime.second),title: item.name,
+      // channelName: 'الاذان',
+      // body: 'حان الآن موعد اذان ${item.name}');
+      // print(item.dateTime.hour);
+      // print(item.dateTime.minute);
+      //print('-------');
+      // await _scheduleNotification(id: 2, time: _nextInstance(hour: item.dateTime.hour,
+      //     minute: item.dateTime.minute,second: item.dateTime.second),title: item.name,
+      //     channelName: 'الاذان',
+      //     body: 'حان الآن موعد اذان ${item.name}');
       await flutterLocalNotificationsPlugin.cancel(item.id).then((value) {
         _scheduleNotification(
             id: item.id,
@@ -105,53 +133,25 @@ void fireAppNotifications({String? sound}) async {
       });
     }
   }
-  // azkar
   var appPreferences = getIt.get<AppPreferences>();
-  List<int> sabahTimes = await appPreferences.getAzkarSabah();
-  List<int> masaaTimes = await appPreferences.getAzkarMasaa();
-  List<int> werdTimes = await appPreferences.getAzkarWerd();
-  bool status = await appPreferences.getNotificationsStatus();
-  print(status);
-  if(status){
-    await flutterLocalNotificationsPlugin.cancel(6).then((value) {
-      _scheduleNotification(
-          id: 6,
-          title: 'أذكار الصباح',
-          body: 'الحمد لله الذي أصبحنا',
-          channelName: 'أذكار الصباح',
-          time: _nextInstance(hour: sabahTimes[0], minute: sabahTimes[1]));
-    });
-    await flutterLocalNotificationsPlugin.cancel(7).then((value) {
-      _scheduleNotification(
-          id: 7,
-          title: 'أذكار المساء',
-          body: 'الحمد لله الذي أمسينا',
-          channelName: 'أذكار المساء',
-          time: _nextInstance(hour: masaaTimes[0], minute: masaaTimes[1]));
-    });
-    await flutterLocalNotificationsPlugin.cancel(8).then((value) {
-      _scheduleNotification(
-          id: 8,
-          title: 'ورد اليوم',
-          body: 'أحرص علي وردك اليومي',
-          channelName: 'ورد اليوم',
-          time: _nextInstance(hour: werdTimes[0], minute: werdTimes[1]));
-    });
-    await flutterLocalNotificationsPlugin.cancel(9).then((value) {
-      _scheduleNotification(
-          id: 9,
-          title: 'سورة الكهف',
-          body: 'لا يفوتك ثواب سورة الكهف',
-          channelName: 'سورة الكهف',
-          time:  _nextFriday(hour: 15, minute: 0),
-      );
-    });
-  }
+  List<int> times = await appPreferences.getAzkarSabah();
+  await flutterLocalNotificationsPlugin.cancel(1).then((value) {
+    _scheduleNotification(
+        id: 1,
+        title: 'sabah',
+        body: 'sbah azakar quop',
+        channelName: 'اذكار الصباح',
+        time: _nextInstance(hour: times[0], minute: times[1]));
+  });
+  //await _scheduleNotification(id: 2, time: _nextInstanceOfTen());
+  //await _scheduleNotification(id: 1, time: _nextInstanceOfFive());
+  //await _scheduleNotification(id: 3,time: _nextInstanceOfFive());
 }
 
 Future<List<SalahModelTime>> fetchSalahTimes() async {
   List<SalahModelTime> salah = [];
-  List<String> location = await getIt.get<AppPreferences>().getCurrentLocation();
+  List<String> location =
+      await getIt.get<AppPreferences>().getCurrentLocation();
   if (location.length > 1) {
     double lat = double.parse(location[0]);
     double long = double.parse(location[1]);
@@ -194,9 +194,20 @@ Future<List<SalahModelTime>> fetchSalahTimes() async {
 void scheduleFunction() {
   Timer.periodic(const Duration(days: 1), (timer) async {
     DateTime now = DateTime.now();
+    //
     var appPreferences = getIt.get<AppPreferences>();
-    DateTime scheduledTime = DateTime(now.year, now.month, now.day, 12, 0, 0);
+    // List<int> times = await appPreferences.getAzkarSabah();
+    //
+    //DateTime scheduledTime = DateTime(now.year, now.month, now.day, times[0], times[1], 0);
+    DateTime scheduledTime = DateTime(now.year, now.month, now.day, 12, 0,
+        0); // Set the time for the function (12:00 AM)
+
+    print(scheduledTime);
+    print(now);
     if (now.isAfter(scheduledTime)) {
+      // Call the function
+      //  myFunction();
+      print('done');
       appPreferences.updateAllWerd();
       timer.cancel();
     }
