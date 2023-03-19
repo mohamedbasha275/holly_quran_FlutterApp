@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:adhan/adhan.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:holly_quran/core/di/service_locator.dart';
+import 'package:holly_quran/core/resources/app_colors.dart';
 import 'package:holly_quran/core/shared_preferences/app_prefs.dart';
 import 'package:holly_quran/features/home/data/models/salah/surah_model.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -13,7 +14,7 @@ void fireAppNotifications({String? sound}) async {
   final location = tz.getLocation('Africa/Cairo');
   // setting
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  var initializationSettingsAndroid = const AndroidInitializationSettings('app_icon4');
+  var initializationSettingsAndroid = const AndroidInitializationSettings('app_icon6');
   var initializationSettingsIOS = const IOSInitializationSettings();
   var initializationSettings = InitializationSettings(android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS);
@@ -31,6 +32,7 @@ void fireAppNotifications({String? sound}) async {
       channelName,
       'channel_description',
       visibility: NotificationVisibility.public,
+      color: AppColors.primary,
       autoCancel: true,
       importance: Importance.max,
       priority: Priority.high,

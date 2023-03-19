@@ -24,12 +24,14 @@ class AppStrings {
   static const String retryAgain = "حاول ثانية";
   static const String markStop = 'تم تحديد علامة الوقف بنجاح';
   static const String sadaqatTitle = 'اللهم أرحم من واري التراب جسدهم وهم في ذكرانا';
+  static const String werdTitle = 'حافظ علي وردك اليومي';
   static const String sadaqatSubTitle = 'قراءة صفحة عشوائي من القرآن الكريم';
   static const String addNew = 'إضافة جديد';
   static const String save = 'حفظ';
   static const String sadaqaName = 'اسم صاحب الصدقة الجارية';
   static const String name = 'الاسم';
   static const String nameSaved = 'تم حفظ الاسم بنجاح';
+  static const String werdSaved = 'تم حفظ الورد بنجاح';
   static const String hijriLetter = 'هـ';
   static const String addSadaqa = 'قم بإضافة أصحاب الصدقات';
   static const String nextSalah = 'الصلاة القادمة: ';
@@ -43,12 +45,29 @@ class AppStrings {
   static const String aboutApp = 'عن التطبيق';
   static const String rateUs = 'تقييمنا';
   static const String settings = 'الإعدادات';
+  static const String contactTitle = 'إسلامنا تطبيق إسلامي لتقديم  بعض الخدمات والمميزات الدينية لمساعدتك في الحفاظ علي يومك';
+  static const String sendWhats = 'قم بإرسال أي مقترح أو شكوي عبر الواتساب:';
+  static const String contactMessage = 'رسالتك';
+  static const String sendNow = 'إرسال الآن';
   // ihdaa
   static const String ihdaa = 'اهداءات';
+  static const String ihdaaType = 'نوع الاهداء :';
+  static const String ihdaaGeneral = 'عام';
+  static const String ihdaaRamadan = 'رمضان';
+  static const String ihdaaSign= ' التوقيع :';
   static const String content = 'المحتوي';
   static const String noData = 'يرجي ادخال بيانات كاملة';
+
+
+
+  static const String done = 'تم';
+  static const String successfully = 'بنجاح';
+
+
   // wheel
   static const String dayWheel = 'تحدي اليوم';
+  static const String activeNotifications = 'تشغيل الاشعارات';
+  static const String disActiveNotifications = 'إيقاف الاشعارات';
   // hints
   static const String emailHint = 'email_hint';
   static const String invalidEmail = "email_error";

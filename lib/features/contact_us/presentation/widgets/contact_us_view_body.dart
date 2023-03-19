@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/app_colors.dart';
+import 'package:holly_quran/core/resources/app_constants.dart';
+import 'package:holly_quran/core/resources/app_fonts.dart';
+import 'package:holly_quran/core/resources/app_strings.dart';
+import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactUsViewBody extends StatefulWidget {
@@ -22,7 +26,7 @@ class _ContactUsViewBodyState extends State<ContactUsViewBody> {
 
   void _submitForm() async {
     final message = _messageController.text.trim();
-    const String phone = '+201063981560';
+    const String phone = AppConstants.whatsPhone;
     final url = 'whatsapp://send?phone=$phone&text=${Uri.parse(message)}';
     if (!await launchUrl(Uri.parse(url))) {
       throw Exception('Could not launch $url');
@@ -32,7 +36,7 @@ class _ContactUsViewBodyState extends State<ContactUsViewBody> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(AppPadding.p20),
       height: double.infinity,
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -45,50 +49,49 @@ class _ContactUsViewBodyState extends State<ContactUsViewBody> {
           //crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-              width: 200,
-              height: 200,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(AppSize.s20)),
+              width: AppSize.s200,
+              height: AppSize.s200,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(AppSize.s20),
                 child: Image.asset(
-                  'assets/images/icon.jpg',
+                  ImageAssets.icon,
                   fit: BoxFit.cover,
                 ),
               ),
             ),
-            const SizedBox(height: 16.0),
-            Text(
-                'إسلامنا تطبيق إسلامي لتقديم  بعض الخدمات والمميزات الدينية لمساعدتك في الحفاظ علي يومك',
+            const SizedBox(height: AppSize.s16),
+            const Text(
+              AppStrings.contactTitle,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 17
-              ),
+              style: TextStyle(fontSize: FontSize.s17),
             ),
-            const SizedBox(height: 30.0),
+            const SizedBox(height: AppSize.s30),
             Align(
               alignment: Alignment.centerRight,
-              child: Text('قم بإرسال أي مقترح أو شكوي عبر الواتساب:',
+              child: Text(
+                AppStrings.sendWhats,
                 style: TextStyle(
-                    fontSize: 15,
-                  color: Colors.red,
-                  decoration: TextDecoration.underline
-                ),
+                    fontSize: FontSize.s15,
+                    color: AppColors.red,
+                    decoration: TextDecoration.underline),
               ),
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: AppSize.s16),
             TextField(
               controller: _messageController,
               keyboardType: TextInputType.multiline,
               maxLines: 5,
               decoration: const InputDecoration(
-                labelText: 'Message',
+                labelText: AppStrings.contactMessage,
                 border: OutlineInputBorder(),
               ),
               onChanged: (_) => _validateForm(),
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: AppSize.s16),
             SizedBox(
-              height: 60,
+              height: AppSize.s60,
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: _formValid ? _submitForm : null,
@@ -96,14 +99,14 @@ class _ContactUsViewBodyState extends State<ContactUsViewBody> {
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (states) {
                       if (states.contains(MaterialState.disabled)) {
-                        return Colors.grey;
+                        return AppColors.grey;
                       }
                       return AppColors.primary;
                     },
                   ),
                 ),
                 child: Text(
-                  'إرسال الآن',
+                  AppStrings.sendNow,
                   style: TextStyle(
                     color: AppColors.white,
                   ),

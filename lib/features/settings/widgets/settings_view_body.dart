@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:holly_quran/core/app_notifications.dart';
 import 'package:holly_quran/core/di/service_locator.dart';
+import 'package:holly_quran/core/helper_functions/functions.dart';
+import 'package:holly_quran/core/resources/app_colors.dart';
+import 'package:holly_quran/core/resources/app_strings.dart';
+import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/core/shared_preferences/app_prefs.dart';
+import 'package:holly_quran/features/common_widgets/show_snackBar.dart';
 import 'package:intl/intl.dart';
 
 class SettingsViewBody extends StatefulWidget {
@@ -67,27 +72,37 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-          margin: EdgeInsets.all(20),
+          margin: const EdgeInsets.all(AppMargin.m20),
           child: Column(
             children: [
               GestureDetector(
                 onTap: (){
                   setState(() {
                     activeStatus = !activeStatus;
-                    appPreferences.setNotificationsStatus(status: activeStatus);
+                    appPreferences.setNotificationsStatus(status: activeStatus).then((_){
+                      String title = activeStatus ?  AppStrings.activeNotifications : AppStrings.disActiveNotifications;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        buildSnackBar(
+                          context,
+                          title: "${AppStrings.done} $title ${AppStrings.successfully}",
+                          background: AppColors.primary,
+                        ),
+                      );
+                    });
                   });
                 },
                 child: SizedBox(
-                  height: 80,
+                  height: AppSize.s80,
                   child: Card(
+                    color: AppColors.secondary,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(AppPadding.p8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'التحكم في الاشعارات',
-                            style: const TextStyle(fontSize: 24.0),
+                            activeStatus ?  AppStrings.disActiveNotifications : AppStrings.activeNotifications,
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                           Icon(activeStatus ? Icons.notifications : Icons.notifications_off),
                         ],
@@ -96,7 +111,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                   ),
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: AppSize.s30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -112,28 +127,30 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                           });
                         }),
                     child: SizedBox(
-                      height: 150,
-                      width: 150,
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                'اذكار الصباح',
-                                style: const TextStyle(fontSize: 24.0),
-                              ),
-                              Text(
-                                DateFormat('h:mm a').format(_sabahSelectedTime),
-                                style: const TextStyle(fontSize: 24.0),
-                              )
-                            ],
-                          ),
+                    height: AppSize.s150,
+                    width: AppSize.s150,
+                    child: Card(
+                      color: AppColors.expansion,
+                      child: Padding(
+                        padding: const EdgeInsets.all(AppPadding.p8),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              AppStrings.azkarSabah,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            Text(
+                              arTime(DateFormat('h:mm a')
+                                  .format(_sabahSelectedTime)),
+                              style: Theme.of(context).textTheme.titleMedium,
+                            )
+                          ],
                         ),
                       ),
                     ),
                   ),
+                ),
                   GestureDetector(
                     onTap: () => _showSettingsViewBody(context,
                         picked: masaaPicked,
@@ -146,21 +163,22 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                           });
                         }),
                     child: SizedBox(
-                      height: 150,
-                      width: 150,
+                      height: AppSize.s150,
+                      width: AppSize.s150,
                       child: Card(
+                        color: AppColors.expansion,
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(AppPadding.p8),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
-                                'اذكار المساء',
-                                style: const TextStyle(fontSize: 24.0),
+                                AppStrings.azkarMasaa,
+                                style: Theme.of(context).textTheme.titleMedium,
                               ),
                               Text(
-                                DateFormat('h:mm a').format(_masaaSelectedTime),
-                                style: const TextStyle(fontSize: 24.0),
+                                arTime(DateFormat('h:mm a').format(_masaaSelectedTime)),
+                                style: Theme.of(context).textTheme.titleMedium,
                               )
                             ],
                           ),
@@ -170,9 +188,9 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: AppSize.s20),
               Container(
-                margin: EdgeInsets.only(right: 10),
+                margin: const EdgeInsets.only(right: AppPadding.p10),
                 child: Row(
                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -188,21 +206,22 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                             });
                           }),
                       child: SizedBox(
-                        height: 150,
-                        width: 150,
+                        height: AppSize.s150,
+                        width: AppSize.s150,
                         child: Card(
+                          color: AppColors.expansion,
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(AppPadding.p8),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text(
-                                  'ورد اليوم',
-                                  style: const TextStyle(fontSize: 24.0),
+                                  AppStrings.werdDay,
+                                  style: Theme.of(context).textTheme.titleMedium,
                                 ),
                                 Text(
-                                  DateFormat('h:mm a').format(_werdSelectedTime),
-                                  style: const TextStyle(fontSize: 24.0),
+                                  arTime(DateFormat('h:mm a').format(_werdSelectedTime)),
+                                  style: Theme.of(context).textTheme.titleMedium,
                                 )
                               ],
                             ),

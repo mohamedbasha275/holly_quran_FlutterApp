@@ -51,6 +51,9 @@ android {
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        main {
+            res.srcDirs = ['src/main/res', 'src/main/assets', 'src/main/res/raw']
+        }
     }
 
     defaultConfig {

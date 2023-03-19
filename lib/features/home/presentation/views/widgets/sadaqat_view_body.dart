@@ -48,6 +48,7 @@ class SadaqatViewBody extends StatelessWidget {
                         background: AppColors.primary,
                       ),
                     );
+                    nameController.text = '';
                   });
                 },
               ),

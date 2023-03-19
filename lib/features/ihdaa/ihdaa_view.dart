@@ -53,7 +53,7 @@ class _IhdaaViewState extends State<IhdaaView> {
     }
 
     final Uint8List? data =
-    await _controller.toPngBytes(height: 400, width: 400);
+    await _controller.toPngBytes(height: int.parse("${AppSize.s400}"), width: int.parse("${AppSize.s400}"));
     if (data == null) {
       return;
     }
@@ -108,7 +108,7 @@ class _IhdaaViewState extends State<IhdaaView> {
                 controller: _contentController,
               ),
               const SizedBox(height: AppSize.s20),
-               Text('نوع الاهداء :',style: Theme.of(context).textTheme.headlineLarge,),
+               Text(AppStrings.ihdaaType,style: Theme.of(context).textTheme.headlineLarge,),
               const SizedBox(height: AppSize.s10),
               Row(
                 children: [
@@ -132,7 +132,7 @@ class _IhdaaViewState extends State<IhdaaView> {
                         vertical: AppPadding.p6,
                       ),
                       child: Text(
-                        'عام',
+                        AppStrings.ihdaaGeneral,
                         style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                           color: isGeneralSelected
                               ? AppColors.primary
@@ -160,8 +160,7 @@ class _IhdaaViewState extends State<IhdaaView> {
                         horizontal: AppPadding.p12,
                         vertical: AppPadding.p6,
                       ),
-                      child: Text(
-                        'رمضان',
+                      child: Text(AppStrings.ihdaaRamadan,
                         style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                           color: !isGeneralSelected
                               ? AppColors.primary
@@ -173,7 +172,7 @@ class _IhdaaViewState extends State<IhdaaView> {
                 ],
               ),
               const SizedBox(height: AppSize.s20),
-              Text(' التوقيع :',style: Theme.of(context).textTheme.headlineLarge,),
+              Text(AppStrings.ihdaaSign,style: Theme.of(context).textTheme.headlineLarge,),
               const SizedBox(height: AppSize.s10),
               Signature(
                 key: const Key('signature'),

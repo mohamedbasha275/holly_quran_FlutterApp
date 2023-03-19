@@ -30,9 +30,9 @@ class WerdViewBody extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: AppSize.s20),
-              Image.asset(ImageAssets.sadaqatLogo, width: AppSize.s100),
+              Image.asset(ImageAssets.werdLogo, width: AppSize.s100),
               Text(
-                AppStrings.sadaqatTitle,
+                AppStrings.werdTitle,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               AppAwesomeDialog(
@@ -44,53 +44,59 @@ class WerdViewBody extends StatelessWidget {
                     ScaffoldMessenger.of(context).showSnackBar(
                       buildSnackBar(
                         context,
-                        title: AppStrings.nameSaved,
+                        title: AppStrings.werdSaved,
                         background: AppColors.primary,
                       ),
                     );
+                    nameController.text = '';
                   });
                 },
               ),
-              const Text(
-                AppStrings.sadaqatSubTitle,
-                textAlign: TextAlign.center,
+              TextButton(
+                onPressed: () async {
+                  await BlocProvider.of<WerdCubit>(context).updateAllWerd();
+                },
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(EdgeInsets.zero),
+                ),
+                child: Container(
+                  width: AppSize.s150,
+                  height: AppSize.s40,
+                  decoration: BoxDecoration(
+                      color: AppColors.reset,
+                    borderRadius: BorderRadius.circular(AppSize.s10)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(AppStrings.tasbihReset,
+                      style: Theme.of(context).textTheme.titleSmall),
+                      Icon(
+                        Icons.rotate_left_outlined,
+                        color: AppColors.white,
+                      )
+                    ],
+                  ),
+                ),
               ),
-          TextButton(
-            onPressed: () async {
-              await BlocProvider.of<WerdCubit>(context).updateAllWerd();
-            },
-            style: ButtonStyle(
-              padding: MaterialStateProperty.all(EdgeInsets.zero),
-            ),
-            child: CircleAvatar(
-              child: Icon(
-                Icons.rotate_left_outlined,
-                color: AppColors.white,
-              ),
-            ),),
               const Divider(),
               BlocBuilder<WerdCubit, WerdState>(
                 builder: (context, state) {
                   if (state is WerdSuccess) {
-                    return SizedBox(
-                      height: AppSize.s420,
-                      child: SingleChildScrollView(
-                        child: GridView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          padding: const EdgeInsets.all(AppPadding.p8),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 1,
-                            childAspectRatio: 10 / 3,
-                          ),
-                          //itemCount: state.sours.length,
-                          itemCount: state.werds.length,
-                          itemBuilder: (context, index) => WerdWidget(
-                            werd: state.werds[index],
-                            index: index,
-                          ),
-                        ),
+                    return GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: const EdgeInsets.all(AppPadding.p8),
+                      gridDelegate:
+                      const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 1,
+                        childAspectRatio: 10 / 3,
+                      ),
+                      //itemCount: state.sours.length,
+                      itemCount: state.werds.length,
+                      itemBuilder: (context, index) => WerdWidget(
+                        werd: state.werds[index],
+                        index: index,
                       ),
                     );
                   } else if (state is WerdLoading) {
@@ -101,6 +107,7 @@ class WerdViewBody extends StatelessWidget {
                   }
                 },
               ),
+              const SizedBox(height: AppSize.s20),
             ],
           ),
         ),

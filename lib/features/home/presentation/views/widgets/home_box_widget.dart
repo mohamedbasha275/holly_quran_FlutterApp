@@ -79,7 +79,7 @@ class HomeBoxWidget2 extends StatelessWidget {
         padding: MaterialStateProperty.all(EdgeInsets.zero),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(AppPadding.p8),
         child: Column(
           children: [
             Image.asset(imagePath, width: AppSize.s40),

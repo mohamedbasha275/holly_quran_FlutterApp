@@ -15,7 +15,7 @@ class SettingsView extends StatelessWidget {
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(AppSize.s50),
-          child: MyAppBar(title: AppStrings.aboutApp),
+          child: MyAppBar(title: AppStrings.settings),
         ),
         body: SettingsViewBody(),
       ),

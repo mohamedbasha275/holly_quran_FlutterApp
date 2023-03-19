@@ -4,6 +4,7 @@ const String quranData = "assets/quran_data/";
 
 class ImageAssets {
   static const String background = "$imagePath/background.jpeg";
+  static const String icon = "$imagePath/icon.jpg";
   static const String border = "$imagePath/border2.jpeg";
   static const String tasbih = "$imagePath/tasbih.png";
   static const String sadqat = "$imagePath/sadqat.png";
@@ -18,6 +19,7 @@ class ImageAssets {
   static const String star = "$imagePath/star.png";
   static const String quranStop = "$imagePath/quranStop.png";
   static const String sadaqatLogo = "$imagePath/sadaqatLogo.png";
+  static const String werdLogo = "$imagePath/imam.png";
   static const String mosque = "$imagePath/mosque.png";
   static const String loading = "$imagePath/dua.png";
   static const String dayWheel = "$imagePath/infaq.png";

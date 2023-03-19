@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:holly_quran/core/di/service_locator.dart';
-import 'package:holly_quran/core/resources/app_colors.dart';
-import 'package:holly_quran/core/resources/app_constants.dart';
-import 'package:holly_quran/core/resources/app_strings.dart';
-import 'package:holly_quran/core/shared_preferences/app_prefs.dart';
-import 'package:holly_quran/features/common_widgets/show_snackBar.dart';
 import 'package:holly_quran/features/common_widgets/state_renderer/state_render.dart';
-import 'package:holly_quran/features/home/data/models/quran/surah_model.dart';
-import 'package:holly_quran/features/home/presentation/view_models/quran/quran_cubit.dart';
-import 'package:holly_quran/features/home/presentation/views/widgets/soura_stack_widget.dart';
 import 'package:holly_quran/features/quran_agzaa/presentation/view_models/agzaa_cubit.dart';
 
 class JuzhViewBody extends StatefulWidget {
