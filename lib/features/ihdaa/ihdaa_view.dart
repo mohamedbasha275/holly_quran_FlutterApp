@@ -53,7 +53,7 @@ class _IhdaaViewState extends State<IhdaaView> {
     }
 
     final Uint8List? data =
-    await _controller.toPngBytes(height: int.parse("${AppSize.s400}"), width: int.parse("${AppSize.s400}"));
+    await _controller.toPngBytes(height: 400, width: 400);
     if (data == null) {
       return;
     }

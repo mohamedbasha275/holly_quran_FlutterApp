@@ -14,7 +14,7 @@ void fireAppNotifications({String? sound}) async {
   final location = tz.getLocation('Africa/Cairo');
   // setting
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  var initializationSettingsAndroid = const AndroidInitializationSettings('app_icon6');
+  var initializationSettingsAndroid = const AndroidInitializationSettings('app_icon7');
   var initializationSettingsIOS = const IOSInitializationSettings();
   var initializationSettings = InitializationSettings(android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS);
@@ -37,7 +37,7 @@ void fireAppNotifications({String? sound}) async {
       importance: Importance.max,
       priority: Priority.high,
       playSound: true,
-      sound: id <= 5 ? const RawResourceAndroidNotificationSound('my_sound') : null,
+     // sound: id <= 5 ? const RawResourceAndroidNotificationSound('my_sound') : null,
     );
     var iOSPlatformChannelSpecifics = const IOSNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(
@@ -90,23 +90,23 @@ void fireAppNotifications({String? sound}) async {
   }
   // fetch all salah times
   // this for azan
-  List<SalahModelTime> dd = await fetchSalahTimes();
-  if (dd.isNotEmpty) {
-    for (SalahModelTime item in dd) {
-      await flutterLocalNotificationsPlugin.cancel(item.id).then((value) {
-        _scheduleNotification(
-            id: item.id,
-            time: _nextInstance(
-              hour: item.dateTime.hour,
-              minute: item.dateTime.minute,
-              second: item.dateTime.second,
-            ),
-            title: item.name,
-            channelName: 'الاذان',
-            body: 'حان الآن موعد اذان ${item.name}');
-      });
-    }
-  }
+  // List<SalahModelTime> dd = await fetchSalahTimes();
+  // if (dd.isNotEmpty) {
+  //   for (SalahModelTime item in dd) {
+  //     await flutterLocalNotificationsPlugin.cancel(item.id).then((value) {
+  //       _scheduleNotification(
+  //           id: item.id,
+  //           time: _nextInstance(
+  //             hour: item.dateTime.hour,
+  //             minute: item.dateTime.minute,
+  //             second: item.dateTime.second,
+  //           ),
+  //           title: item.name,
+  //           channelName: 'الاذان',
+  //           body: 'حان الآن موعد اذان ${item.name}');
+  //     });
+  //   }
+  // }
   // azkar
   var appPreferences = getIt.get<AppPreferences>();
   List<int> sabahTimes = await appPreferences.getAzkarSabah();
