@@ -19,7 +19,7 @@ class MyAppBar extends StatelessWidget {
             onPressed: () {
               GoRouter.of(context).pop();
             },
-            icon: Image.asset(ImageAssets.home),
+            icon: Image.asset(ImageAssets.home,width: 35),
           ),
           Text(
             title,

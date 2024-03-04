@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:holly_quran/core/app_notifications.dart';
@@ -11,9 +12,14 @@ import 'package:holly_quran/features/home/data/repos/home_repo_impl.dart';
 import 'package:holly_quran/features/home/presentation/view_models/quran/quran_cubit.dart';
 import 'package:holly_quran/features/home/presentation/view_models/sadaqat/sadaqat_cubit.dart';
 import 'package:holly_quran/features/home/presentation/view_models/salah/salah_cubit.dart';
+import 'package:holly_quran/features/home/presentation/view_models/tasbeh/tasbeh_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //
+
+  //SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky, overlays: []);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   // Configure injecction
   setupServiceLocator();
   // notifications
@@ -25,11 +31,12 @@ void main() async {
   scheduleFunction();
   runApp(const QuranApp());
 }
+
 class QuranApp extends StatelessWidget {
   const QuranApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    setStatusBarAndNavigationBarColors();
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -38,6 +45,9 @@ class QuranApp extends StatelessWidget {
         BlocProvider(
             create: (context) =>
                 SadaqatCubit(getIt.get<HomeRepoImpl>())..fetchSadaqat()),
+        BlocProvider(
+            create: (context) =>
+                TasbehCubit(getIt.get<HomeRepoImpl>())..fetchTasbih()),
         BlocProvider(
             create: (context) =>
                 SalahCubit(getIt.get<HomeRepoImpl>())..fetchSalah()),

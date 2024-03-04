@@ -31,6 +31,15 @@ ThemeData getApplicationTheme() {
       shadowColor: AppColors.black,
       titleTextStyle:
           getRegularStyle(fontSize: FontSize.s16, color: AppColors.white),
+
+      systemOverlayStyle: SystemUiOverlayStyle(
+        systemNavigationBarColor: AppColors.primary,
+        statusBarColor: AppColors.primary,
+        statusBarBrightness: Brightness.dark,
+        systemNavigationBarIconBrightness: Brightness.light,
+        systemNavigationBarDividerColor: AppColors.transparentColor,
+      ),
+
     ),
 
     // button theme
@@ -46,7 +55,7 @@ ThemeData getApplicationTheme() {
       style: ElevatedButton.styleFrom(
         textStyle: getRegularStyle(color: AppColors.white,
             fontSize: FontSize.s22),
-        primary: AppColors.primary,
+        //primary: AppColors.primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSize.s12),
         ),
@@ -101,19 +110,6 @@ ThemeData getApplicationTheme() {
         borderSide: BorderSide(color: AppColors.primary, width: AppSize.s1_5),
         borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
       ),
-    ),
-  );
-}
-
-// setStatusBarAndNavigationBarColors
-void setStatusBarAndNavigationBarColors() {
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      systemNavigationBarColor: AppColors.primary,
-      statusBarColor: AppColors.primary,
-      statusBarBrightness: Brightness.dark,
-      systemNavigationBarIconBrightness: Brightness.light,
-      systemNavigationBarDividerColor: AppColors.transparentColor,
     ),
   );
 }

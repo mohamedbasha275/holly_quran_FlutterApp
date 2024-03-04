@@ -30,13 +30,14 @@ class WerdViewBody extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: AppSize.s20),
-              Image.asset(ImageAssets.werdLogo, width: AppSize.s100),
+              Image.asset(ImageAssets.werd, width: AppSize.s100),
               Text(
                 AppStrings.werdTitle,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               AppAwesomeDialog(
                 controller: nameController,
+                title: 'إضافة ورد',
                 function: () {
                   BlocProvider.of<WerdCubit>(context)
                       .addOneWerd(name: nameController.text)
@@ -101,7 +102,7 @@ class WerdViewBody extends StatelessWidget {
                     );
                   } else if (state is WerdLoading) {
                     return const FullLoadingScreenAnimated(
-                        message: AppStrings.addSadaqa);
+                        message: 'قم بإضافة الورد الخاص بك');
                   } else {
                     return StateRender.fullLoadingScreenImage;
                   }

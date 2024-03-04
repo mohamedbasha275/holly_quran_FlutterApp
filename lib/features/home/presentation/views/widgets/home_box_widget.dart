@@ -83,7 +83,7 @@ class HomeBoxWidget2 extends StatelessWidget {
         child: Column(
           children: [
             Image.asset(imagePath, width: AppSize.s40),
-            const SizedBox(width: AppSize.s4),
+            const SizedBox(height: AppSize.s5),
             Text(
               title,
               style: Theme.of(context)

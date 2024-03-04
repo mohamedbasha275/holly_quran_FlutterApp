@@ -20,13 +20,13 @@ class SouraStackWidget extends StatelessWidget {
             onPressed: () {
               GoRouter.of(context).pushReplacementNamed(Routes.homeRoute);
             },
-            icon: Image.asset(ImageAssets.home),
+            icon: Image.asset(ImageAssets.home,width: 35,),
           ),
           SizedBox(
             width: context.width * 0.6,
             child: IconButton(
               onPressed: functionMark,
-              icon: Image.asset(ImageAssets.dayWheelMark),
+              icon: Image.asset(ImageAssets.dayWheelMark,width: 35,),
             ),
           ),
           IconButton(

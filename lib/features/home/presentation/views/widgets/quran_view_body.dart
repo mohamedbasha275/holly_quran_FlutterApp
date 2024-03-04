@@ -10,12 +10,19 @@ import 'package:holly_quran/core/resources/app_routers.dart';
 import 'package:holly_quran/core/resources/app_strings.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/features/common_widgets/state_renderer/state_render.dart';
+import 'package:holly_quran/features/home/data/models/quran/surah_model.dart';
 import 'package:holly_quran/features/home/presentation/view_models/quran/quran_cubit.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/surah_widget.dart';
 
-class QuranViewBody extends StatelessWidget {
+class QuranViewBody extends StatefulWidget {
   const QuranViewBody({Key? key}) : super(key: key);
 
+  @override
+  State<QuranViewBody> createState() => _QuranViewBodyState();
+}
+
+class _QuranViewBodyState extends State<QuranViewBody> {
+  String _searchQuery = '';
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,6 +36,9 @@ class QuranViewBody extends StatelessWidget {
       child: BlocBuilder<QuranCubit, QuranState>(
         builder: (context, state) {
           if (state is QuranSuccess) {
+            List<SurahModel> filteredList = state.sours
+                .where((surah) => surah.name.toLowerCase().contains(_searchQuery.toLowerCase()))
+                .toList();
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -83,6 +93,21 @@ class QuranViewBody extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(AppPadding.p8),
+                    child: TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          _searchQuery = value;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Search',
+                        suffixIcon: Icon(Icons.search),
+                      ),
+                    ),
+                  ),
+                  filteredList.isNotEmpty?
                   GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -94,9 +119,14 @@ class QuranViewBody extends StatelessWidget {
                       // crossAxisSpacing: AppSize.s12, // افقي
                       //mainAxisSpacing: AppSize.s20, // رأسي
                     ),
-                    itemCount: state.sours.length,
+                    itemCount: filteredList.length,
                     itemBuilder: (context, index) =>
-                        SurahWidget(surah: state.sours[index]),
+                        SurahWidget(surah: filteredList[index]),
+                  ) : const Center(
+                    child: Text(
+                      'No results found',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               ),

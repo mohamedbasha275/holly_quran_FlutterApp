@@ -55,6 +55,7 @@ class SalahViewBody extends StatelessWidget {
                             ),
                           ],
                         ),
+                        const SizedBox(height: 2),
                         BlocBuilder<SalahCubit, SalahState>(
                           builder: (context, state) {
                             if(state is SalahSuccess){
@@ -98,8 +99,9 @@ class SalahViewBody extends StatelessWidget {
               label: Text(AppStrings.refreshLocation,
                 style: Theme.of(context).textTheme.titleSmall,
               ),
-              icon: const Icon(Icons.location_on),
+              icon: Icon(Icons.location_on,color: AppColors.white),
               backgroundColor: AppColors.primarySwatch,
+              shape: StadiumBorder(),
             ),
             BlocBuilder<SalahCubit, SalahState>(
               builder: (context, state) {

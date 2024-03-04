@@ -17,7 +17,7 @@ class TipWidget extends StatelessWidget {
              )
            ],
          ),
-         Divider(color: AppColors.primary),
+         Divider(color: AppColors.thirdColor),
        ],
      );
   }

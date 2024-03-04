@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
@@ -18,17 +19,6 @@ class DayWheelViewBody extends StatefulWidget {
 class _DayWheelViewBodyState extends State<DayWheelViewBody> {
   StreamController<int>? controller;
 
-  List<FortuneItem> fortuneItems = const [
-    FortuneItem(child: Text('صلاة ركعتين شكر')),
-    FortuneItem(child: Text('تصدق (١ - ٥ جنيه)')),
-    FortuneItem(child: Text('١٠٠ استغفار')),
-    FortuneItem(child: Text('١٠٠ صلاة علي النبي')),
-    FortuneItem(child: Text('١٠٠ سبحان الله')),
-    FortuneItem(child: Text('١٠٠ الحمد لله')),
-    FortuneItem(child: Text('١٠٠ الله أكبر')),
-    FortuneItem(child: Text('قراءة ٥٠ آية')),
-    FortuneItem(child: Text('الدعاء ل ١٠ أصدقاء')),
-  ];
   List<String> fortuneTitles = const [
     'صلاة ركعتين شكر',
     'تصدق (١ - ٥ جنيه)',
@@ -57,6 +47,17 @@ class _DayWheelViewBodyState extends State<DayWheelViewBody> {
 
   @override
   Widget build(BuildContext context) {
+    List<FortuneItem> fortuneItems = [
+      wheelItem('صلاة ركعتين شكر'),
+      wheelItem('تصدق (١ - ٥ جنيه)'),
+      wheelItem('١٠٠ استغفار'),
+      wheelItem('١٠٠ صلاة علي النبي'),
+      wheelItem('١٠٠ سبحان الله'),
+      wheelItem('١٠٠ الحمد لله'),
+      wheelItem('١٠٠ الله أكبر'),
+      wheelItem('قراءة ٥٠ آية'),
+      wheelItem('الدعاء ل ١٠ أصدقاء'),
+    ];
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -129,12 +130,18 @@ class _DayWheelViewBodyState extends State<DayWheelViewBody> {
     );
   }
 
+  FortuneItem wheelItem(String title){
+    return FortuneItem(child: Text(title,style: const TextStyle(
+      fontSize: FontSize.s14,
+      fontFamily: FontConstants.fontFamily,
+    ),));
+  }
   Widget dayWheelChoice(var snapshot) {
     var index = snapshot.data.toString();
     String text = fortuneTitles[int.parse(index)];
-    return Container(
+    return Container(alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: AppColors.secondary,
+        color: AppColors.thirdColor,
         borderRadius: const BorderRadius.all(
           Radius.circular(AppSize.s10)
         ),
@@ -142,7 +149,7 @@ class _DayWheelViewBodyState extends State<DayWheelViewBody> {
       child: Text(
         text,
         style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-          fontSize: FontSize.s20,
+          fontSize: FontSize.s25,
           fontWeight: FontWeightManager.bold,
         ),
         textAlign: TextAlign.center,

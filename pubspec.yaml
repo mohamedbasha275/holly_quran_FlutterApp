@@ -24,7 +24,7 @@ dependencies:
   lottie: ^2.2.0
   #webview_flutter: ^4.0.2
   quran: ^1.2.0
-  awesome_dialog: ^3.0.2
+  awesome_dialog: ^3.2.0
   flutter_native_splash: ^2.2.16
   adhan: ^2.0.0-nullsafety.2
   intl: ^0.17.0
@@ -35,8 +35,13 @@ dependencies:
   carousel_slider: ^4.2.1
   flutter_local_notifications: ^8.2.0
   timezone: ^0.8.0
-  share_plus: ^6.3.1
+  share_plus: ^7.2.2
   url_launcher: ^6.1.10
+  vibration: ^1.8.4
+  path_provider: ^2.1.2
+  percent_indicator: ^4.2.3
+  sqflite: ^2.2.8
+  flutter_tts: ^3.8.5
 
 dev_dependencies:
   flutter_test:

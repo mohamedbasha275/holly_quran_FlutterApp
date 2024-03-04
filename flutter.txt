@@ -1,6 +1,6 @@
 // generate keystore
-keytool -genkey -v -keystore ~/stack-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias stack
-password:stack-01-2023
+keytool -genkey -v -keystore ~/quran-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias quran
+password:quran-3-2021
 ----------------------------------------
 What is your first and last name?
 ----

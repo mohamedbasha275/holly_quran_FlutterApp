@@ -29,7 +29,7 @@ class AppBottomNavigationBar extends StatelessWidget {
       height: AppSize.s100,
       itemCount: cubit.allItemsCount - 1,
       tabBuilder: (int index, bool isActive) {
-        final color = isActive ? AppColors.secondary : AppColors.white;
+        final color = isActive ? AppColors.white : AppColors.grey;
         return Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,

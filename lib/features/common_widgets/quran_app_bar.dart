@@ -21,7 +21,7 @@ class QuranAppBar extends StatelessWidget {
             onPressed: () {
               GoRouter.of(context).pushReplacement(Routes.homeRoute);
             },
-            icon: Image.asset(ImageAssets.home),
+            icon: Image.asset(ImageAssets.home,width: 35),
           ),
           SizedBox(
             width: context.width * 0.6,
@@ -36,7 +36,7 @@ class QuranAppBar extends StatelessWidget {
             onPressed: () {
               GoRouter.of(context).pop();
             },
-            icon: const Icon(Icons.arrow_forward_ios),
+            icon: Icon(Icons.arrow_forward_ios,color: AppColors.white,),
           ),
         ],
       ),

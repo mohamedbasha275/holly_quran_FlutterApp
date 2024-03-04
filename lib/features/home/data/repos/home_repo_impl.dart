@@ -2,8 +2,10 @@ import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
 import 'package:holly_quran/core/helper_functions/functions.dart';
 import 'package:holly_quran/core/shared_preferences/app_prefs.dart';
+import 'package:holly_quran/features/home/data/db_manger.dart';
 import 'package:holly_quran/features/home/data/models/quran/surah_model.dart';
 import 'package:holly_quran/features/home/data/models/salah/surah_model.dart';
+import 'package:holly_quran/features/home/data/models/tasbih/tasbih_model.dart';
 import 'package:holly_quran/features/home/data/repos/home_repo.dart';
 import 'package:intl/intl.dart';
 import 'package:quran/quran.dart' as quran;
@@ -179,5 +181,72 @@ class HomeRepoImpl implements HomeRepo {
       ]);
     }
     return salah;
+  }
+
+  //***************************************************************************//
+
+  // fetchTasbih
+  @override
+  Future<List<TasbihModel>> fetchTasbih() async {
+    final db = await DatabaseManager().database;
+
+    // Static list of TasbihModel objects
+    List<TasbihModel> staticTasbihs = [
+      TasbihModel(id: 0, name: "Static Tasbih 1", counter: 100,static: true),
+      TasbihModel(id: 0, name: "Static Tasbih 2", counter: 200,static: true),
+      // Add more static items as needed
+    ];
+
+    // Check if the tasbih table exists in the database
+    if (!await DatabaseManager().doesTableExist('tasbih')) {
+      return staticTasbihs;
+    }
+
+    // Query to select all rows from the tasbih table
+    final List<Map<String, dynamic>> maps = await db.query('tasbih');
+
+    // Converting each Map to a TasbihModel and combining with static list
+    List<TasbihModel> tasbihsFromDb = maps.map((map) => TasbihModel.fromJson(map)).toList();
+    return staticTasbihs + tasbihsFromDb;
+  }
+
+
+
+  // addOneTasbih
+  @override
+  Future<void> addOneTasbih({required String name, required int counter}) async {
+    final db = await DatabaseManager().database;
+    await db.insert(
+      'tasbih',
+      {'name': name, 'counter': counter},
+    );
+  }
+
+  //updateTasbih
+  @override
+  Future<void> updateTasbih({required int id,required String name,required int counter}) async {
+    final db = await DatabaseManager().database;
+    // Update the existing tasbih record
+    await db.update(
+      'tasbih',
+      {'name': name, 'counter': counter},
+      where: 'id = ?', // Use the where clause to specify which record to update
+      whereArgs: [id], // Pass the id as a where argument
+    );
+  }
+
+
+  // removeOneSadaqa
+  @override
+  Future<void> removeOneTasbih({required int tasbihId}) async {
+
+    final db = await DatabaseManager().database;
+
+    // Delete the specified tasbih record
+    await db.delete(
+      'tasbih',
+      where: 'id = ?',
+      whereArgs: [tasbihId],
+    );
   }
 }

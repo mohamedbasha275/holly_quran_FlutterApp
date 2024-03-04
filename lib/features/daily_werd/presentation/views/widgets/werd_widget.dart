@@ -63,7 +63,7 @@ class WerdWidget extends StatelessWidget {
                   ),
                   child: CircleAvatar(
                     backgroundColor: AppColors.reset,
-                    child: const Icon(Icons.delete_forever),
+                    child: Icon(Icons.delete_forever,color: AppColors.white,),
                   ),
                 ),
                 TextButton(

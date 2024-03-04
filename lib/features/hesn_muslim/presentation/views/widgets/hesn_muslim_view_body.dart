@@ -20,6 +20,8 @@ class HesnMuslimViewBody extends StatefulWidget {
 }
 
 class _HesnMuslimViewBodyState extends State<HesnMuslimViewBody> {
+  String _searchQuery = '';
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,40 +34,73 @@ class _HesnMuslimViewBodyState extends State<HesnMuslimViewBody> {
       ),
       child: BlocBuilder<HesnCubit, HesnState>(
         builder: (context, state) {
-          if (state is HesnSuccess) {
-            return SingleChildScrollView(
-              child: Padding(
+          return Column(
+            children: [
+              Padding(
                 padding: const EdgeInsets.all(AppPadding.p8),
-                child: ExpansionPanelList(
-                  elevation: AppSize.s3,
-                  expansionCallback: (index, isExpanded) {
+                child: TextField(
+                  onChanged: (value) {
                     setState(() {
-                      state.hesnList[index].expanded = !isExpanded;
+                      _searchQuery = value;
                     });
                   },
-                  animationDuration: const Duration(
-                      milliseconds: AppConstants.expandSpeedTime),
-                  children: [
-                    for (HesnModel hesn in state.hesnList)
-                      ExpansionPanel(
-                        canTapOnHeader: true,
-                        backgroundColor: hesn.expanded == true
-                            ? AppColors.expansion
-                            : AppColors.white,
-                        headerBuilder: (_, isExpanded) =>
-                            HesnMuslimTitleWidget(title: hesn.title),
-                        body: HesnMuslimBodyWidget(tips: hesn.tips),
-                        isExpanded: hesn.expanded,
-                      ),
-                  ],
+                  decoration: InputDecoration(
+                    labelText: 'Search',
+                    suffixIcon: Icon(Icons.search),
+                  ),
                 ),
               ),
-            );
-          } else {
-            return StateRender.fullLoadingScreenImage;
-          }
+              Expanded(
+                child: _buildHesnList(state),
+              ),
+            ],
+          );
         },
       ),
     );
   }
+
+  Widget _buildHesnList(HesnState state) {
+    if (state is HesnSuccess) {
+      List<HesnModel> filteredList = state.hesnList
+          .where((hesn) => hesn.title.toLowerCase().contains(_searchQuery.toLowerCase()))
+          .toList();
+
+      if (filteredList.isEmpty) {
+        return Center(
+          child: Text(
+            'No results found',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        );
+      }
+
+      return SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(AppPadding.p8),
+          child: ExpansionPanelList(
+            elevation: AppSize.s3,
+            expansionCallback: (index, isExpanded) {
+              setState(() {
+                filteredList[index].expanded = isExpanded;
+              });
+            },
+            animationDuration: const Duration(milliseconds: AppConstants.expandSpeedTime),
+            children: filteredList.map<ExpansionPanel>((HesnModel hesn) {
+              return ExpansionPanel(
+                canTapOnHeader: true,
+                backgroundColor: hesn.expanded ? AppColors.secondary : AppColors.white,
+                headerBuilder: (_, isExpanded) => HesnMuslimTitleWidget(title: hesn.title),
+                body: HesnMuslimBodyWidget(tips: hesn.tips),
+                isExpanded: hesn.expanded,
+              );
+            }).toList(),
+          ),
+        ),
+      );
+    } else {
+      return StateRender.fullLoadingScreenImage;
+    }
+  }
 }
+

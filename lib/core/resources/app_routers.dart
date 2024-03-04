@@ -14,11 +14,13 @@ import 'package:holly_quran/features/hadith/presentation/views/hadith_view.dart'
 import 'package:holly_quran/features/hesn_muslim/presentation/view_models/hesn_cubit.dart';
 import 'package:holly_quran/features/hesn_muslim/presentation/views/hesn_muslim_view.dart';
 import 'package:holly_quran/features/home/data/models/quran/surah_model.dart';
+import 'package:holly_quran/features/home/data/models/tasbih/tasbih_model.dart';
 import 'package:holly_quran/features/home/presentation/view_models/bottom_navBar/bottom_nav_bar_cubit.dart';
 import 'package:holly_quran/features/home/presentation/view_models/quran/quran_cubit.dart';
 import 'package:holly_quran/features/home/presentation/views/home_view.dart';
 import 'package:holly_quran/features/home/presentation/views/surah_view.dart';
 import 'package:holly_quran/features/home/presentation/views/sadaqa_surah_view.dart';
+import 'package:holly_quran/features/home/presentation/views/widgets/tasbih_view_item.dart';
 import 'package:holly_quran/features/ihdaa/ihdaa_view.dart';
 import 'package:holly_quran/features/quran_agzaa/presentation/view_models/agzaa_cubit.dart';
 import 'package:holly_quran/features/quran_agzaa/presentation/views/juzh_view.dart';
@@ -42,6 +44,7 @@ class Routes {
   static const String werdViewRoute = "/werdViewRoute";
   static const String contactViewRoute = "/contactViewRoute";
   static const String settingsViewRoute = "/settingsViewRoute";
+  static const String tasbihViewItem = "/tasbihViewItem";
 }
 
 abstract class AppRouters {
@@ -102,11 +105,11 @@ abstract class AppRouters {
         name: Routes.juzhDetailsRoute,
         builder: (context, state) => BlocProvider(
           create: (context) {
-            var startPage  = state.params['id1'] as String;
-            var endPage  = state.params['id2'] as String;
+            var startPage = state.params['id1'] as String;
+            var endPage = state.params['id2'] as String;
             return AgzaaCubit()
-              ..fetchJuzhPages(start: int.parse(startPage),
-                  end: int.parse(endPage));
+              ..fetchJuzhPages(
+                  start: int.parse(startPage), end: int.parse(endPage));
           },
           child: JuzhView(
             startPage: state.params['id1'] as String,
@@ -129,7 +132,8 @@ abstract class AppRouters {
       GoRoute(
         path: Routes.werdViewRoute,
         builder: (context, state) => BlocProvider(
-          create: (context) => WerdCubit(getIt.get<WerdRepoImpl>())..fetchWerds(),
+          create: (context) =>
+              WerdCubit(getIt.get<WerdRepoImpl>())..fetchWerds(),
           child: const WerdView(),
         ),
       ),
@@ -143,6 +147,14 @@ abstract class AppRouters {
         builder: (context, state) => SadaqaSurahView(
             name: state.params['id1'] as String,
             pageNumber: state.params['id2'] as String),
+      ),
+      GoRoute(
+        path: "${Routes.tasbihViewItem}:id1/:id2",
+        name: Routes.tasbihViewItem,
+        builder: (context, state) => TasbihViewItem(
+          name: state.params['id1'] as String,
+          counter: int.parse('${state.params['id2']}') as int,
+        ),
       ),
       // GoRoute(
       //   path: Routes.bookDetailsRoute,

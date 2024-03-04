@@ -29,7 +29,8 @@ class AppStrings {
   static const String addNew = 'إضافة جديد';
   static const String save = 'حفظ';
   static const String sadaqaName = 'اسم صاحب الصدقة الجارية';
-  static const String name = 'الاسم';
+  static const String name = 'إهداء إلي:';
+  static const String name2 = 'الإسم';
   static const String nameSaved = 'تم حفظ الاسم بنجاح';
   static const String werdSaved = 'تم حفظ الورد بنجاح';
   static const String hijriLetter = 'هـ';
@@ -55,7 +56,7 @@ class AppStrings {
   static const String ihdaaGeneral = 'عام';
   static const String ihdaaRamadan = 'رمضان';
   static const String ihdaaSign= ' التوقيع :';
-  static const String content = 'المحتوي';
+  static const String content = 'الرسالة';
   static const String noData = 'يرجي ادخال بيانات كاملة';
 
 

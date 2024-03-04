@@ -1,43 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holly_quran/core/extension/extensions.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/app_colors.dart';
-import 'package:holly_quran/core/resources/app_constants.dart';
-import 'package:holly_quran/core/resources/app_fonts.dart';
 import 'package:holly_quran/core/resources/app_strings.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
+import 'package:holly_quran/features/common_widgets/awsome_dialoge.dart';
+import 'package:holly_quran/features/common_widgets/show_snackBar.dart';
+import 'package:holly_quran/features/common_widgets/state_renderer/state_render.dart';
+import 'package:holly_quran/features/home/presentation/view_models/tasbeh/tasbeh_cubit.dart';
+import 'package:holly_quran/features/home/presentation/views/widgets/tasbih_widget.dart';
 
-class TasbihViewBody extends StatefulWidget {
+class TasbihViewBody extends StatelessWidget {
   const TasbihViewBody({Key? key}) : super(key: key);
 
   @override
-  State<TasbihViewBody> createState() => _TasbihViewBodyState();
-}
-
-class _TasbihViewBodyState extends State<TasbihViewBody>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-
-  @override
-  void initState() {
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: AppConstants.tasbihSpeedTime),
-      vsync: this,
-    );
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  double end = 0;
-  int counter = 0;
-
-  @override
   Widget build(BuildContext context) {
+    TextEditingController nameController = TextEditingController();
+    TextEditingController counterController = TextEditingController();
     return Container(
       height: context.height,
       decoration: const BoxDecoration(
@@ -50,68 +30,58 @@ class _TasbihViewBodyState extends State<TasbihViewBody>
         child: Center(
           child: Column(
             children: [
-              Container(
-                margin: const EdgeInsets.only(top:AppMargin.m50,left:AppMargin.m50,right:AppMargin.m50,),
-                height: AppSize.s390,
-                width: AppSize.s390,
-                alignment: Alignment.center,
-                child: Column(
-                  children: [
-                    RotationTransition(
-                      turns: Tween(begin: 0.0, end: end).animate(_controller),
-                      child: Image.asset(
-                        ImageAssets.tasbihCounter,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Container(
-                      width: AppSize.s230,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: AppColors.expansion,
-                        borderRadius: BorderRadius.circular(AppSize.s20)
-                      ),
-                      child: Text('$counter', style: Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: FontSize.s50),
-                      ),
-                    ),
-                  ],
-                ),
+              const SizedBox(height: AppSize.s20),
+              Image.asset(ImageAssets.tasbih, width: AppSize.s100),
+              Text(
+                'اللهم أجعلنا من الذاكرين',
+                style: Theme.of(context).textTheme.titleMedium,
               ),
-              SizedBox(
-                width: AppSize.s230,
-                height: AppSize.s80,
-                child: ElevatedButton(
-                  child: const Text(AppStrings.tasbihCounter),
-                  onPressed: () {
-                    setState(() {
-                      end += 0.01;
-                      counter += 1;
-                    });
-                    _controller.forward();
-                  },
-                ),
-              ),
-              const SizedBox(height: AppSize.s14),
-              ElevatedButton(
-                style: ButtonStyle(
-                  padding: MaterialStateProperty.all(
-                    const EdgeInsets.symmetric(horizontal: AppPadding.p14,
-                    ),
-                  ),
-                  backgroundColor: MaterialStateProperty.all(
-                    AppColors.reset
-                  ),
-                ),
-                onPressed: () {
-                  setState(() {
-                    end = 0;
-                    counter = 0;
+              AppAwesomeDialog(
+                controller: nameController,
+                title: 'إضافة ذكر جديد',
+                controller2: counterController,
+                function: () {
+                  BlocProvider.of<TasbehCubit>(context)
+                      .addOneTasbih(name: nameController.text, counter: int.parse(counterController.text))
+                      .then((value) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      buildSnackBar(
+                        context,
+                        title: 'تم الإضافة بنجاح',
+                        background: AppColors.primary,
+                      ),
+                    );
+                    nameController.text = '';
                   });
-                  _controller.reset();
                 },
-                child: const Text(AppStrings.tasbihReset),
               ),
-              const SizedBox(height: AppSize.s40),
+              const Divider(),
+              BlocBuilder<TasbehCubit, TasbehState>(
+                builder: (context, state) {
+                  if (state is TasbehSuccess) {
+                    return SizedBox(
+                      height: context.height *0.55,
+                      child: SingleChildScrollView(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          padding: const EdgeInsets.all(AppPadding.p8),
+                          itemCount: state.tasbih.length,
+                          itemBuilder: (context, index) => TasbihWidget(
+                            tasbih: state.tasbih[index],
+                          ),
+                        ),
+                      ),
+                    );
+                  } else if (state is TasbehLoading) {
+                    return const FullLoadingScreenAnimated(
+                      message: 'إضافة ذكر',
+                    );
+                  } else {
+                    return StateRender.fullLoadingScreenImage;
+                  }
+                },
+              ),
             ],
           ),
         ),

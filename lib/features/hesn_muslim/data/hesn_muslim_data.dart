@@ -46,7 +46,7 @@ List<HesnModel> hesnMuslimList = [
   ),
   HesnModel(
     id: 2,
-    title: 'دعاء ُلبْس الثوب',
+    title: 'دعاء لبس الثوب',
     tips: [
       HesnTipModel(
           content:
@@ -55,7 +55,7 @@ List<HesnModel> hesnMuslimList = [
   ),
   HesnModel(
     id: 3,
-    title: 'دعاء ُلبْس الثوب الجديد',
+    title: 'دعاء لبس الثوب الجديد',
     tips: [
       HesnTipModel(
           content:

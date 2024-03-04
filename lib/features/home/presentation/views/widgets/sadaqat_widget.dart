@@ -65,7 +65,7 @@ class SadaqatWidget extends StatelessWidget {
                 height: AppSize.s40,
                 alignment: Alignment.center,
                 decoration: const BoxDecoration(shape: BoxShape.circle),
-                child: const Icon(Icons.delete_forever),
+                child: Icon(Icons.delete_forever,color: AppColors.white,),
               ),
             ),
           ),

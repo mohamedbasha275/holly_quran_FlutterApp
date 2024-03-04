@@ -37,6 +37,7 @@ class SadaqatViewBody extends StatelessWidget {
               ),
               AppAwesomeDialog(
                 controller: nameController,
+                title: AppStrings.sadaqaName,
                 function: () {
                   BlocProvider.of<SadaqatCubit>(context)
                       .addOneSadaqa(name: nameController.text)

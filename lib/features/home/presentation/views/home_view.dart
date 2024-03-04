@@ -23,6 +23,10 @@ class HomeView extends StatelessWidget {
       const TasbihViewBody(),
       const SalahViewBody(),
     ];
+
+    // Determine if the keyboard is open
+    bool isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: BlocBuilder<BottomNavBarCubit, BottomNavBarState>(
@@ -38,21 +42,24 @@ class HomeView extends StatelessWidget {
                   ? navBarWidgets[cubit.currentIndex]
                   : const HomeViewBody(),
             ),
-            floatingActionButton: SizedBox(
-              height: AppSize.s80,
-              width: AppSize.s80,
-              child: FloatingActionButton(
-                backgroundColor: AppColors.primary,
-                child: Image.asset(
-                  ImageAssets.home,
-                  fit: BoxFit.cover,
-                  width: AppSize.s50,
-                ),
-                onPressed: () {
-                  cubit.changeIndex(index: cubit.allItemsCount);
-                },
-              ),
-            ),
+            floatingActionButton: isKeyboardOpen
+                ? null // Don't show the FAB when the keyboard is open
+                : SizedBox(
+                    height: AppSize.s80,
+                    width: AppSize.s80,
+                    child: FloatingActionButton(
+                      backgroundColor: AppColors.primary,
+                      shape: const CircleBorder(),
+                      child: Image.asset(
+                        ImageAssets.home,
+                        fit: BoxFit.cover,
+                        width: AppSize.s50,
+                      ),
+                      onPressed: () {
+                        cubit.changeIndex(index: cubit.allItemsCount);
+                      },
+                    ),
+                  ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar:
