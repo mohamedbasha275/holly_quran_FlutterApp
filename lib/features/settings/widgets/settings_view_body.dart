@@ -25,6 +25,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
   late DateTime _masaaSelectedTime = DateTime.now();
   late DateTime _werdSelectedTime = DateTime.now();
   bool activeStatus = true;
+  bool vibStatus = true;
 
   // get time from shared
   Future<void> _loadSelectedTime() async {
@@ -33,14 +34,19 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
     List<int> masaaTimes = await appPreferences.getAzkarMasaa();
     List<int> werdTimes = await appPreferences.getAzkarWerd();
     bool notfStatus = await appPreferences.getNotificationsStatus();
+    bool vibrateStatus = await appPreferences.getVibrateStatus();
     setState(() {
-      _sabahSelectedTime = DateTime(now.year, now.month, now.day, sabahTimes[0], sabahTimes[1]);
-      _masaaSelectedTime = DateTime(now.year, now.month, now.day, masaaTimes[0], masaaTimes[1]);
-      _werdSelectedTime = DateTime(now.year, now.month, now.day, werdTimes[0], werdTimes[1]);
+      _sabahSelectedTime =
+          DateTime(now.year, now.month, now.day, sabahTimes[0], sabahTimes[1]);
+      _masaaSelectedTime =
+          DateTime(now.year, now.month, now.day, masaaTimes[0], masaaTimes[1]);
+      _werdSelectedTime =
+          DateTime(now.year, now.month, now.day, werdTimes[0], werdTimes[1]);
       sabahPicked = TimeOfDay.fromDateTime(_sabahSelectedTime);
       masaaPicked = TimeOfDay.fromDateTime(_masaaSelectedTime);
       werdPicked = TimeOfDay.fromDateTime(_werdSelectedTime);
       activeStatus = notfStatus;
+      vibStatus = vibrateStatus;
     });
   }
 
@@ -72,61 +78,70 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-          margin: const EdgeInsets.all(AppMargin.m20),
-          child: Column(
-            children: [
-              GestureDetector(
-                onTap: (){
-                  setState(() {
-                    activeStatus = !activeStatus;
-                    appPreferences.setNotificationsStatus(status: activeStatus).then((_){
-                      String title = activeStatus ?  AppStrings.activeNotifications : AppStrings.disActiveNotifications;
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        buildSnackBar(
-                          context,
-                          title: "${AppStrings.done} $title ${AppStrings.successfully}",
-                          background: AppColors.primary,
-                        ),
-                      );
-                    });
-                  });
-                },
-                child: SizedBox(
-                  height: AppSize.s80,
-                  child: Card(
-                    color: AppColors.secondary,
-                    child: Padding(
-                      padding: const EdgeInsets.all(AppPadding.p8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            activeStatus ?  AppStrings.disActiveNotifications : AppStrings.activeNotifications,
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          Icon(activeStatus ? Icons.notifications : Icons.notifications_off),
-                        ],
+        margin: const EdgeInsets.all(AppMargin.m20),
+        child: Column(
+          children: [
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  activeStatus = !activeStatus;
+                  appPreferences
+                      .setNotificationsStatus(status: activeStatus)
+                      .then((_) {
+                    String title = activeStatus
+                        ? AppStrings.activeNotifications
+                        : AppStrings.disActiveNotifications;
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      buildSnackBar(
+                        context,
+                        title:
+                            "${AppStrings.done} $title ${AppStrings.successfully}",
+                        background: AppColors.primary,
                       ),
+                    );
+                  });
+                });
+              },
+              child: SizedBox(
+                height: AppSize.s80,
+                child: Card(
+                  color: AppColors.secondary,
+                  child: Padding(
+                    padding: const EdgeInsets.all(AppPadding.p8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          activeStatus
+                              ? AppStrings.disActiveNotifications
+                              : AppStrings.activeNotifications,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        Icon(activeStatus
+                            ? Icons.notifications
+                            : Icons.notifications_off),
+                      ],
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: AppSize.s30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  GestureDetector(
-                    onTap: () => _showSettingsViewBody(context,
-                        picked: sabahPicked,
-                        selectedTime: _sabahSelectedTime, onTimeSelected: (newTime) {
-                          setState(() {
-                            _sabahSelectedTime = newTime;
-                            appPreferences.setAzkarSabah(
-                                hour: newTime.hour, minute: newTime.minute);
-                            sabahPicked = TimeOfDay.fromDateTime(newTime);
-                          });
-                        }),
-                    child: SizedBox(
+            ),
+            const SizedBox(height: AppSize.s30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                GestureDetector(
+                  onTap: () => _showSettingsViewBody(context,
+                      picked: sabahPicked, selectedTime: _sabahSelectedTime,
+                      onTimeSelected: (newTime) {
+                    setState(() {
+                      _sabahSelectedTime = newTime;
+                      appPreferences.setAzkarSabah(
+                          hour: newTime.hour, minute: newTime.minute);
+                      sabahPicked = TimeOfDay.fromDateTime(newTime);
+                    });
+                  }),
+                  child: SizedBox(
                     height: AppSize.s150,
                     width: AppSize.s150,
                     child: Card(
@@ -151,17 +166,61 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                     ),
                   ),
                 ),
+                GestureDetector(
+                  onTap: () => _showSettingsViewBody(context,
+                      picked: masaaPicked, selectedTime: _masaaSelectedTime,
+                      onTimeSelected: (newTime) {
+                    setState(() {
+                      _masaaSelectedTime = newTime;
+                      appPreferences.setAzkarMasaa(
+                          hour: newTime.hour, minute: newTime.minute);
+                      masaaPicked = TimeOfDay.fromDateTime(newTime);
+                    });
+                  }),
+                  child: SizedBox(
+                    height: AppSize.s150,
+                    width: AppSize.s150,
+                    child: Card(
+                      color: AppColors.expansion,
+                      child: Padding(
+                        padding: const EdgeInsets.all(AppPadding.p8),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              AppStrings.azkarMasaa,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            Text(
+                              arTime(DateFormat('h:mm a')
+                                  .format(_masaaSelectedTime)),
+                              style: Theme.of(context).textTheme.titleMedium,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSize.s20),
+            Container(
+              margin: const EdgeInsets.only(right: AppPadding.p10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
                   GestureDetector(
                     onTap: () => _showSettingsViewBody(context,
-                        picked: masaaPicked,
-                        selectedTime: _masaaSelectedTime, onTimeSelected: (newTime) {
-                          setState(() {
-                            _masaaSelectedTime = newTime;
-                            appPreferences.setAzkarMasaa(
-                                hour: newTime.hour, minute: newTime.minute);
-                            masaaPicked = TimeOfDay.fromDateTime(newTime);
-                          });
-                        }),
+                        picked: werdPicked, selectedTime: _werdSelectedTime,
+                        onTimeSelected: (newTime) {
+                      setState(() {
+                        _werdSelectedTime = newTime;
+                        appPreferences.setAzkarWerd(
+                            hour: newTime.hour, minute: newTime.minute);
+                        werdPicked = TimeOfDay.fromDateTime(newTime);
+                      });
+                    }),
                     child: SizedBox(
                       height: AppSize.s150,
                       width: AppSize.s150,
@@ -173,11 +232,12 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
-                                AppStrings.azkarMasaa,
+                                AppStrings.werdDay,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               Text(
-                                arTime(DateFormat('h:mm a').format(_masaaSelectedTime)),
+                                arTime(DateFormat('h:mm a')
+                                    .format(_werdSelectedTime)),
                                 style: Theme.of(context).textTheme.titleMedium,
                               )
                             ],
@@ -186,88 +246,90 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                       ),
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(height: AppSize.s20),
-              Container(
-                margin: const EdgeInsets.only(right: AppPadding.p10),
-                child: Row(
-                 //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    GestureDetector(
-                      onTap: () => _showSettingsViewBody(context,
-                          picked: werdPicked,
-                          selectedTime: _werdSelectedTime, onTimeSelected: (newTime) {
-                            setState(() {
-                              _werdSelectedTime = newTime;
-                              appPreferences.setAzkarWerd(
-                                  hour: newTime.hour, minute: newTime.minute);
-                              werdPicked = TimeOfDay.fromDateTime(newTime);
-                            });
-                          }),
-                      child: SizedBox(
-                        height: AppSize.s150,
-                        width: AppSize.s150,
-                        child: Card(
-                          color: AppColors.expansion,
-                          child: Padding(
-                            padding: const EdgeInsets.all(AppPadding.p8),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  AppStrings.werdDay,
-                                  style: Theme.of(context).textTheme.titleMedium,
-                                ),
-                                Text(
-                                  arTime(DateFormat('h:mm a').format(_werdSelectedTime)),
-                                  style: Theme.of(context).textTheme.titleMedium,
-                                )
-                              ],
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        vibStatus = !vibStatus;
+                        appPreferences
+                            .setVibrateStatus(status: vibStatus)
+                            .then((_) {
+                          String title = vibStatus
+                              ? 'تفعيل الإهتزازات'
+                              : 'إيقاف الإهتزازات';
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            buildSnackBar(
+                              context,
+                              title:
+                                  "${AppStrings.done} $title ${AppStrings.successfully}",
+                              background: AppColors.primary,
                             ),
-                          ),
+                          );
+                        });
+                      });
+                    },
+                    child: SizedBox(
+                      height: AppSize.s150,
+                      width: AppSize.s150,
+                      child: Card(
+                        color: AppColors.expansion,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              height: 70,
+                              vibStatus? 'assets/images/vib.png':'assets/images/vib_off.png',
+                            ),
+                            SizedBox(height: 5,),
+                            Text(
+                              vibStatus
+                              ? 'إيقاف الإهتزازات'
+                                  : 'تفعيل الإهتزازات',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                    // GestureDetector(
-                    //   onTap: () => _showSettingsViewBody(context,
-                    //       picked: sabahPicked,
-                    //       selectedTime: _sabahSelectedTime, onTimeSelected: (newTime) {
-                    //         setState(() {
-                    //           _sabahSelectedTime = newTime;
-                    //           appPreferences.setAzkarSabah(
-                    //               hour: newTime.hour, minute: newTime.minute);
-                    //           sabahPicked = TimeOfDay.fromDateTime(newTime);
-                    //         });
-                    //       }),
-                    //   child: SizedBox(
-                    //     height: 150,
-                    //     width: 150,
-                    //     child: Card(
-                    //       child: Padding(
-                    //         padding: const EdgeInsets.all(8.0),
-                    //         child: Column(
-                    //           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    //           children: [
-                    //             Text(
-                    //               'اذكار الصباح',
-                    //               style: const TextStyle(fontSize: 24.0),
-                    //             ),
-                    //             Text(
-                    //               DateFormat('h:mm a').format(_sabahSelectedTime),
-                    //               style: const TextStyle(fontSize: 24.0),
-                    //             )
-                    //           ],
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                  ],
-                ),
+                  ),
+                  // GestureDetector(
+                  //   onTap: () => _showSettingsViewBody(context,
+                  //       picked: sabahPicked,
+                  //       selectedTime: _sabahSelectedTime, onTimeSelected: (newTime) {
+                  //         setState(() {
+                  //           _sabahSelectedTime = newTime;
+                  //           appPreferences.setAzkarSabah(
+                  //               hour: newTime.hour, minute: newTime.minute);
+                  //           sabahPicked = TimeOfDay.fromDateTime(newTime);
+                  //         });
+                  //       }),
+                  //   child: SizedBox(
+                  //     height: 150,
+                  //     width: 150,
+                  //     child: Card(
+                  //       child: Padding(
+                  //         padding: const EdgeInsets.all(8.0),
+                  //         child: Column(
+                  //           mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  //           children: [
+                  //             Text(
+                  //               'اذكار الصباح',
+                  //               style: const TextStyle(fontSize: 24.0),
+                  //             ),
+                  //             Text(
+                  //               DateFormat('h:mm a').format(_sabahSelectedTime),
+                  //               style: const TextStyle(fontSize: 24.0),
+                  //             )
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
+        ),
       ),
     );
   }

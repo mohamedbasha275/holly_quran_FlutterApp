@@ -192,8 +192,15 @@ class HomeRepoImpl implements HomeRepo {
 
     // Static list of TasbihModel objects
     List<TasbihModel> staticTasbihs = [
-      TasbihModel(id: 0, name: "Static Tasbih 1", counter: 100,static: true),
-      TasbihModel(id: 0, name: "Static Tasbih 2", counter: 200,static: true),
+      TasbihModel(id: 0, name: "سبحان الله",type: '(بعد الصلاة)', counter: 33,static: true),
+      TasbihModel(id: 0, name: "الحمد لله",type: '(بعد الصلاة)', counter: 33,static: true),
+      TasbihModel(id: 0, name: "الله أكبر",type: '(بعد الصلاة)', counter: 33,static: true),
+      TasbihModel(id: 0, name: "سبحان الله",type: '(باقيات صالحات)', counter: 100,static: true),
+      TasbihModel(id: 0, name: "الحمدلله",type: '(باقيات صالحات)', counter: 100,static: true),
+      TasbihModel(id: 0, name: "لا إله إلا الله",type: '(باقيات صالحات)', counter: 100,static: true),
+      TasbihModel(id: 0, name: "الله اكبر",type: '(باقيات صالحات)', counter: 100,static: true),
+      TasbihModel(id: 0, name: "لا حول ولا قوة إلا بالله",type: '(باقيات صالحات)', counter: 100,static: true),
+      TasbihModel(id: 0, name: "سبحان الله وبحمده سبحان الله العظيم",type: '(باقيات صالحات)', counter: 100,static: true),
       // Add more static items as needed
     ];
 

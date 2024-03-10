@@ -49,7 +49,7 @@ class _IhdaaImageState extends State<IhdaaImage> {
       await imgFile.writeAsBytes(pngBytes);
 
       // Using shareXFiles instead of deprecated shareFiles
-      await Share.shareXFiles([XFile(imagePath)], text: 'Check out this image!');
+      await Share.shareXFiles([XFile(imagePath)]);
     } catch (e) {
       print(e.toString());
     }
@@ -125,9 +125,12 @@ class _IhdaaImageState extends State<IhdaaImage> {
         ),
         floatingActionButton: FloatingActionButton(
           shape: StadiumBorder(),
+          backgroundColor: AppColors.secondary.withOpacity(0.8),
+
           onPressed: _shareImage,
-          child: Icon(Icons.share),
+          child: const Icon(Icons.share),
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
       ),
     );
   }

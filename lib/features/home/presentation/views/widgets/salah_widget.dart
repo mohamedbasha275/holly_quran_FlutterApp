@@ -40,12 +40,24 @@ class _SalahWidgetState extends State<SalahWidget> {
 
   @override
   Widget build(BuildContext context) {
-    DateTime dt1 = DateTime.now();
-    DateTime dt2 = widget.salah.dateTime;
-    Duration diff = dt2.difference(dt1);
-    int hours = diff.inHours;
-    int minutes = diff.inMinutes % 60; // للحصول على الدقائق المتبقية بعد حساب الساعات
-    int seconds = diff.inSeconds % 60; // للحصول على الثواني المتبقية بعد حساب الدقائق
+    // DateTime dt1 = DateTime.now();
+    // DateTime dt2 = widget.salah.dateTime;
+    // Duration diff = dt2.difference(dt1);
+    // int hours = diff.inHours;
+    // int minutes = diff.inMinutes % 60; // للحصول على الدقائق المتبقية بعد حساب الساعات
+    // int seconds = diff.inSeconds % 60; // للحصول على الثواني المتبقية بعد حساب الدقائق
+    DateTime now = DateTime.now();
+    DateTime salahTime = widget.salah.dateTime;
+    // تحقق إذا كان وقت الصلاة قد مضى
+    if (now.isAfter(salahTime)) {
+      salahTime = salahTime.add(Duration(days: 1)); // إضافة يوم واحد للوصول لفجر اليوم التالي
+    }
+
+    Duration difference = salahTime.difference(now);
+    int hours = difference.inHours;
+    int minutes = difference.inMinutes % 60;
+    int seconds = difference.inSeconds % 60; // للحصول على الثواني المتبقية
+
 
     Color color = (widget.isNext) ? Colors.blueGrey : AppColors.black;
     return Container(

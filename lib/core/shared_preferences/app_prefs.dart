@@ -17,7 +17,7 @@ const String AZKAR_SABAH_KEY = 'AZKAR_SABAH_KEY';
 const String AZKAR_MASAA_KEY = 'AZKAR_MASAA_KEY';
 const String AZKAR_WERD_KEY = 'AZKAR_WERD_KEY';
 const String NOTIFICATIONS_STATUS = 'NOTIFICATIONS_STATUS';
-
+const String VIBRATE_STATUS = 'VIBRATE_STATUS';
 class AppPreferences {
   final SharedPreferences _sharedPreferences;
 
@@ -240,6 +240,18 @@ class AppPreferences {
   }
   Future<bool> getNotificationsStatus() async {
     bool? status = _sharedPreferences.getBool(NOTIFICATIONS_STATUS);
+    if (status != null) {
+      return status;
+    } else {
+      return true;
+    }
+  }
+  // NotificationsStatus
+  Future<void> setVibrateStatus({required bool status}) async {
+    _sharedPreferences.setBool(VIBRATE_STATUS, status);
+  }
+  Future<bool> getVibrateStatus() async {
+    bool? status = _sharedPreferences.getBool(VIBRATE_STATUS);
     if (status != null) {
       return status;
     } else {

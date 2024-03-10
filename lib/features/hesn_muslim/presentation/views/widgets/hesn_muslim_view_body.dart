@@ -44,8 +44,8 @@ class _HesnMuslimViewBodyState extends State<HesnMuslimViewBody> {
                       _searchQuery = value;
                     });
                   },
-                  decoration: InputDecoration(
-                    labelText: 'Search',
+                  decoration: const InputDecoration(
+                    labelText: 'بحث...',
                     suffixIcon: Icon(Icons.search),
                   ),
                 ),
@@ -63,16 +63,19 @@ class _HesnMuslimViewBodyState extends State<HesnMuslimViewBody> {
   Widget _buildHesnList(HesnState state) {
     if (state is HesnSuccess) {
       List<HesnModel> filteredList = state.hesnList
-          .where((hesn) => hesn.title.toLowerCase().contains(_searchQuery.toLowerCase()))
+          .where((hesn) =>
+              hesn.title.toLowerCase().contains(_searchQuery.toLowerCase()))
           .toList();
 
       if (filteredList.isEmpty) {
-        return Center(
+        return const Center(
+            child: Padding(
+          padding: EdgeInsets.all(8.0),
           child: Text(
-            'No results found',
+            'لا توجد نتائج بحث',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-        );
+        ));
       }
 
       return SingleChildScrollView(
@@ -80,17 +83,20 @@ class _HesnMuslimViewBodyState extends State<HesnMuslimViewBody> {
           padding: const EdgeInsets.all(AppPadding.p8),
           child: ExpansionPanelList(
             elevation: AppSize.s3,
+
             expansionCallback: (index, isExpanded) {
               setState(() {
                 filteredList[index].expanded = isExpanded;
               });
             },
-            animationDuration: const Duration(milliseconds: AppConstants.expandSpeedTime),
+            animationDuration:
+                const Duration(milliseconds: AppConstants.expandSpeedTime),
             children: filteredList.map<ExpansionPanel>((HesnModel hesn) {
               return ExpansionPanel(
                 canTapOnHeader: true,
                 backgroundColor: hesn.expanded ? AppColors.secondary : AppColors.white,
-                headerBuilder: (_, isExpanded) => HesnMuslimTitleWidget(title: hesn.title),
+                headerBuilder: (_, isExpanded) =>
+                    HesnMuslimTitleWidget(title: hesn.title),
                 body: HesnMuslimBodyWidget(tips: hesn.tips),
                 isExpanded: hesn.expanded,
               );
@@ -103,4 +109,3 @@ class _HesnMuslimViewBodyState extends State<HesnMuslimViewBody> {
     }
   }
 }
-

@@ -22,7 +22,7 @@ class SadaqatWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(
-            width: context.width * 0.75,
+            width: context.width * 0.8,
             child: ElevatedButton(
               onPressed: () {
                 Random random = Random();
@@ -35,17 +35,13 @@ class SadaqatWidget extends StatelessWidget {
               },
               style: ButtonStyle(
                 padding: MaterialStateProperty.all(
-                    const EdgeInsets.all(AppPadding.p8)),
+                    const EdgeInsets.all(AppPadding.p16)),
                 backgroundColor: MaterialStateProperty.all(AppColors.white),
               ),
-              child: Column(
-                children: [
-                  Text(title,
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.headlineLarge,
-                  ),
-                ],
+              child: Text(title,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
             ),
           ),

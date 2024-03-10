@@ -8,6 +8,8 @@ import 'package:holly_quran/features/home/data/models/salah/surah_model.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+
+
 void fireAppNotifications({String? sound}) async {
   // local
   tz.initializeTimeZones();
@@ -15,10 +17,11 @@ void fireAppNotifications({String? sound}) async {
   // setting
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   var initializationSettingsAndroid = const AndroidInitializationSettings('app_icon7');
-  var initializationSettingsIOS = const IOSInitializationSettings();
-  var initializationSettings = InitializationSettings(android: initializationSettingsAndroid,
-      iOS: initializationSettingsIOS);
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: null);
+  //var initializationSettingsIOS = const IOSInitializationSettings();
+  var initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  //
+  //
   //
   Future<void> _scheduleNotification({
     required int id,
@@ -30,7 +33,7 @@ void fireAppNotifications({String? sound}) async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
       'channel_id$id',
       channelName,
-      'channel_description',
+      //'channel_description',
       visibility: NotificationVisibility.public,
       color: AppColors.primary,
       autoCancel: true,
@@ -39,10 +42,9 @@ void fireAppNotifications({String? sound}) async {
       playSound: true,
      // sound: id <= 5 ? const RawResourceAndroidNotificationSound('my_sound') : null,
     );
-    var iOSPlatformChannelSpecifics = const IOSNotificationDetails();
+    //var iOSPlatformChannelSpecifics = const IOSNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: iOSPlatformChannelSpecifics);
+        android: androidPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
       title,
@@ -194,13 +196,16 @@ Future<List<SalahModelTime>> fetchSalahTimes() async {
 
 //  at 12 am
 void scheduleFunction() {
-  Timer.periodic(const Duration(days: 1), (timer) async {
-    DateTime now = DateTime.now();
+  DateTime now = DateTime.now();
+  DateTime nextMidnight = DateTime(now.year, now.month, now.day + 1, 0, 0, 0);
+  Duration initialDelay = nextMidnight.difference(now);
+  Timer(initialDelay, () {
     var appPreferences = getIt.get<AppPreferences>();
-    DateTime scheduledTime = DateTime(now.year, now.month, now.day, 12, 0, 0);
-    if (now.isAfter(scheduledTime)) {
+    appPreferences.updateAllWerd();
+
+    // Now that we've done the first update, set a periodic timer for every 24 hours.
+    Timer.periodic(const Duration(days: 1), (timer) async {
       appPreferences.updateAllWerd();
-      timer.cancel();
-    }
+    });
   });
 }

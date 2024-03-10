@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:holly_quran/core/app_notificationsold.dart';
 import 'package:holly_quran/core/extension/extensions.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/app_colors.dart';
@@ -8,6 +9,9 @@ import 'package:holly_quran/core/resources/app_strings.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/home_box_widget.dart';
 import 'package:lottie/lottie.dart';
+
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 class HomeViewBody extends StatefulWidget {
   const HomeViewBody({Key? key}) : super(key: key);
@@ -113,6 +117,19 @@ class _HomeViewBodyState extends State<HomeViewBody> {
               AppStrings.homeTitle,
               style: Theme.of(context).textTheme.displayLarge,
             ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     scheduleNotification(
+            //       id: 10, // Unique ID for this notification
+            //       title: 'Scheduled e',
+            //       body: 'This is a ee ',
+            //       scheduledTime: tz.TZDateTime.now(tz.local).add(const Duration(seconds: 1)),
+            //       channelName: 'Scheduled ee',
+            //     );
+            //   },
+            //   child: Text('Schedule Notification'),
+            // ),
+
             const SizedBox(height: AppSize.s10),
             CarouselSlider.builder(
               itemCount: screensList.length,

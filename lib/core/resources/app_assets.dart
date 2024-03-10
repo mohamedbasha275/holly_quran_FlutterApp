@@ -7,10 +7,12 @@ class ImageAssets {
   static const String icon = "$imagePath/icon.jpg";
   static const String border = "$imagePath/border2.jpeg";
   static const String tasbih = "$imagePath/tasbih.png";
+  static const String dua = "$imagePath/dua2.png";
   static const String sadqat = "$imagePath/sadqat.png";
   static const String salah = "$imagePath/salah.png";
   static const String quran = "$imagePath/quran.png";
   static const String home = "$imagePath/home.png";
+  static const String arrow = "$imagePath/arrow.png";
   static const String azkarSabah = "$imagePath/azkarSabah.png";
   static const String azkarMasaa = "$imagePath/azkarMasaa.png";
   static const String hadith = "$imagePath/hadith.png";

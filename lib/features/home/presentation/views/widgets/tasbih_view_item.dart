@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:holly_quran/core/di/service_locator.dart';
 import 'package:holly_quran/core/extension/extensions.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/app_colors.dart';
 import 'package:holly_quran/core/resources/app_constants.dart';
 import 'package:holly_quran/core/resources/app_fonts.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
+import 'package:holly_quran/core/shared_preferences/app_prefs.dart';
 import 'package:holly_quran/features/common_widgets/quran_app_bar.dart';
 import 'package:holly_quran/features/home/data/models/tasbih/tasbih_model.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -26,13 +27,19 @@ class _TasbihViewItemState extends State<TasbihViewItem>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
+  bool vibStatus = false;
   @override
   void initState() {
     _controller = AnimationController(
       duration: const Duration(milliseconds: AppConstants.tasbihSpeedTime),
       vsync: this,
     );
+    _vib();
     super.initState();
+  }
+  Future<void> _vib() async{
+    var appPreferences = getIt.get<AppPreferences>();
+    vibStatus = await appPreferences.getVibrateStatus();
   }
 
   @override
@@ -47,7 +54,6 @@ class _TasbihViewItemState extends State<TasbihViewItem>
 
   @override
   Widget build(BuildContext context) {
-    FlutterTts flutterTts = FlutterTts();
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -100,14 +106,14 @@ class _TasbihViewItemState extends State<TasbihViewItem>
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SizedBox(
-                              width: context.width * 0.50,
+                              width: context.width * 0.48,
                               child: Text(
                                 widget.name,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineMedium!
                                     .copyWith(
-                                      fontSize: FontSize.s22,
+                                      fontSize: FontSize.s20,
                                       fontWeight: FontWeightManager.bold,
                                     ),
                                 textAlign: TextAlign.center,
@@ -245,8 +251,9 @@ class _TasbihViewItemState extends State<TasbihViewItem>
                           _controller.forward();
                           //
                           if (counter == widget.counter) {
-                            Vibration.vibrate(duration: 100); // Duration in milliseconds for a smooth vibration
-                            print('vibrate');
+                            if(vibStatus){
+                              Vibration.vibrate(duration: 100);
+                            }
                             setState(() {
                               end = 0;
                               counter = 0;
@@ -254,14 +261,10 @@ class _TasbihViewItemState extends State<TasbihViewItem>
                             });
                             _controller.reset();
                           } else {
-                            if (await Vibration.hasVibrator() ?? false) {
-                              Vibration.vibrate(
-                                  duration:
-                                  50); // Duration in milliseconds for a smooth vibration
-                              print('vibrate');
+                            if(vibStatus){
+                              print('ff');
+                              Vibration.vibrate(duration: 20);
                             }
-                            bool? o = await Vibration.hasVibrator();
-                            print('$o');
                           }
                         },
                         child: Text(

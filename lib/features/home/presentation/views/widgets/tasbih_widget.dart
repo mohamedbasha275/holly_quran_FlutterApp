@@ -23,12 +23,12 @@ class TasbihWidget extends StatelessWidget {
     nameController.text = tasbih.name;
     counterController.text = tasbih.counter.toString();
     return Container(
-      margin: const EdgeInsets.only(top: AppMargin.m16),
+      margin: const EdgeInsets.only(top: 12),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           SizedBox(
-            width: context.width * 0.8,
+            width: context.width * 0.85,
             child: ElevatedButton(
               onPressed: () {
                 GoRouter.of(context).pushNamed(Routes.tasbihViewItem,
@@ -40,26 +40,66 @@ class TasbihWidget extends StatelessWidget {
                   backgroundColor:
                       MaterialStateProperty.all(AppColors.primarySwatch),
                   shape: MaterialStateProperty.all(const StadiumBorder())),
-              child: Column(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    tasbih.name,
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                          color: AppColors.white,
+                  SizedBox(
+                    width: context.width *0.6,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(
+                          width: tasbih.type != ''? context.width *0.42 : context.width *0.6,
+                          child: Text(
+                            tasbih.name,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                                  color: AppColors.white,
+                                ),
+                          ),
                         ),
-                  ),
-                  SizedBox(height: 2,),
-                  Text(
-                    'العدد : ${tasbih.counter}',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                      fontSize: 14,
-                      fontFamily: FontConstants.fontFamily,
-                      color: Colors.white60,
+                        if(tasbih.type != '')
+                        Text(
+                          tasbih.type,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            color: AppColors.white,
+                            fontSize: 10,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+                  Container(
+                    width: 35,
+                    height: 35,
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      border: Border.all(color: AppColors.grey),
+                    ),
+                    child:Center(
+                      child: Text(
+                        '${tasbih.counter}',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                          fontSize: 12,
+                          color: Colors.white60,
+                        ),
+                      ),
+                    ),
+                  ),
+                  // SizedBox(height: 2,),
+                  // Text(
+                  //   'العدد : ${tasbih.counter}',
+                  //   textAlign: TextAlign.center,
+                  //   style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                  //     fontSize: 14,
+                  //     fontFamily: FontConstants.fontFamily,
+                  //     color: Colors.white60,
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -73,101 +113,104 @@ class TasbihWidget extends StatelessWidget {
 
   Widget _buildPopupMenu(
       BuildContext context, nameController, counterController) {
-    return PopupMenuButton<String>(
-      onSelected: (String value) async {
-        if (value == 'Edit') {
-          return AwesomeDialog(
-            context: context,
-            //animType: AnimType.rightSlide,
-            dialogType: DialogType.question,
-            btnOkColor: AppColors.primary,
-            btnOkText: AppStrings.save,
-            body: Center(
-              child: Column(
+    return SizedBox(
+      width: context.width * 0.1,
+      child: PopupMenuButton<String>(
+        onSelected: (String value) async {
+          if (value == 'Edit') {
+            return AwesomeDialog(
+              context: context,
+              //animType: AnimType.rightSlide,
+              dialogType: DialogType.question,
+              btnOkColor: AppColors.primary,
+              btnOkText: AppStrings.save,
+              body: Center(
+                child: Column(
+                  children: [
+                    Text(
+                      'تعديل',
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: AppSize.s10),
+                    SizedBox(
+                      width: context.width * 0.7,
+                      child: Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                            labelText: AppStrings.name2,
+                          ),
+                          controller: nameController,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: AppSize.s10),
+                    SizedBox(
+                      width: context.width * 0.7,
+                      child: Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                            labelText: 'العدد',
+                          ),
+                          controller: counterController,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              btnOkOnPress: () {
+                if (nameController.text != '' && counterController.text != '') {
+                  BlocProvider.of<TasbehCubit>(context).updateTasbih(
+                    id: tasbih.id,
+                    name: nameController.text,
+                    counter: int.parse(
+                      counterController.text,
+                    ),
+                  );
+                }
+              },
+            ).show();
+          } else if (value == 'Delete') {
+            await BlocProvider.of<TasbehCubit>(context)
+                .removeOneTasbih(tasbihId: tasbih.id);
+          }
+        },
+        itemBuilder: (BuildContext context) {
+          return [
+            const PopupMenuItem<String>(
+              value: 'Edit',
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
                     'تعديل',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 16, fontFamily: FontConstants.fontFamily),
                   ),
-                  const SizedBox(height: AppSize.s10),
-                  SizedBox(
-                    width: context.width * 0.7,
-                    child: Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: AppStrings.name2,
-                        ),
-                        controller: nameController,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: AppSize.s10),
-                  SizedBox(
-                    width: context.width * 0.7,
-                    child: Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: 'العدد',
-                        ),
-                        controller: counterController,
-                        keyboardType: TextInputType.number,
-                      ),
-                    ),
-                  ),
+                  Icon(Icons.edit_note),
                 ],
               ),
             ),
-            btnOkOnPress: () {
-              if (nameController.text != '' && counterController.text != '') {
-                BlocProvider.of<TasbehCubit>(context).updateTasbih(
-                  id: tasbih.id,
-                  name: nameController.text,
-                  counter: int.parse(
-                    counterController.text,
+            const PopupMenuItem<String>(
+              value: 'Delete',
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    'حذف',
+                    style: TextStyle(
+                        fontSize: 16, fontFamily: FontConstants.fontFamily),
                   ),
-                );
-              }
-            },
-          ).show();
-        } else if (value == 'Delete') {
-          await BlocProvider.of<TasbehCubit>(context)
-              .removeOneTasbih(tasbihId: tasbih.id);
-        }
-      },
-      itemBuilder: (BuildContext context) {
-        return [
-          const PopupMenuItem<String>(
-            value: 'Edit',
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  'تعديل',
-                  style: TextStyle(
-                      fontSize: 16, fontFamily: FontConstants.fontFamily),
-                ),
-                Icon(Icons.edit_note),
-              ],
+                  Icon(Icons.delete),
+                ],
+              ),
             ),
-          ),
-          const PopupMenuItem<String>(
-            value: 'Delete',
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  'حذف',
-                  style: TextStyle(
-                      fontSize: 16, fontFamily: FontConstants.fontFamily),
-                ),
-                Icon(Icons.delete),
-              ],
-            ),
-          ),
-        ];
-      },
+          ];
+        },
+      ),
     );
   }
 }

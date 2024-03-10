@@ -19,9 +19,9 @@ class QuranAppBar extends StatelessWidget {
         children: [
           IconButton(
             onPressed: () {
-              GoRouter.of(context).pushReplacement(Routes.homeRoute);
+              GoRouter.of(context).pop();
             },
-            icon: Image.asset(ImageAssets.home,width: 35),
+            icon: Image.asset(ImageAssets.arrow, width: 30),
           ),
           SizedBox(
             width: context.width * 0.6,
@@ -29,14 +29,18 @@ class QuranAppBar extends StatelessWidget {
               title,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headlineLarge!.copyWith(color: AppColors.white),
+              style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                    color: AppColors.white,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
             ),
           ),
           IconButton(
             onPressed: () {
-              GoRouter.of(context).pop();
+              GoRouter.of(context).pushReplacement(Routes.homeRoute);
             },
-            icon: Icon(Icons.arrow_forward_ios,color: AppColors.white,),
+            icon: Image.asset(ImageAssets.home, width: 35),
           ),
         ],
       ),

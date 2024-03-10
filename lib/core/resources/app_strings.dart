@@ -23,7 +23,7 @@ class AppStrings {
   static const String success = "تم بنجاح";
   static const String retryAgain = "حاول ثانية";
   static const String markStop = 'تم تحديد علامة الوقف بنجاح';
-  static const String sadaqatTitle = 'اللهم أرحم من واري التراب جسدهم وهم في ذكرانا';
+  static const String sadaqatTitle = 'اللهم أرحم من وارى التراب أجسادهم وهم في ذكرانا';
   static const String werdTitle = 'حافظ علي وردك اليومي';
   static const String sadaqatSubTitle = 'قراءة صفحة عشوائي من القرآن الكريم';
   static const String addNew = 'إضافة جديد';

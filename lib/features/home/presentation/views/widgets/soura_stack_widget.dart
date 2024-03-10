@@ -18,9 +18,9 @@ class SouraStackWidget extends StatelessWidget {
         children: [
           IconButton(
             onPressed: () {
-              GoRouter.of(context).pushReplacementNamed(Routes.homeRoute);
+              GoRouter.of(context).pop();
             },
-            icon: Image.asset(ImageAssets.home,width: 35,),
+            icon: Image.asset(ImageAssets.arrow,width: 30),
           ),
           SizedBox(
             width: context.width * 0.6,
@@ -31,13 +31,11 @@ class SouraStackWidget extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
-              GoRouter.of(context).pop();
+              GoRouter.of(context).pushReplacementNamed(Routes.homeRoute);
             },
-            icon: const Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.white,
-            ),
+            icon: Image.asset(ImageAssets.home,width: 35,),
           ),
+
         ],
       ),
     );

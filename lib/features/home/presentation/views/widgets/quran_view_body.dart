@@ -101,8 +101,8 @@ class _QuranViewBodyState extends State<QuranViewBody> {
                           _searchQuery = value;
                         });
                       },
-                      decoration: InputDecoration(
-                        labelText: 'Search',
+                      decoration: const InputDecoration(
+                        labelText: 'بحث..',
                         suffixIcon: Icon(Icons.search),
                       ),
                     ),
@@ -123,9 +123,12 @@ class _QuranViewBodyState extends State<QuranViewBody> {
                     itemBuilder: (context, index) =>
                         SurahWidget(surah: filteredList[index]),
                   ) : const Center(
-                    child: Text(
-                      'No results found',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        'لا توجد نتائج بحث',
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ],

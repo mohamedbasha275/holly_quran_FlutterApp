@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holly_quran/core/extension/extensions.dart';
@@ -17,73 +19,85 @@ class WerdWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: AppMargin.m16),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            width: context.width * 0.75,
-            child: Container(
-              padding: const EdgeInsets.all(AppPadding.p8),
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(AppSize.s10),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    blurRadius: AppSize.s1,
-                    color: AppColors.grey,
-                  ),
-                ],
+          Container(
+            decoration: BoxDecoration(
+              color: werd.done ? AppColors.green : AppColors.grey,
+              borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(6),
+                  bottomRight: Radius.circular(6)),
+            ),
+            child: TextButton(
+              onPressed: () async {
+                await BlocProvider.of<WerdCubit>(context)
+                    .updateWerd(index: index);
+              },
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all(EdgeInsets.zero),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    werd.title,
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                    style: Theme.of(context).textTheme.headlineLarge,
-                  ),
-                ],
+              child: Container(
+                decoration: BoxDecoration(
+                  color: werd.done ? AppColors.green : AppColors.grey,
+                  borderRadius: const BorderRadius.only(),
+                ),
+                child: Icon(
+                  Icons.check_circle,
+                  color: AppColors.white,
+                ),
               ),
             ),
           ),
           SizedBox(
-            width: context.width * 0.15,
-            child: Column(
-              children: [
-                TextButton(
-                  onPressed: () async {
-                    await BlocProvider.of<WerdCubit>(context)
-                        .removeOneWerd(index: index);
-                  },
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all(EdgeInsets.zero),
-                  ),
-                  child: CircleAvatar(
-                    backgroundColor: AppColors.reset,
-                    child: Icon(Icons.delete_forever,color: AppColors.white,),
-                  ),
+            width: context.width * 0.55,
+            child: Container(
+              padding: const EdgeInsets.all(12.5),
+              decoration: BoxDecoration(
+                color: AppColors.secondary.withOpacity(0.5),
+                borderRadius: const BorderRadius.only(),
+                // boxShadow: <BoxShadow>[
+                //   BoxShadow(
+                //     blurRadius: AppSize.s1,
+                //     color: AppColors.grey,
+                //   ),
+                // ],
+              ),
+              child: Text(
+                werd.title,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: AppColors.reset,
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(6),
+                  bottomLeft: Radius.circular(6)),
+            ),
+            child: TextButton(
+              onPressed: () async {
+                await BlocProvider.of<WerdCubit>(context)
+                    .removeOneWerd(index: index);
+              },
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all(EdgeInsets.zero),
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: AppColors.reset,
+                  borderRadius: const BorderRadius.only(),
                 ),
-                TextButton(
-                  onPressed: () async {
-                    await BlocProvider.of<WerdCubit>(context)
-                        .updateWerd(index: index);
-                  },
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all(EdgeInsets.zero),
-                  ),
-                  child: CircleAvatar(
-                    backgroundColor:
-                        werd.done ? AppColors.green : AppColors.grey,
-                    child: Icon(
-                      Icons.check_circle,
-                      color: AppColors.white,
-                    ),
-                  ),
+                child: Icon(
+                  Icons.delete_forever,
+                  color: AppColors.white,
                 ),
-              ],
+              ),
             ),
           ),
         ],

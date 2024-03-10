@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holly_quran/core/extension/extensions.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/app_colors.dart';
-import 'package:holly_quran/core/resources/app_strings.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/features/common_widgets/awsome_dialoge.dart';
 import 'package:holly_quran/features/common_widgets/show_snackBar.dart';
@@ -31,7 +30,7 @@ class TasbihViewBody extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: AppSize.s20),
-              Image.asset(ImageAssets.tasbih, width: AppSize.s100),
+              Image.asset(ImageAssets.dua, width: AppSize.s100),
               Text(
                 'اللهم أجعلنا من الذاكرين',
                 style: Theme.of(context).textTheme.titleMedium,
@@ -60,7 +59,7 @@ class TasbihViewBody extends StatelessWidget {
                 builder: (context, state) {
                   if (state is TasbehSuccess) {
                     return SizedBox(
-                      height: context.height *0.55,
+                      height: context.height *0.61,
                       child: SingleChildScrollView(
                         child: ListView.builder(
                           shrinkWrap: true,

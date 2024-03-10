@@ -30,70 +30,79 @@ class WerdViewBody extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: AppSize.s20),
-              Image.asset(ImageAssets.werd, width: AppSize.s100),
-              Text(
-                AppStrings.werdTitle,
-                style: Theme.of(context).textTheme.titleMedium,
+              Column(
+                children: [
+                  Image.asset(ImageAssets.werd, width: AppSize.s100),
+                  Text(
+                    AppStrings.werdTitle,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ],
               ),
-              AppAwesomeDialog(
-                controller: nameController,
-                title: 'إضافة ورد',
-                function: () {
-                  BlocProvider.of<WerdCubit>(context)
-                      .addOneWerd(name: nameController.text)
-                      .then((value) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      buildSnackBar(
-                        context,
-                        title: AppStrings.werdSaved,
-                        background: AppColors.primary,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SizedBox(
+                    width: context.width * 0.41,
+                    child: AppAwesomeDialog(
+                      controller: nameController,
+                      title: 'إضافة ورد',
+                      function: () {
+                        BlocProvider.of<WerdCubit>(context)
+                            .addOneWerd(name: nameController.text)
+                            .then((value) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            buildSnackBar(
+                              context,
+                              title: AppStrings.werdSaved,
+                              background: AppColors.primary,
+                            ),
+                          );
+                          nameController.text = '';
+                        });
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: context.width * 0.41,
+                    child: TextButton(
+                      onPressed: () async {
+                        await BlocProvider.of<WerdCubit>(context).updateAllWerd();
+                      },
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all(EdgeInsets.zero),
                       ),
-                    );
-                    nameController.text = '';
-                  });
-                },
-              ),
-              TextButton(
-                onPressed: () async {
-                  await BlocProvider.of<WerdCubit>(context).updateAllWerd();
-                },
-                style: ButtonStyle(
-                  padding: MaterialStateProperty.all(EdgeInsets.zero),
-                ),
-                child: Container(
-                  width: AppSize.s150,
-                  height: AppSize.s40,
-                  decoration: BoxDecoration(
-                      color: AppColors.reset,
-                    borderRadius: BorderRadius.circular(AppSize.s10)
+                      child: Container(
+                        width: AppSize.s150,
+                        height: AppSize.s40,
+                        decoration: BoxDecoration(
+                            color: AppColors.reset,
+                            borderRadius: BorderRadius.circular(AppSize.s10)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(AppStrings.tasbihReset,
+                                style: Theme.of(context).textTheme.titleSmall),
+                            Icon(
+                              Icons.rotate_left_outlined,
+                              color: AppColors.white,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(AppStrings.tasbihReset,
-                      style: Theme.of(context).textTheme.titleSmall),
-                      Icon(
-                        Icons.rotate_left_outlined,
-                        color: AppColors.white,
-                      )
-                    ],
-                  ),
-                ),
+                ],
               ),
               const Divider(),
               BlocBuilder<WerdCubit, WerdState>(
                 builder: (context, state) {
                   if (state is WerdSuccess) {
-                    return GridView.builder(
+                    return ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       padding: const EdgeInsets.all(AppPadding.p8),
-                      gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 1,
-                        childAspectRatio: 10 / 3,
-                      ),
-                      //itemCount: state.sours.length,
                       itemCount: state.werds.length,
                       itemBuilder: (context, index) => WerdWidget(
                         werd: state.werds[index],

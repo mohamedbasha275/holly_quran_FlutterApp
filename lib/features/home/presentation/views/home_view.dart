@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/app_colors.dart';
 import 'package:holly_quran/core/resources/app_constants.dart';
+import 'package:holly_quran/core/resources/app_strings.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
+import 'package:holly_quran/features/common_widgets/app_bar.dart';
 import 'package:holly_quran/features/common_widgets/bottom_navigation_bar.dart';
 import 'package:holly_quran/features/home/presentation/view_models/bottom_navBar/bottom_nav_bar_cubit.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/home_view_body.dart';
@@ -35,7 +37,7 @@ class HomeView extends StatelessWidget {
           return Scaffold(
             appBar: const PreferredSize(
               preferredSize: Size.fromHeight(AppSize.s0),
-              child: Text(AppConstants.appName),
+              child: MyAppBar(title: ''),
             ),
             body: NotificationListener<ScrollNotification>(
               child: cubit.currentIndex < cubit.allItemsCount
